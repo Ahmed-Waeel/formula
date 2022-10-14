@@ -39,10 +39,6 @@ class HotelsController extends Controller
  
     public function store(HotelRequest $request)
     {
-        if ($_FILES['image']['size']) {
-            $imageName = md5(uniqid()) . '.' . $request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move('uploads/hotels', $imageName);
-        }
         Hotel::create([
             'name' => $request->name,
             'url' => $request->url,
