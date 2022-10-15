@@ -35,7 +35,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('admin/edit/{admin_id}', [AdminsController::class, 'edit'])->name('admin.edit');
     Route::post('admin/update', [AdminsController::class, 'update'])->name('admin.update');
     Route::get('admin/delete/{admin_id}', [AdminsController::class, 'delete'])->name('admin.delete');
-    Route::get('admin/filter/{data}/{pagination?}', [AdminsController::class, 'filter'])->name('admin.fiter');
+    Route::get('admin/filter', [AdminsController::class, 'filter'])->name('admin.filter');
 
     // Customer
     Route::get('customer/{pagination?}', [CustomersController::class, 'index'])->name('customer.showAll');
@@ -44,7 +44,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('customer/edit/{customer_id}', [CustomersController::class, 'edit'])->name('customer.edit');
     Route::post('customer/update', [CustomersController::class, 'update'])->name('customer.update');
     Route::get('customer/delete/{customer_id}', [CustomersController::class, 'delete'])->name('customer.delete');
-    Route::get('customer/filter/{data}/{pagination?}', [CustomersController::class, 'filter'])->name('customer.fiter');
+    Route::get('customer/filter/{data}/{pagination?}', [CustomersController::class, 'filter'])->name('customer.filter');
 
     // Hotel
     Route::get('hotels/{pagination?}', [HotelsController::class, 'index'])->name('hotel.showAll');
@@ -53,7 +53,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('hotel/edit/{hotel_id}', [HotelsController::class, 'edit'])->name('hotel.edit');
     Route::post('hotel/update', [HotelsController::class, 'update'])->name('hotel.update');
     Route::get('hotel/delete/{hotel_id}', [HotelsController::class, 'delete'])->name('hotel.delete');
-    Route::get('hotel/filter/{data}/{pagination?}', [HotelsController::class, 'filter'])->name('hotel.fiter');
+    Route::match(['GET', 'POST'], 'hotel/filter', [HotelsController::class, 'filter'])->name('hotel.filter');
 
     // Reservation
     Route::get('reservations/{pagination?}', [ReservationsController::class, 'index'])->name('reservation.showAll');
@@ -62,7 +62,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('reservation/edit/{reservation_id}', [ReservationsController::class, 'edit'])->name('reservation.edit');
     Route::post('reservation/update', [ReservationsController::class, 'update'])->name('reservation.update');
     Route::get('reservation/delete/{reservation_id}', [ReservationsController::class, 'delete'])->name('reservation.delete');
-    Route::get('reservation/filter/{data}/{pagination?}', [ReservationsController::class, 'filter'])->name('reservation.fiter');
+    Route::get('reservation/filter/{data}/{pagination?}', [ReservationsController::class, 'filter'])->name('reservation.filter');
 
     // Flight
     Route::get('flights/{pagination?}', [FlightsController::class, 'index'])->name('flight.showAll');
@@ -71,7 +71,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('flight/edit/{flight_id}', [FlightsController::class, 'edit'])->name('flight.edit');
     Route::post('flight/update', [FlightsController::class, 'update'])->name('flight.update');
     Route::get('flight/delete/{flight_id}', [FlightsController::class, 'delete'])->name('flight.delete');
-    Route::get('flight/filter/{data}/{pagination?}', [FlightsController::class, 'filter'])->name('flight.fiter');
+    Route::get('flight/filter/{data}/{pagination?}', [FlightsController::class, 'filter'])->name('flight.filter');
 
     // City
     Route::post('/cities/', [CitiesController::class, 'getCities'])->name('get.cities');

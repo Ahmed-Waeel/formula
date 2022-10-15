@@ -81,4 +81,5 @@ return [
     'submit' => 'تسجيل',
     'selectOption' => '-- أختر --',
     'roomName' => 'اسم الغرفة',
+    'searchError' => 'يجب إدخال بيانات قبل البدء في البحث',
 ];

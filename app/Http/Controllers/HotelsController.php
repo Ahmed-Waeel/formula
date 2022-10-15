@@ -87,16 +87,50 @@ class HotelsController extends Controller
         return redirect(route('hotel.showAll'))->with('success', $HotelName . ' Hotel Deleted Successfully');
     }
 
-    public function filter($data = '', $pagination = PAGINATION)
+    public function filter(Request $request)
     {
-        $countryCode = Country::where('name', 'like', '%' . $data . '%')->first()->code;
-        $cityId = City::where('name', 'like', '%' . $data . '%')->first()->id;
-        $hotels = Hotel::where('name', 'like', '%' . $data . '%')
-            ->orWhere('country', 'like', '%' . $countryCode . '%')
-            ->orWhere('city', 'like', '%' . $cityId . '%')
-            ->orWhere('location', 'like', '%' . $data . '%')
-            ->orWhere('url', 'like', '%' . $data . '%')
-            ->paginate($pagination);
+        $pagination = $request->pagination ?? PAGINATION;
+        if (!$request->data) {
+            $hotels = Hotel::where('deleted_at', null)->paginate($pagination, ['*'], 'page', $request->page ?? 1);
+            $data = '';
+        } else {
+            $data = $request->data;
+            $hotels = Hotel::where('name', 'like', '%' . $request->data . '%')
+                ->orWhere('url', 'like', '%' . $request->data . '%')
+                ->paginate($pagination, ['*'], 'page', $request->page ?? 1);
+
+            foreach ($hotels as $hotel) {
+                $hotel->countryName = Country::where('code', $hotel->country)->first()->name ?? '';
+                $hotel->city = City::where('id', $hotel->city)->first()->name ?? '';
+            }
+        }
         return view('hotels/show', compact('hotels', 'pagination', 'data'));
     }
 }
+
+// ->orWhere('country', 'like', '%' . $countryCode . '%')
+//             ->orWhere('city', 'like', '%' . $cityId . '%')
+
+
+// $pagination = $request->pagination ?? $pagination;
+//         if (!$request->data && !$data) {
+//             $hotels = Hotel::where('deleted_at', null)->paginate($pagination)->page;
+//             $data = '';
+//         } elseif ($request->data || $data) {
+//             $data = $request->data ?? $data;
+//             $countryCode = $cityId = '';
+//             $country = Country::where('name', 'like', '%' . $request->data . '%')->first();
+//             if ($country) $countryCode = $country->code;
+
+//             $city = City::where('name', 'like', '%' . $request->data . '%')->first();
+//             if ($city) $cityId = $city->id;
+
+//             $hotels = Hotel::where('name', 'like', '%' . $request->data . '%')
+//                 ->orWhere('url', 'like', '%' . $request->data . '%')
+//             ->paginate($pagination);
+
+//             foreach ($hotels as $hotel) {
+//                 $hotel->countryName = Country::where('code', $hotel->country)->first()->name ?? '';
+//                 $hotel->city = City::where('id', $hotel->city)->first()->name ?? '';
+//             }
+//         }
