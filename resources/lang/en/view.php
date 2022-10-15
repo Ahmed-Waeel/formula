@@ -82,4 +82,5 @@ return [
     'selectOption' => '-- Select --',
     'roomName' => 'Room Name',
     'searchError' => 'Please Insert any Data Before Search',
+    'roomsCount' => 'Number of Rooms',
 ];

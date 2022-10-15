@@ -27,6 +27,7 @@ class HotelsController extends Controller
         foreach ($hotels as $hotel) {
             $hotel->countryName = Country::where('code', $hotel->country)->first()->name ?? '';
             $hotel->city = City::where('id', $hotel->city)->first()->name ?? '';
+            $hotel->rooms = count(json_decode($hotel->rooms, TRUE));
         }
         return view('hotels/show', compact('hotels', 'pagination'));
     }
@@ -90,47 +91,34 @@ class HotelsController extends Controller
     public function filter(Request $request)
     {
         $pagination = $request->pagination ?? PAGINATION;
-        if (!$request->data) {
+        if (!$request->data) { // if There is no searching data return all hotels
             $hotels = Hotel::where('deleted_at', null)->paginate($pagination, ['*'], 'page', $request->page ?? 1);
             $data = '';
         } else {
             $data = $request->data;
-            $hotels = Hotel::where('name', 'like', '%' . $request->data . '%')
+            $countryCode = $cityId = '';
+
+            // Get Country Code From its Name
+            $country = Country::where('name', 'like', '%' . $request->data . '%')->first();
+            if ($country) $countryCode = $country->code;
+
+            // Get City id From its Name
+            $city = City::where('name', 'like', '%' . $request->data . '%')->first();
+            if ($city) $cityId = $city->id;
+            // Get Hotels
+            $hotels = Hotel::where('country', 'like', '%' . $countryCode != "" ? $countryCode : "1322" . '%')
+            ->orWhere('city', 'like', '%' . $cityId != "" ? $cityId : "dummy" . '%')
+            ->orWhere('name', 'like', '%' . $request->data . '%')
                 ->orWhere('url', 'like', '%' . $request->data . '%')
                 ->paginate($pagination, ['*'], 'page', $request->page ?? 1);
 
+            // Representong the Contry Name and City Name for Each Hotel
             foreach ($hotels as $hotel) {
                 $hotel->countryName = Country::where('code', $hotel->country)->first()->name ?? '';
                 $hotel->city = City::where('id', $hotel->city)->first()->name ?? '';
+                $hotel->rooms = count(json_decode($hotel->rooms, TRUE));
             }
         }
         return view('hotels/show', compact('hotels', 'pagination', 'data'));
     }
 }
-
-// ->orWhere('country', 'like', '%' . $countryCode . '%')
-//             ->orWhere('city', 'like', '%' . $cityId . '%')
-
-
-// $pagination = $request->pagination ?? $pagination;
-//         if (!$request->data && !$data) {
-//             $hotels = Hotel::where('deleted_at', null)->paginate($pagination)->page;
-//             $data = '';
-//         } elseif ($request->data || $data) {
-//             $data = $request->data ?? $data;
-//             $countryCode = $cityId = '';
-//             $country = Country::where('name', 'like', '%' . $request->data . '%')->first();
-//             if ($country) $countryCode = $country->code;
-
-//             $city = City::where('name', 'like', '%' . $request->data . '%')->first();
-//             if ($city) $cityId = $city->id;
-
-//             $hotels = Hotel::where('name', 'like', '%' . $request->data . '%')
-//                 ->orWhere('url', 'like', '%' . $request->data . '%')
-//             ->paginate($pagination);
-
-//             foreach ($hotels as $hotel) {
-//                 $hotel->countryName = Country::where('code', $hotel->country)->first()->name ?? '';
-//                 $hotel->city = City::where('id', $hotel->city)->first()->name ?? '';
-//             }
-//         }

@@ -61,6 +61,7 @@
                         <th class="w-2"> {{ __('view.name') }} </th>
                         <th class="w-2">{{ __('view.country') }} </th>
                         <th class="w-2">{{ __('view.city') }} </th>
+                        <th class="w-2">{{ __('view.roomsCount') }} </th>
                         <th class="w-2">{{ __('view.actions') }} </th>
                     </tr>
                 </thead>
@@ -78,9 +79,8 @@
                             <span class="flag flag-country-{{$hotel->country}}"></span>
                             {{ $hotel->countryName }}
                         </td>
-                        <td>
-                            {{ $hotel->city }}
-                        </td>
+                        <td> {{ $hotel->city }} </td>
+                        <td> {{ $hotel->rooms }} </td>
                         <td>
                             <span class="dropdown">
                                 <button class="btn dropdown-toggle align-text-top" data-bs-boundary="viewport" data-bs-toggle="dropdown">{{ __('view.actions') }}</button>
