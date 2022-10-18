@@ -62,7 +62,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('reservation/edit/{reservation_id}', [ReservationsController::class, 'edit'])->name('reservation.edit');
     Route::post('reservation/update', [ReservationsController::class, 'update'])->name('reservation.update');
     Route::get('reservation/delete/{reservation_id}', [ReservationsController::class, 'delete'])->name('reservation.delete');
-    Route::get('reservation/filter/{data}/{pagination?}', [ReservationsController::class, 'filter'])->name('reservation.filter');
+    Route::match(['GET', 'POST'], 'hotel/filter', [ReservationsController::class, 'filter'])->name('reservation.filter');
+
 
     // Flight
     Route::get('flights/{pagination?}', [FlightsController::class, 'index'])->name('flight.showAll');
