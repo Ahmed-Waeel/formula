@@ -152,7 +152,6 @@
     });
 
     $('#select-countries').on('input', () => {
-        console.log($('#select-countries').val());
         $.ajax({
             url: "{{ route('get.cities') }}",
             type: "POST",

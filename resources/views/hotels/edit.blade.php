@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('header_title', __("view.addHotel"))
+@section('header_title', __("view.edit"))
 @section('content')
 <div class="wrapper">
     <div class="page-wrapper">
@@ -9,7 +9,7 @@
                 <div class="row align-items-center">
                     <div class="col">
                         <h2 class="page-title">
-                            {{ __("view.addHotel") }}
+                            {{ __("view.editHotel") }} {{ $hotel->name }}
                         </h2>
                     </div>
                 </div>

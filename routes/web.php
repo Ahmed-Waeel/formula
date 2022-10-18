@@ -71,7 +71,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('flight/edit/{flight_id}', [FlightsController::class, 'edit'])->name('flight.edit');
     Route::post('flight/update', [FlightsController::class, 'update'])->name('flight.update');
     Route::get('flight/delete/{flight_id}', [FlightsController::class, 'delete'])->name('flight.delete');
-    Route::get('flight/filter/{data}/{pagination?}', [FlightsController::class, 'filter'])->name('flight.filter');
+    Route::match(['GET', 'POST'], 'flight/filter', [FlightsController::class, 'filter'])->name('flight.filter');
 
     // City
     Route::post('/cities/', [CitiesController::class, 'getCities'])->name('get.cities');

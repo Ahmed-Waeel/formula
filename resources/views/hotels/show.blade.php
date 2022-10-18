@@ -136,17 +136,6 @@
         let page = $(this).attr('href').split('page=')[1];
         $('[name=page]').val(page);
         $('#form').off('submit').submit();
-
-        // let url = $(this).attr('href');
-        // console.log(url)
-        // event.preventDefault();
-        // if (!url.split("filter?")) {
-        //     let regex = '/filter/[0-9]+/';
-        //     url = url.replace(regex, 'filter' + $('[name=pagination]').val());
-        //     window.location = url;
-        // } else {
-        //     window.location = url.replace('filter?', 'filter/' + $('[name=pagination]').val() + '?')
-        // }
     });
 </script>
 @endsection
