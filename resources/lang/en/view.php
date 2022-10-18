@@ -38,6 +38,8 @@ return [
     'reservationId' => 'Reservation ID',
     'customerId' => 'Customer ID',
     'customer' => 'Customer',
+    'addCustomer' => 'Add Customer',
+    'editCustomer' => 'Edit Customer Number: ',
     'customers' => 'Customers',
     'flights' => 'Flights',
     'flight' => 'Flight',

@@ -40,6 +40,8 @@ return [
     'reservationId' => 'رقم الحجز',
     'customerId' => 'رقم العميل',
     'customer' => 'العميل',
+    'addCustomer' => 'إضافة عميل',
+    'editCustomer' => 'تعديل العميل رقم: ',
     'customers' => 'العملاء',
     'flights' => 'رحلات الطيران',
     'flight' => 'رحلة طيران',

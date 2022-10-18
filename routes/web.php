@@ -29,25 +29,26 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
     // Admin
-    Route::get('admins/{pagination?}', [AdminsController::class, 'index'])->name('admin.showAll');
+    Route::get('admins/{pagination?}', [AdminsController::class, 'index'])->name('admin.showAll')->where('pagination', '[0-9]+');
     Route::get('admin/add', [AdminsController::class, 'add'])->name('admin.add');
     Route::post('admin/store', [AdminsController::class, 'store'])->name('admin.store');
     Route::get('admin/edit/{admin_id}', [AdminsController::class, 'edit'])->name('admin.edit');
     Route::post('admin/update', [AdminsController::class, 'update'])->name('admin.update');
     Route::get('admin/delete/{admin_id}', [AdminsController::class, 'delete'])->name('admin.delete');
-    Route::get('admin/filter', [AdminsController::class, 'filter'])->name('admin.filter');
+    Route::match(['GET', 'POST'], 'admin/filter', [AdminsController::class, 'filter'])->name('admin.filter');
 
     // Customer
-    Route::get('customer/{pagination?}', [CustomersController::class, 'index'])->name('customer.showAll');
+    Route::get('customer/{pagination?}', [CustomersController::class, 'index'])->name('customer.showAll')->where('pagination', '[0-9]+');
     Route::get('customer/add', [CustomersController::class, 'add'])->name('customer.add');
     Route::post('customer/store', [CustomersController::class, 'store'])->name('customer.store');
     Route::get('customer/edit/{customer_id}', [CustomersController::class, 'edit'])->name('customer.edit');
     Route::post('customer/update', [CustomersController::class, 'update'])->name('customer.update');
     Route::get('customer/delete/{customer_id}', [CustomersController::class, 'delete'])->name('customer.delete');
-    Route::get('customer/filter/{data}/{pagination?}', [CustomersController::class, 'filter'])->name('customer.filter');
+    Route::match(['GET', 'POST'], 'customer/filter', [CustomersController::class, 'filter'])->name('customer.filter');
+
 
     // Hotel
-    Route::get('hotels/{pagination?}', [HotelsController::class, 'index'])->name('hotel.showAll');
+    Route::get('hotels/{pagination?}', [HotelsController::class, 'index'])->name('hotel.showAll')->where('pagination', '[0-9]+');
     Route::get('hotel/add', [HotelsController::class, 'add'])->name('hotel.add');
     Route::post('hotel/store', [HotelsController::class, 'store'])->name('hotel.store');
     Route::get('hotel/edit/{hotel_id}', [HotelsController::class, 'edit'])->name('hotel.edit');
@@ -56,19 +57,19 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::match(['GET', 'POST'], 'hotel/filter', [HotelsController::class, 'filter'])->name('hotel.filter');
 
     // Reservation
-    Route::get('reservations/{pagination?}', [ReservationsController::class, 'index'])->name('reservation.showAll');
+    Route::get('reservations/{pagination?}', [ReservationsController::class, 'index'])->name('reservation.showAll')->where('pagination', '[0-9]+');
     Route::get('reservation/add', [ReservationsController::class, 'add'])->name('reservation.add');
     Route::post('reservation/store', [ReservationsController::class, 'store'])->name('reservation.store');
     Route::get('reservation/edit/{reservation_id}', [ReservationsController::class, 'edit'])->name('reservation.edit');
     Route::post('reservation/update', [ReservationsController::class, 'update'])->name('reservation.update');
     Route::get('reservation/delete/{reservation_id}', [ReservationsController::class, 'delete'])->name('reservation.delete');
-    Route::match(['GET', 'POST'], 'hotel/filter', [ReservationsController::class, 'filter'])->name('reservation.filter');
+    Route::match(['GET', 'POST'], 'reservation/filter', [ReservationsController::class, 'filter'])->name('reservation.filter');
 
 
     // Flight
-    Route::get('flights/{pagination?}', [FlightsController::class, 'index'])->name('flight.showAll');
+    Route::get('flights/{pagination?}', [FlightsController::class, 'index'])->name('flight.showAll')->where('pagination', '[0-9]+');
     Route::get('flight/add', [FlightsController::class, 'add'])->name('flight.add');
-    Route::post('flight/store', [FlightsController::class, 'store'])->name('flight.store');
+    Route::post('flight/store', [FlightsController::class, 'store'])->name('flight.store'); 
     Route::get('flight/edit/{flight_id}', [FlightsController::class, 'edit'])->name('flight.edit');
     Route::post('flight/update', [FlightsController::class, 'update'])->name('flight.update');
     Route::get('flight/delete/{flight_id}', [FlightsController::class, 'delete'])->name('flight.delete');
