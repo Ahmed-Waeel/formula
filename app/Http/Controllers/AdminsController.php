@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminRequest;
 use App\Http\Requests\PasswordRequest;
+use App\Http\Requests\ProfileRequest;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,9 +43,9 @@ class AdminsController extends Controller
         return redirect(route('admin.showAll'))->with('success', 'New Admin Added Successfully');
     }
 
-    public function edit($adminId)
+    public function edit()
     {
-        $admin = Admin::where('deleted_at', null)->where('id', $adminId)->first();
+        $admin = Admin::where('deleted_at', null)->where('id', Auth::id())->first();
         if (!$admin) {
             return redirect()->back()->with('error', 'Something Went Wrong');
         }
@@ -52,9 +53,9 @@ class AdminsController extends Controller
         return view('admins/edit', compact('admin'));
     }
 
-    public function update(AdminRequest $request)
+    public function update(ProfileRequest $request)
     {
-        $admin = Admin::where('deleted_at', null)->where('id', $request->id);
+        $admin = Admin::where('deleted_at', null)->where('id', Auth::id());
         if (!$admin->first()) {
             return redirect()->back()->with('error', 'Something Went Wrong');
         }

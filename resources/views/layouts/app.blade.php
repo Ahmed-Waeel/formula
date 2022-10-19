@@ -77,7 +77,7 @@ $dir = ($lang == 'ar' ? 'rtl' : 'ltr')
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                            <a href="#" class="dropdown-item">{{ __('view.profile') }}</a>
+                            <a href="{{ route('admin.edit') }}" class="dropdown-item">{{ __('view.profile') }}</a>
                             <div class="dropdown-divider"></div>
                             <a href="{{ route('logout') }}" class="dropdown-item">{{ __('view.logout') }}</a>
                         </div>
@@ -145,10 +145,10 @@ $dir = ($lang == 'ar' ? 'rtl' : 'ltr')
                                         <!-- Download SVG icon from http://tabler-icons.io/i/notes -->
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none">
-                                            <rect x="5" y="3" width="14" height="18" rx="2">
-                                            <line x1="9" y1="7" x2="15" y2="7">
-                                            <line x1="9" y1="11" x2="15" y2="11">
-                                            <line x1="9" y1="15" x2="13" y2="15">
+                                                <rect x="5" y="3" width="14" height="18" rx="2">
+                                                    <line x1="9" y1="7" x2="15" y2="7">
+                                                        <line x1="9" y1="11" x2="15" y2="11">
+                                                            <line x1="9" y1="15" x2="13" y2="15">
                                         </svg>
                                     </span>
                                     <span class="nav-link-title">
@@ -163,10 +163,10 @@ $dir = ($lang == 'ar' ? 'rtl' : 'ltr')
                                         <!-- Download SVG icon from http://tabler-icons.io/i/notes -->
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none">
-                                            <rect x="5" y="3" width="14" height="18" rx="2">
-                                            <line x1="9" y1="7" x2="15" y2="7">
-                                            <line x1="9" y1="11" x2="15" y2="11">
-                                            <line x1="9" y1="15" x2="13" y2="15">
+                                                <rect x="5" y="3" width="14" height="18" rx="2">
+                                                    <line x1="9" y1="7" x2="15" y2="7">
+                                                        <line x1="9" y1="11" x2="15" y2="11">
+                                                            <line x1="9" y1="15" x2="13" y2="15">
                                         </svg>
                                     </span>
                                     <span class="nav-link-title">

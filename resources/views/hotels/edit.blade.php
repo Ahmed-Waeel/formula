@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('header_title', __("view.edit"))
+@section('tabTitle', __("view.edit"))
 @section('content')
 <div class="wrapper">
     <div class="page-wrapper">

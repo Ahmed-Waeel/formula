@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('header_title', __("view.edit"))
+@section('tabTitle', __("view.edit"))
 @section('content')
 <div class="wrapper">
     <div class="page-wrapper">
@@ -443,10 +443,12 @@
         template.find('[end_date]').attr('id', endDateId);
         template.removeAttr('data-hotel-template hidden');
         template.attr('data-hotel', true);
-        template.find('select[hotel]').on('change', ({target}) => {
-        const roomsSelect = template.find('select[room]');
+        template.find('select[hotel]').on('change', ({
+            target
+        }) => {
+            const roomsSelect = template.find('select[room]');
             hotels.forEach((el, i) => {
-                if(el.id == $(target).val()){
+                if (el.id == $(target).val()) {
                     roomsSelect.html('');
                     JSON.parse(el['rooms']).forEach((el, i) => {
                         roomsSelect.append(`

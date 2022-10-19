@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('header_title', __("view.addHotel"))
+@section('tabTitle', __("view.addHotel"))
 @section('content')
 <div class="wrapper">
     <div class="page-wrapper">
