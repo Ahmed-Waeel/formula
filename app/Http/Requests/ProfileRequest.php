@@ -26,6 +26,7 @@ class ProfileRequest extends FormRequest
         return [
             'name' => 'required|string|min:3|max:50',
             'email' => 'required|email',
+            'photo' => 'nullable|image|max:5120'
         ];
     }
 
@@ -45,6 +46,8 @@ class ProfileRequest extends FormRequest
             'email.required' => __('validation.required', ['attribute' => __('view.email')]),
             'email.email' => __('validation.email', ['attribute' => __('view.email')]),
 
+            'photo.image' => __('validation.image', ['attribute' => __('view.photo')]),
+            'photo.max' => __('validation.max.file', ['attribute' => __('view.photo'), 'max' => 5]),
         ];
     }
 }

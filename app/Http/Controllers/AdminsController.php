@@ -59,6 +59,16 @@ class AdminsController extends Controller
         if (!$admin->first()) {
             return redirect()->back()->with('error', 'Something Went Wrong');
         }
+
+        if($request->file('photo')){
+            $photo = $request->file('photo');
+            $photoName = time() . '.' . $photo->getClientOriginalExtension();
+            $photo-> move(public_path('uploads/admins'), $photoName);
+            $admin->update([
+                'photo' => $photoName
+            ]);
+        }
+
         $admin->update([
             'name' => $request->name ?? $admin->first()->name,
             'email' => $request->email ?? $admin->first()->email,
