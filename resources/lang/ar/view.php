@@ -10,6 +10,7 @@ return [
     'rememberMe' => 'تذكرني علي هذا الجهاز',
     'email' => 'البريد الإلكتروني',
     'password' => 'كلمة المرور',
+    'oldPassword' => 'كلمة المرور القديمة',
     'username' => 'اسم المستخدم',
     'companyName' => 'فورمولا للخدمات السياحية',
     'developerName' => 'أحمد وائل',
@@ -99,4 +100,9 @@ return [
     'addAirport' => 'إضافة رحلة طيران',
     'from' => 'من',
     'to' => 'إلي',
+    'ChangedSuccessfully' => 'تم تغيير :attribute بنجاح',
+    'data' => 'البيانات',
+    'admins' => 'المشرفين',
+    'addAdmin' => 'إضافة مشرف',
+    'noAccess' => 'لا تملك الصلاحية لزيارة هذه الصفحة',
 ];

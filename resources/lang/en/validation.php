@@ -130,7 +130,9 @@ return [
     'url' => 'The :attribute must be a valid URL',
     'uuid' => 'The :attribute must be a valid UUID',
     'valid' => 'Please enter a valid date',
-
+    'passwordValidation' => 'Password Must includes capital letters, small letters and numbers',
+    'passwordConfirmation' => 'Passwords doesn\'t match',
+    'wrongPassword' => 'Old password is wrong',
 
     /*
     |--------------------------------------------------------------------------

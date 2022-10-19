@@ -4,7 +4,7 @@
 <div class="col-12">
     <div class="card">
         <div class="card-header d-flex align-items-center justify-content-between">
-            <h3 class="card-title">{{ __('view.customer') }}</h3>
+            <h3 class="card-title">{{ __('view.customers') }}</h3>
             <a href="{{ route('customer.add') }}" class="btn btn-facebook btn-sm">
                 <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

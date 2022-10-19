@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
-class AdminRequest extends FormRequest
+class PasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,7 @@ class AdminRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:3|max:50',
-            'email' => 'required|email',
+            'old_password' => ['required', 'current_password:web'],
             'password' => ['required', 'min:8', 'regex:/^.*(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$/', 'confirmed']
         ];
     }
@@ -39,13 +38,8 @@ class AdminRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => __('validation.required', ['attribute' => __('view.name')]),
-            'name.string' =>  __('validation.string', ['attribute' => __('view.name')]),
-            'name.min' => __('validation.min', ['attribute' => __('view.name'), 'min' => 3]),
-            'name.max' =>  __('validation.max', ['attribute' => __('view.name'), 'max' => 50]),
-
-            'email.required' => __('validation.required', ['attribute' => __('view.email')]),
-            'email.email' => __('validation.email', ['attribute' => __('view.email')]),
+            'old_password.required' => __('validation.required', ['attribute' => __('view.oldPassword')]),
+            'old_password.current_password' => __('validation.wrongPassword'),
 
             'password.required' => __('validation.required', ['attribute' => __('view.password')]),
             'password.min' => __('validation.min', ['attribute' => __('view.password'), 'min' => 8]),

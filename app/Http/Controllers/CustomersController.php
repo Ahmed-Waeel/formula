@@ -99,5 +99,4 @@ class CustomersController extends Controller
         }
         return view('customers/show', compact('customers', 'data', 'pagination'));
     }
-    
 }

@@ -10,6 +10,7 @@ return [
     'rememberMe' => 'Remember me on this device',
     'email' => 'Email',
     'password' => 'Password',
+    'oldPassword' => 'Old Password',
     'username' => 'Username',
     'companyName' => 'Formula Travel Agency',
     'developerName' => 'Ahmed Wael',
@@ -97,4 +98,10 @@ return [
     'addAirport' => 'Add New',
     'from' => 'From',
     'to' => 'To',
+
+    'ChangedSuccessfully' =>':attribute Changed Successfully',
+    'data' => 'Data',
+    'admins' => 'Admins',
+    'addAdmin' => 'Add Admin',
+    'noAccess' => 'You don\'t have access to visit this page',
 ];
