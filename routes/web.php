@@ -82,5 +82,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
     // City
     Route::post('/cities/', [CitiesController::class, 'getCities'])->name('get.cities');
+
+    Route::fallback(function () {
+        return view('404');
+    });
 });
 

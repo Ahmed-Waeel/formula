@@ -105,4 +105,7 @@ return [
     'admins' => 'Admins',
     'addAdmin' => 'Add Admin',
     'noAccess' => 'You don\'t have access to visit this page',
+    '404' => 'Not Found',
+    'notFound' => 'Oops… The page you requested isn\'t found',
+    'takeMeHome' => 'Take me home',
 ];
