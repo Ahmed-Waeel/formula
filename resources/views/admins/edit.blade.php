@@ -39,7 +39,8 @@
                                     </div>
 
                                     <div class="card-footer text-end">
-                                        <div class="d-flex">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <a href="{{ route('admin.changePassword') }}">{{ __('view.changePassword') }}</a>
                                             <button type="submit" class="btn btn-primary ms-auto">{{ __('view.submit') }}</button>
                                         </div>
                                     </div>

@@ -11,6 +11,7 @@ return [
     'email' => 'البريد الإلكتروني',
     'password' => 'كلمة المرور',
     'oldPassword' => 'كلمة المرور القديمة',
+    'changePassword' => 'تغيير كلمة المرور',
     'username' => 'اسم المستخدم',
     'companyName' => 'فورمولا للخدمات السياحية',
     'developerName' => 'أحمد وائل',

@@ -66,6 +66,10 @@ class AdminsController extends Controller
         return redirect()->back()->with('success', __('view.ChangedSuccessfully', ['attribute' => __('view.data')]));
     }
 
+    public function changePasswordPage(){
+        return view('admins/change_password');
+    }
+
     public function changePassword(PasswordRequest $request)
     {
         $admin = Admin::where('id', $request->id);

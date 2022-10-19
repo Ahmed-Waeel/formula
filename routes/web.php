@@ -39,6 +39,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('profile/edit', [AdminsController::class, 'edit'])->name('admin.edit');
     Route::post('profile/update', [AdminsController::class, 'update'])->name('admin.update');
 
+    Route::get('profile/password/change', [AdminsController::class, 'changePasswordPage'])->name('admin.changePassword');
+    Route::post('profile/password/update', [AdminsController::class, 'changePassword'])->name('admin.updatePassword');
+
     // Customer
     Route::get('customer/{pagination?}', [CustomersController::class, 'index'])->name('customer.showAll')->where('pagination', '[0-9]+');
     Route::get('customer/add', [CustomersController::class, 'add'])->name('customer.add');

@@ -11,6 +11,7 @@ return [
     'email' => 'Email',
     'password' => 'Password',
     'oldPassword' => 'Old Password',
+    'changePassword' => 'Change Password',
     'username' => 'Username',
     'companyName' => 'Formula Travel Agency',
     'developerName' => 'Ahmed Wael',
