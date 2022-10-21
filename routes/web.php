@@ -69,6 +69,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::post('reservation/update', [ReservationsController::class, 'update'])->name('reservation.update');
     Route::get('reservation/delete/{reservation_id}', [ReservationsController::class, 'delete'])->name('reservation.delete');
     Route::match(['GET', 'POST'], 'reservation/filter', [ReservationsController::class, 'filter'])->name('reservation.filter');
+    Route::get('/reservation/pdf/{reservation_id}', [ReservationsController::class, 'exportPdf'])->name('reservation.pdf');
 
 
     // Flight

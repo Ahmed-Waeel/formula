@@ -108,4 +108,6 @@ return [
     '404' => 'Not Found',
     'notFound' => 'Oops… The page you requested isn\'t found',
     'takeMeHome' => 'Take me home',
+    'reservationDate' => 'Reservation Date',
+    'addReservation' => 'Add reservation',
 ];
