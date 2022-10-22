@@ -222,10 +222,14 @@ $dir = ($lang == 'ar' ? 'rtl' : 'ltr')
             </footer>
         </div>
     </div>
-    <!-- Libs JS -->
     <!-- Tabler Core -->
     <script src="{{ asset('js/tabler.min.js') }}"></script>
     <script src="{{ asset('js/demo.min.js') }}"></script>
+
+    <script>
+        const theme = ($('body').hasClass('theme-light') ? "?theme=light" : "?theme=dark");
+        window.history.replaceState(null, null, theme);
+    </script>
 </body>
 
 </html>

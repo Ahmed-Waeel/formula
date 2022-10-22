@@ -127,7 +127,7 @@
     </div>
 </div>
 <script>
-    $('[reservstions_tab]').addClass('active');
+    $('[reservations_tab]').addClass('active');
     $('#form').on('submit', function(event) {
         if (!$('[name=data]').val()) {
             alert("{{ __('view.searchError') }}");

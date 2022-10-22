@@ -125,7 +125,6 @@
 <script>
     $('[hotels_tab]').addClass('active');
 
-    // @formatter:off
     document.addEventListener("DOMContentLoaded", function() {
         var el;
         window.TomSelect && (new TomSelect(el = document.getElementById('select-countries'), {

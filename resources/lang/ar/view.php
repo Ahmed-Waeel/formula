@@ -46,7 +46,7 @@ return [
     'editCustomer' => 'تعديل العميل رقم: ',
     'customers' => 'العملاء',
     'flights' => 'رحلات الطيران',
-    'flight' => 'رحلة طيران',
+    'flight' => 'رحلة الطيران',
     'reservation' => 'حجز طيران',
     'reservations' => 'حجوزات الطيران',
     'profile' => 'الملف الشخصي',

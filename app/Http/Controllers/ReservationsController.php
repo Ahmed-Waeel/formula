@@ -8,6 +8,7 @@ use App\Models\Flight;
 use App\Models\Reservation;
 use ArPHP\I18N\Arabic;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ReservationsController extends Controller
@@ -32,7 +33,7 @@ class ReservationsController extends Controller
     {
         $customers = Customer::where('deleted_at', null)->get();
         $flights = Flight::where('deleted_at', null)->get();
-        return view('hotels/add', compact('flights', 'customers'));
+        return view('reservations/add', compact('flights', 'customers'));
     }
  
     public function store(ReservationRequest $request)
@@ -48,6 +49,7 @@ class ReservationsController extends Controller
             'reservation_id' => $reservation_id,
             'customer_id' => $request->customer_id,
             'flight_id' => $request->flight_id,
+            'date' => Carbon::createFromFormat('Y-m-d', $request->date),
         ]);
         return redirect(route('reservation.showAll'))->with('success', 'Reservation Saved Successfully with ID number: ' . $reservation_id);
     }
@@ -110,8 +112,13 @@ class ReservationsController extends Controller
         if(!$reservation) {
             return redirect()->back()->with('error', 'Some thing went wrong');
         }
-        $view = view('reservation_pdf', [
-            'reservation' => $reservation
+        $customer = Customer::where('customer_id', $reservation->customer_id);
+        $flight = Flight::where('flight_id', $reservation->flight_id);
+
+        $view = view('reservations/pdf', [
+            'reservation' => $reservation,
+            'customer' => $customer,
+            'flight' => $flight
         ])->render();
 
         $arabic = new Arabic();
