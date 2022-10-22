@@ -112,8 +112,9 @@ class ReservationsController extends Controller
         if(!$reservation) {
             return redirect()->back()->with('error', 'Some thing went wrong');
         }
-        $customer = Customer::where('customer_id', $reservation->customer_id);
-        $flight = Flight::where('flight_id', $reservation->flight_id);
+        $customer = Customer::where('customer_id', $reservation->customer_id)->first();
+        $flight = Flight::where('flight_id', $reservation->flight_id)->first();
+
 
         $view = view('reservations/pdf', [
             'reservation' => $reservation,

@@ -2,7 +2,7 @@
 @php
 
 @endphp
-<html>
+<html dir=rtl lang="ar">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -80,7 +80,7 @@
             <tbody>
                 <tr>
                     <td>
-                        اسم العميل: &nbsp;<span> Ahmed Wael </span>
+                        اسم العميل: {!! '&nbsp;' !!}<span> Ahmed Wael </span>
                     </td>
                     <td>
                         التاريخ: 13may 2020
@@ -102,90 +102,86 @@
             </tbody>
         </table>
 
-        <div class="table_title">حجز الفنادق </div>
-        <hr>
         <table style="width: 100%">
             <tbody>
                 <tr>
-                    <td>Day</td>
-                    <td>Entry Date <br> - <br> Exit Date</td>
-                    <td>Hotel Name & City <br> <span>Click on the Hotel Name To View The Hotel Images And Videos</span></td>
-                    <td>Number & Type of Rooms</td>
+                    <td colspan=4 class="table_title">
+                        حجز الفنادق
+                    </td>
                 </tr>
                 <tr>
-                    <td>Day 1</td>
-                    <td>12-2-2022 <br> - <br> 14-2-2022</td>
-                    <td>Cairo - Egypt <br> <a href="#">Hotel Name</a> (number Of Days)</span></td>
+                    <td>نوع الغرف وعددها</td>
+                    <td>الفندق والمدينة <br> اضفط علي اسم الفندق لمشاهدة صور وفيديوهات الفندق </td>
+                    <td>تاريخ الدخول <br> - <br> تاريخ الخروج</td>
+                    <td>اليوم</td>
+                </tr>
+                <tr>
                     <td>Room Title <br> Quantity: 1 <br> include breakfast</td>
-                </tr>
-                <tr>
-                    <td>Day 1</td>
-                    <td>12-2-2022 <br> - <br> 14-2-2022</td>
                     <td>Cairo - Egypt <br> <a href="#">Hotel Name</a> (number Of Days)</span></td>
-                    <td>Room Title <br> Quantity: 1 <br> include breakfast</td>
-                </tr>
-                <tr>
-                    <td>Day 1</td>
                     <td>12-2-2022 <br> - <br> 14-2-2022</td>
-                    <td>Cairo - Egypt <br> <a href="#">Hotel Name</a> (number Of Days)</span></td>
-                    <td>Room Title <br> Quantity: 1 <br> include breakfast</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="table_title">الطيران</div>
-        <table style="width: 100%">
-            <tbody>
-                <tr>
-                    <td>Day</td>
-                    <td>Entry Date <br> - <br> Exit Date</td>
-                    <td>Hotel Name & City <br> <span>Click on the Hotel Name To View The Hotel Images And Videos</span></td>
-                    <td>Number & Type of Rooms</td>
-                </tr>
-                <tr>
                     <td>Day 1</td>
-                    <td>12-2-2022 <br> - <br> 14-2-2022</td>
-                    <td>Cairo - Egypt <br> <a href="#">Hotel Name</a> (number Of Days)</span></td>
-                    <td>Room Title <br> Quantity: 1 <br> include breakfast</td>
                 </tr>
                 <tr>
-                    <td>Day 1</td>
-                    <td>12-2-2022 <br> - <br> 14-2-2022</td>
-                    <td>Cairo - Egypt <br> <a href="#">Hotel Name</a> (number Of Days)</span></td>
                     <td>Room Title <br> Quantity: 1 <br> include breakfast</td>
+                    <td>Cairo - Egypt <br> <a href="#">Hotel Name</a> (number Of Days)</span></td>
+                    <td>12-2-2022 <br> - <br> 14-2-2022</td>
+                    <td>Day 1</td>
                 </tr>
                 <tr>
-                    <td>Day 1</td>
-                    <td>12-2-2022 <br> - <br> 14-2-2022</td>
-                    <td>Cairo - Egypt <br> <a href="#">Hotel Name</a> (number Of Days)</span></td>
                     <td>Room Title <br> Quantity: 1 <br> include breakfast</td>
+                    <td>Cairo - Egypt <br> <a href="#">Hotel Name</a> (number Of Days)</span></td>
+                    <td>12-2-2022 <br> - <br> 14-2-2022</td>
+                    <td>Day 1</td>
                 </tr>
             </tbody>
         </table>
 
         <table style="width: 100%">
-            <thead>
-                <tr>
-                    <th colspan=4>
-                        <span style="margin: 0 340px"> Activites </span>
-                        <span style="vertical-align: middle">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <circle cx="7" cy="17" r="2" />
-                                <circle cx="17" cy="17" r="2" />
-                                <path d="M5 17h-2v-6l2 -5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5" />
-                            </svg>
-                        </span>
-
-                    </th>
-                </tr>
-            </thead>
             <tbody>
                 <tr>
-                    <td>Day</td>
-                    <td>Entry Date <br> - <br> Exit Date</td>
-                    <td>Hotel Name & City <br> <span>Click on the Hotel Name To View The Hotel Images And Videos</span></td>
-                    <td>Number & Type of Rooms</td>
+                    <td colspan=4 class="table_title">
+                        الطيران
+                    </td>
+                </tr>
+                <tr>
+                    <td>عدد المسافرين</td>
+                    <td>من - إالي</td>
+                    <td>التاريخ</td>
+                    <td>اليوم</td>
+                </tr>
+                <tr>
+                    <td>Room Title <br> Quantity: 1 <br> include breakfast</td>
+                    <td>Cairo - Egypt <br> <a href="#">Hotel Name</a> (number Of Days)</span></td>
+                    <td>12-2-2022 <br> - <br> 14-2-2022</td>
+                    <td>Day 1</td>
+                </tr>
+                <tr>
+                    <td>Room Title <br> Quantity: 1 <br> include breakfast</td>
+                    <td>Cairo - Egypt <br> <a href="#">Hotel Name</a> (number Of Days)</span></td>
+                    <td>12-2-2022 <br> - <br> 14-2-2022</td>
+                    <td>Day 1</td>
+                </tr>
+                <tr>
+                    <td>Room Title <br> Quantity: 1 <br> include breakfast</td>
+                    <td>Cairo - Egypt <br> <a href="#">Hotel Name</a> (number Of Days)</span></td>
+                    <td>12-2-2022 <br> - <br> 14-2-2022</td>
+                    <td>Day 1</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table style="width: 100%">
+            <tbody>
+                <tr>
+                    <td colspan=4 class="table_title">
+                        المواصلات
+                    </td>
+                </tr>
+                <tr>
+                    <td>عدد السيارات ونوعها</td>
+                    <td>الوصف</td>
+                    <td>التاريخ</td>
+                    <td>اليوم</td>
                 </tr>
                 <tr>
                     <td>Day 1</td>
@@ -209,19 +205,15 @@
         </table>
 
         <table style="width: 100%">
-            <thead>
-                <tr>
-                    <th style="min-width: 100%;text-align: center">
-                        Notes
-                    </th>
-                </tr>
-            </thead>
             <tbody>
                 <tr>
-                    <td style="min-width: 100%;text-align: left">
-                        sdfffffffffffffffflmsdflmdsflmdsfldsmfdsmfksdnfdmf <br> sdfdsfdfdfsd fdsfsdfdsfsad asdwasdasfasd
-                        sdfffffffffffffffflmsdflmdsflmdsfldsmfdsmfksdnfdmf <br> sdfdsfdfdfsd fdsfsdfdsfsad asdwasdasfasd
-                        sdfffffffffffffffflmsdflmdsflmdsfldsmfdsmfksdnfdmf <br> sdfdsfdfdfsd fdsfsdfdsfsad asdwasdasfasd
+                    <td class="table_title">
+                        ملاحظات مهمة جدا
+                    </td>
+                </tr>
+                <tr>
+                    <td style="min-width: 100%;text-align: right">
+                        {!! nl2br(e($flight->notes)) !!}
                     </td>
                 </tr>
             </tbody>
