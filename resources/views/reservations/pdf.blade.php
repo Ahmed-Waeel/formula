@@ -1,12 +1,7 @@
 <!doctype html>
-@php
-
-@endphp
-<html dir=rtl lang="ar">
+<html>
 
 <head>
-
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <style>
         body {
             font-size: 14px;
@@ -14,7 +9,33 @@
             width: 800px;
             margin: 70px auto 0 auto;
             word-break: break-word;
+            padding: 50px 20px;
+        }
 
+        .background_icon {
+            width: 600px;
+            height: 600px;
+            position: fixed;
+            z-index: 1;
+            opacity: 10%;
+            top: 430px;
+            left: 210px;
+        }
+
+        .background_icon img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo {
+            position: fixed;
+            top: 0;
+            right: 80px;
+        }
+
+        .logo img {
+            width: 250px;
+            height: 80px;
         }
 
         hr:not(:first-of-type) {
@@ -23,7 +44,7 @@
         }
 
         table {
-            min-width: 100%;
+            width: 100%;
             margin-bottom: 20px;
         }
 
@@ -62,16 +83,14 @@
     </style>
 </head>
 
-<body style="padding: 50px 20px">
-    <div id="watermark" style="width: 600px;height: 600px;position: fixed;z-index: 1;opacity: 10%;top: 430px;left: 190px;">
-        <img src="{{ public_path('icon.png') }}" style="width: 100%;height: 100%;">
+<body>
+    <div class="background_icon">
+        <img src="{{ public_path('icon.png') }}">
     </div>
-    <div class="page_container" style="z-index: 100">
+    <div class="page_container">
 
-        <div style="position: fixed;top: 0; right: 50px;">
-            <a>
-                <img src="{{ public_path('logo.png') }}" style="width: 250px;height: 80px;">
-            </a>
+        <div class=logo>
+            <img src="{{ public_path('logo.png') }}">
         </div>
 
         <hr>
@@ -80,10 +99,10 @@
             <tbody>
                 <tr>
                     <td>
-                        اسم العميل: {!! '&nbsp;' !!}<span> Ahmed Wael </span>
+                        اسم العميل: Ahmed Wael
                     </td>
                     <td>
-                        التاريخ: 13may 2020
+                        التاريخ: 12/4/20202
                     </td>
                 </tr>
                 <tr>
@@ -96,13 +115,13 @@
                 </tr>
                 <tr>
                     <td colspan=2>
-                        رقم الحجز: 3423QF432
+                        رقم الحجز: QWQWQW42532
                     </td>
                 </tr>
             </tbody>
         </table>
 
-        <table style="width: 100%">
+        <table>
             <tbody>
                 <tr>
                     <td colspan=4 class="table_title">
@@ -136,7 +155,7 @@
             </tbody>
         </table>
 
-        <table style="width: 100%">
+        <table>
             <tbody>
                 <tr>
                     <td colspan=4 class="table_title">
@@ -170,7 +189,7 @@
             </tbody>
         </table>
 
-        <table style="width: 100%">
+        <table>
             <tbody>
                 <tr>
                     <td colspan=4 class="table_title">
@@ -204,7 +223,7 @@
             </tbody>
         </table>
 
-        <table style="width: 100%">
+        <table>
             <tbody>
                 <tr>
                     <td class="table_title">
