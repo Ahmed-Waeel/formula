@@ -103,7 +103,7 @@ return null;
     <div class="page_container">
 
         <div class=logo>
-            <img src="{{ public_path('logo.png') }}">
+            <img src="{{ public_path('ar_logo.png') }}">
         </div>
 
         <hr>

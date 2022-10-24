@@ -10,6 +10,8 @@ $dir = ($lang == 'ar' ? 'rtl' : 'ltr')
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title> @yield('tabTitle', __('view.companyName')) </title>
+
+    <link rel="shortcut icon" href="{{ asset('icon.png') }}" type="image/x-icon">
     <!-- CSS files -->
     @if($lang == 'en')
     <link href="{{ asset('css/tabler.min.css') }}" rel="stylesheet">
@@ -38,7 +40,7 @@ $dir = ($lang == 'ar' ? 'rtl' : 'ltr')
                 </button>
                 <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
                     <a>
-                        <img src="{{ asset('static/logo.svg') }}" width="110" height="32" alt="Tabler" class="navbar-brand-image">
+                        <img src="{{ asset($lang . '_logo.png') }}" width="110" height="32" alt="Tabler" class="navbar-brand-image">
                     </a>
                 </h1>
                 <div class="navbar-nav flex-row order-md-last">

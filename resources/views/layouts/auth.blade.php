@@ -10,6 +10,9 @@ $dir = ($lang == 'ar' ? 'rtl' : 'ltr')
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title> @yield('tabTitle', __('view.companyName')) </title>
+
+    <link rel="shortcut icon" href="{{ asset('icon.png') }}" type="image/x-icon">
+
     <!-- CSS files -->
     @if($lang == 'en')
     <link href="{{ asset('css/tabler.min.css') }}" rel="stylesheet">

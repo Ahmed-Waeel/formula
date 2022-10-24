@@ -58,8 +58,8 @@
                 <thead>
                     <tr>
                         <th class="w-2">{{ __('view.reservationId') }} </th>
-                        <th class="w-2"> {{ __('view.flightId') }} </th>
                         <th class="w-2">{{ __('view.customerId') }} </th>
+                        <th class="w-2"> {{ __('view.flightId') }} </th>
                         <th class="w-2">{{ __('view.reservationDate') }} </th>
                         <th class="w-2">{{ __('view.actions') }} </th>
                     </tr>
