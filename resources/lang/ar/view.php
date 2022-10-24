@@ -113,6 +113,7 @@ return [
     'reservationDate' => 'تاريخ الحجز',
     'addReservation' => 'إضافة حجز جديد',
     'time' => 'الوقت',
+    'role' => 'الصلاحية',
 
 
     

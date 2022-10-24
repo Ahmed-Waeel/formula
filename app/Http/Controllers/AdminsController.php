@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminRequest;
+use App\Http\Requests\AdminUpdateRequest;
 use App\Http\Requests\PasswordRequest;
 use App\Http\Requests\ProfileRequest;
 use App\Models\Admin;
@@ -38,14 +39,15 @@ class AdminsController extends Controller
         Admin::create([
             'name' => $request->name,
             'email' => $request->email,
+            'role' => $request->role,
             'password' => Hash::make($request->password),
         ]);
         return redirect(route('admin.showAll'))->with('success', __('view.adminCreated'));
     }
 
-    public function edit()
+    public function edit($adminId)
     {
-        $admin = Admin::where('deleted_at', null)->where('id', Auth::id())->first();
+        $admin = Admin::where('deleted_at', null)->where('id', $adminId)->first();
         if (!$admin) {
             return redirect()->back()->with('error', __('view.wrong'));
         }
@@ -53,7 +55,31 @@ class AdminsController extends Controller
         return view('admins/edit', compact('admin'));
     }
 
-    public function update(ProfileRequest $request)
+    public function update(AdminUpdateRequest $request)
+    {
+        $admin = Admin::where('deleted_at', null)->where('id', $request->id);
+        if (!$admin->first()) {
+            return redirect()->back()->with('error', __('view.wrong'));
+        }
+        $admin->update([
+            'name' => $request->name ?? $admin->first()->name,
+            'email' => $request->email ?? $admin->first()->email,
+            'role' => $request->role ?? $admin->first()->role,
+        ]);
+        return redirect()->back()->with('success', __('view.profileUpdated'));
+    }
+
+    public function editProfile()
+    {
+        $admin = Admin::where('deleted_at', null)->where('id', Auth::id())->first();
+        if (!$admin) {
+            return redirect()->back()->with('error', __('view.wrong'));
+        }
+
+        return view('admins/profile', compact('admin'));
+    }
+
+    public function updateProfile(ProfileRequest $request)
     {
         $admin = Admin::where('deleted_at', null)->where('id', Auth::id());
         if (!$admin->first()) {

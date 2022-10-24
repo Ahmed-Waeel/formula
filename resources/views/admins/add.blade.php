@@ -39,6 +39,29 @@
                                     </div>
 
                                     <div class="mb-3">
+                                        <div class="form-label">{{ __('view.role') }}</div>
+                                        <div>
+                                            <label class="form-check form-check-inline">
+                                                <input class="form-check-input  @error('role') is-invalid @enderror" name="role" type="radio" value="0" checked>
+                                                <span class="form-check-label">Admin</span>
+                                            </label>
+                                            <label class="form-check form-check-inline">
+                                                <input class="form-check-input  @error('role') is-invalid @enderror" name="role" type="radio" super_admin value="1">
+                                                <span class="form-check-label">Super Admin</span>
+                                            </label>
+                                            @error('role')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        @if(old('role') == 1)
+                                        <script>
+                                            $('[type=radio]:checked').prop('checked', false);
+                                            $('[super_admin]').prop('checked', true);
+                                        </script>
+                                        @endif
+                                    </div>
+
+                                    <div class="mb-3">
                                         <label class="form-label">{{ __('view.password') }}</label>
                                         <div class="input-group input-group-flat">
                                             <input type="password" password-input name="password" class="form-control @error('password') is-invalid @enderror">

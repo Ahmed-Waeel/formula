@@ -133,6 +133,7 @@ return [
     'passwordValidation' => 'Password Must includes capital letters, small letters and numbers',
     'passwordConfirmation' => 'Passwords doesn\'t match',
     'wrongPassword' => 'Old password is wrong',
+    'roleValidation' => 'Please Specift the role',
 
     /*
     |--------------------------------------------------------------------------

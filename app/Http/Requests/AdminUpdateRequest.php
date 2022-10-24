@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
-class AdminRequest extends FormRequest
+class AdminUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,7 +28,6 @@ class AdminRequest extends FormRequest
             'name' => 'required|string|min:3|max:50',
             'email' => 'required|email',
             'role' => 'required|numeric',
-            'password' => ['required', 'min:8', 'regex:/^.*(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$/', 'confirmed']
         ];
     }
 
@@ -50,11 +49,6 @@ class AdminRequest extends FormRequest
 
             'role.required' => __('validation.required', ['attribute' => __('view.role')]),
             'role.numeric' => __('validation.roleValidation'),
-
-            'password.required' => __('validation.required', ['attribute' => __('view.password')]),
-            'password.min' => __('validation.min', ['attribute' => __('view.password'), 'min' => 8]),
-            'password.regex' => __('validation.passwordValidation'),
-            'password.confirmed' => __('validation.passwordConfirmation'),
         ];
     }
 }

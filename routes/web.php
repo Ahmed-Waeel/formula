@@ -33,11 +33,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::get('admins/{pagination?}', [AdminsController::class, 'index'])->name('admin.showAll')->where('pagination', '[0-9]+');
         Route::get('admin/add', [AdminsController::class, 'add'])->name('admin.add');
         Route::post('admin/store', [AdminsController::class, 'store'])->name('admin.store');
+        Route::get('admin/edit/{admin_id}', [AdminsController::class, 'edit'])->name('admin.edit');
+        Route::post('admin/update', [AdminsController::class, 'update'])->name('admin.update');
         Route::get('admin/delete/{admin_id}', [AdminsController::class, 'delete'])->name('admin.delete');
         Route::match(['GET', 'POST'], 'admin/filter', [AdminsController::class, 'filter'])->name('admin.filter');
     });
-    Route::get('profile/edit', [AdminsController::class, 'edit'])->name('admin.edit');
-    Route::post('profile/update', [AdminsController::class, 'update'])->name('admin.update');
+    Route::get('profile/edit', [AdminsController::class, 'editProfile'])->name('admin.editProfile');
+    Route::post('profile/update', [AdminsController::class, 'updateProfile'])->name('admin.updateProfile');
 
     Route::get('profile/password/change', [AdminsController::class, 'changePasswordPage'])->name('admin.changePassword');
     Route::post('profile/password/update', [AdminsController::class, 'changePassword'])->name('admin.updatePassword');

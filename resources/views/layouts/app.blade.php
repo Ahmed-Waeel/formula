@@ -77,7 +77,7 @@ $dir = ($lang == 'ar' ? 'rtl' : 'ltr')
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                            <a href="{{ route('admin.edit') }}" class="dropdown-item">{{ __('view.profile') }}</a>
+                            <a href="{{ route('admin.editProfile') }}" class="dropdown-item">{{ __('view.profile') }}</a>
                             <div class="dropdown-divider"></div>
                             <a href="{{ route('logout') }}" class="dropdown-item">{{ __('view.logout') }}</a>
                         </div>

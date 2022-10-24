@@ -114,6 +114,7 @@ return [
     'reservationDate' => 'Reservation Date',
     'addReservation' => 'Add reservation',
     'time' => 'Time',
+    'role' => 'Role',
 
 
     'reservationCreated' => 'Reservation Saved Successfully with ID number: :id',
