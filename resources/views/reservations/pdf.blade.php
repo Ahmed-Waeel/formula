@@ -142,7 +142,7 @@
                 </tr>
                 <tr>
                     <td>Room Title <br> Quantity: 1 <br> include breakfast</td>
-                    <td>Cairo - Egypt <br> <a href="#">Hotel Name</a> (number Of Days)</span></td>
+                    <td>Cairo - Egypt <br> <a href="https://www.google.com">Hotel Name</a> (number Of Days)</span></td>
                     <td>12-2-2022 <br> - <br> 14-2-2022</td>
                     <td>Day 1</td>
                 </tr>
