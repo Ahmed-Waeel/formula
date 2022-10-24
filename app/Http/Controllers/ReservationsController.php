@@ -115,7 +115,6 @@ class ReservationsController extends Controller
         $customer = Customer::where('customer_id', $reservation->customer_id)->first();
         $flight = Flight::where('flight_id', $reservation->flight_id)->first();
 
-
         $view = view('reservations/pdf', [
             'reservation' => $reservation,
             'customer' => $customer,

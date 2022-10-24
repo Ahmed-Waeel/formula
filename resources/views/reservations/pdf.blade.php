@@ -5,19 +5,16 @@
 <html dir=rtl lang="ar">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <style>
         body {
-            font-family: DejaVu Sans, sans-serif !important;
             font-size: 14px;
             padding: 0;
             width: 800px;
             margin: 70px auto 0 auto;
             word-break: break-word;
-            background-image: url("{{ public_path('icon.png') }}");
-            background-repeat: no-repeat;
-            background-position: center;
-            opacity: 10%;
+
         }
 
         hr:not(:first-of-type) {
@@ -65,10 +62,13 @@
     </style>
 </head>
 
-<body>
-    <div class="page_container">
+<body style="padding: 50px 20px">
+    <div id="watermark" style="width: 600px;height: 600px;position: fixed;z-index: 1;opacity: 10%;top: 430px;left: 190px;">
+        <img src="{{ public_path('icon.png') }}" style="width: 100%;height: 100%;">
+    </div>
+    <div class="page_container" style="z-index: 100">
 
-        <div style="display: flex;align-items: center;justify-content: between;margin-bottom: 40px">
+        <div style="position: fixed;top: 0; right: 50px;">
             <a>
                 <img src="{{ public_path('logo.png') }}" style="width: 250px;height: 80px;">
             </a>
