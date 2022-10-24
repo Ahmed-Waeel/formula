@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ReservationRequest;
+use App\Models\City;
+use App\Models\Country;
 use App\Models\Customer;
 use App\Models\Flight;
+use App\Models\Hotel;
 use App\Models\Reservation;
 use ArPHP\I18N\Arabic;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -51,14 +54,14 @@ class ReservationsController extends Controller
             'flight_id' => $request->flight_id,
             'date' => Carbon::createFromFormat('Y-m-d', $request->date),
         ]);
-        return redirect(route('reservation.showAll'))->with('success', 'Reservation Saved Successfully with ID number: ' . $reservation_id);
+        return redirect(route('reservation.showAll'))->with('success',  __('view.reservationCreated', ['id' => $reservation_id]));
     }
 
     public function edit($reservationId)
     {
         $reservation = Reservation::where('deleted_at', null)->where('reservation_id', $reservationId)->first();
         if (!$reservation) {
-            return redirect()->back()->with('error', 'Something Went Wrong');
+            return redirect()->back()->with('error', __('view.wrong'));
         }
         $customers = Customer::where('deleted_at', null)->get();
         $flights = Flight::where('deleted_at', null)->get();
@@ -69,23 +72,23 @@ class ReservationsController extends Controller
     {
         $reservation = Reservation::where('deleted_at', null)->where('reservation_id', $request->reservation_id);
         if (!$reservation->first()) {
-            return redirect()->back()->with('error', 'Something Went Wrong');
+            return redirect()->back()->with('error', __('view.wrong'));
         }
         $reservation->update([
             'flight_id' => $request->flight_id ?? $reservation->first()->flight_id,
             'customer_id' => $request->customer_id ?? $reservation->first()->customer_id,
         ]);
-        return redirect()->back()->with('success', 'Reservation Updated Successfully');
+        return redirect()->back()->with('success', __('view.reservationUpdated'));
     }
 
     public function delete($reservationId)
     {
         $reservation = Reservation::where('reservation_id', $reservationId);
         if (!$reservation) {
-            return redirect()->back()->with('error', 'Something Went Wrong');
+            return redirect()->back()->with('error', __('view.wrong'));
         }
         $reservation->update(['deleted_at' => now()]);
-        return redirect(route('reservation.showAll'))->with('success', 'Reservation Number: ' . $reservation->reservation_id . ' Deleted Successfully');
+        return redirect(route('reservation.showAll'))->with('success', __('view.reservationDeleted'));
     }
 
     public function filter(Request $request)
@@ -110,15 +113,21 @@ class ReservationsController extends Controller
         $reservation = Reservation::where('reservation_id', $reservationId)->first();
         
         if(!$reservation) {
-            return redirect()->back()->with('error', 'Some thing went wrong');
+            return redirect()->back()->with('error', __('view.wrong'));
         }
         $customer = Customer::where('customer_id', $reservation->customer_id)->first();
         $flight = Flight::where('flight_id', $reservation->flight_id)->first();
+        $countries = Country::all();
+        $cities = City::all();
+        $hotels = Hotel::all();
 
         $view = view('reservations/pdf', [
             'reservation' => $reservation,
             'customer' => $customer,
-            'flight' => $flight
+            'flight' => $flight,
+            'countries' => $countries,
+            'cities' => $cities,
+            'hotels' => $hotels
         ])->render();
 
         $arabic = new Arabic();

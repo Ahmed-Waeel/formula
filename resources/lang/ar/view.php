@@ -44,6 +44,7 @@ return [
     'customer' => 'العميل',
     'addCustomer' => 'إضافة عميل',
     'editCustomer' => 'تعديل العميل رقم: ',
+    'editReservation' => 'تعديل رحلة الطيران رقم: ',
     'customers' => 'العملاء',
     'flights' => 'رحلات الطيران',
     'flight' => 'رحلة الطيران',
@@ -111,4 +112,29 @@ return [
     'takeMeHome' => 'الرجوع للرئيسية',
     'reservationDate' => 'تاريخ الحجز',
     'addReservation' => 'إضافة حجز جديد',
+    'time' => 'الوقت',
+
+
+    
+    'reservationCreated' => 'تم الحجز بنجاح برقم: :id',
+    'reservationUpdated' => 'تم تحديث الحجز بنجاح',
+    'reservationDeleted' => 'تم حذف الحجز بنجاح',
+
+    'hotelCreated' => ':hotel تم تسجيل الفندق بنجاح',
+    'hotelUpdated' => 'تم تحديث بيانات الفندق بنجاح',
+    'hotelUpdated' => 'تم حذف الفندق بنجاح',
+
+    'flightCreated' => 'تم انشاء رحلة الطيران برقم :id',
+    'flightUpdated' => 'تم تحديث الرحلة بنجاح',
+    'flightUpdated' => 'تم حذف الرحلة بنجاح',
+
+    'customerCreated' => 'تم انشاء العميل برقم :id',
+    'customerUpdated' => 'تم تحديث بيانات العميل بنجاح',
+    'customerUpdated' => 'تم حذف العميل بنجاح',
+
+    'adminCreated' => 'تم انشاء المشرف بنجاح',
+    'profileUpdated' => 'تم تحديث الملف الشخصي بنجاح',
+    'adminUpdated' => 'تم حدف المشرف بنجاح',
+
+    'wrong' => 'حدث خطأ اثناء ادخال البيانات',
 ];

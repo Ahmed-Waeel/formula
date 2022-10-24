@@ -42,6 +42,9 @@ return [
     'customer' => 'Customer',
     'addCustomer' => 'Add Customer',
     'editCustomer' => 'Edit Customer Number: ',
+    'editFlight' => 'Edit Flight Number: ',
+    'editHotel' => 'Edit Hotel: ',
+    'editReservation' => 'Edit Reservation Number: ',
     'customers' => 'Customers',
     'flights' => 'Flights',
     'flight' => 'Flight',
@@ -110,4 +113,28 @@ return [
     'takeMeHome' => 'Take me home',
     'reservationDate' => 'Reservation Date',
     'addReservation' => 'Add reservation',
+    'time' => 'Time',
+
+
+    'reservationCreated' => 'Reservation Saved Successfully with ID number: :id',
+    'reservationUpdated' => 'Reservation Updated Successfully',
+    'reservationDeleted' => 'Reservation Deleted Successfully',
+
+    'hotelCreated' => ':hotel Hotel Created Successfully',
+    'hotelUpdated' => 'Hotel Updated Successfully',
+    'hotelUpdated' => 'Hotel Deleted Successfully',
+
+    'flightCreated' => 'Flight Created Successfully with ID number: :id',
+    'flightUpdated' => 'Flight Updated Successfully',
+    'flightUpdated' => 'Flight Deleted Successfully',
+
+    'customerCreated' => 'Customer Created Successfully with ID number: :id',
+    'customerUpdated' => 'Customer Updated Successfully',
+    'customerUpdated' => 'Customer Deleted Successfully',
+
+    'adminCreated' => 'Admin Created Successfully',
+    'profileUpdated' => 'Profile Updated Successfully',
+    'adminUpdated' => 'Admin Deleted Successfully',
+
+    'wrong' => 'Something Went Wrong',
 ];

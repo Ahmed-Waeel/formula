@@ -45,14 +45,14 @@ class CustomersController extends Controller
             'email' => $request->email,
             'hotels' => $request->hotels,
         ]);
-        return redirect(route('customer.showAll'))->with('success', 'Customer Added Successfully with id : ' .  $customer_id);
+        return redirect(route('customer.showAll'))->with('success', __('view.customerCreated', ['id' => $customer_id]));
     }
 
     public function edit($customerId)
     {
         $customer = Customer::where('deleted_at', null)->where('customer_id', $customerId)->first();
         if (!$customer) {
-            return redirect()->back()->with('error', 'Something Went Wrong');
+            return redirect()->back()->with('error', __('view.wrong'));
         }
 
         return view('customers/edit', compact('customer'));
@@ -62,24 +62,24 @@ class CustomersController extends Controller
     {
         $customer = Customer::where('deleted_at', null)->where('customer_id', $request->customer_id);
         if (!$customer->first()) {
-            return redirect()->back()->with('error', 'Something Went Wrong');
+            return redirect()->back()->with('error', __('view.wrong'));
         }
         $customer->update([
             'name' => $request->name ?? $customer->first()->name,
             'phone' => $request->phone ?? $customer->first()->phone,
             'email' => $request->email ?? $customer->first()->email,
         ]);
-        return redirect()->back()->with('success', ' Customer Number ' . $request->customer_id . ' updated Successfully');
+        return redirect()->back()->with('success', __('view.customerUpdated'));
     }
 
     public function delete($customerId)
     {
         $customer = Customer::where('customer_id', $customerId);
         if (!$customer) {
-            return redirect()->back()->with('error', 'Something Went Wrong');
+            return redirect()->back()->with('error', __('view.wrong'));
         }
         $customer->update(['deleted_at' => now()]);
-        return redirect(route('customer.showAll'))->with('success', 'Customer Number ' . $customerId . ' Deleted Successfully');
+        return redirect(route('customer.showAll'))->with('success', __('view.customerDeleted'));
     }
 
     public function filter(Request $request)

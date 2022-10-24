@@ -40,14 +40,14 @@ class AdminsController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        return redirect(route('admin.showAll'))->with('success', 'New Admin Added Successfully');
+        return redirect(route('admin.showAll'))->with('success', __('view.adminCreated'));
     }
 
     public function edit()
     {
         $admin = Admin::where('deleted_at', null)->where('id', Auth::id())->first();
         if (!$admin) {
-            return redirect()->back()->with('error', 'Something Went Wrong');
+            return redirect()->back()->with('error', __('view.wrong'));
         }
 
         return view('admins/edit', compact('admin'));
@@ -57,7 +57,7 @@ class AdminsController extends Controller
     {
         $admin = Admin::where('deleted_at', null)->where('id', Auth::id());
         if (!$admin->first()) {
-            return redirect()->back()->with('error', 'Something Went Wrong');
+            return redirect()->back()->with('error', __('view.wrong'));
         }
 
         if($request->file('photo')){
@@ -73,7 +73,7 @@ class AdminsController extends Controller
             'name' => $request->name ?? $admin->first()->name,
             'email' => $request->email ?? $admin->first()->email,
         ]);
-        return redirect()->back()->with('success', __('view.ChangedSuccessfully', ['attribute' => __('view.data')]));
+        return redirect()->back()->with('success', __('view.profileUpdated'));
     }
 
     public function changePasswordPage(){
@@ -83,7 +83,7 @@ class AdminsController extends Controller
     public function changePassword(PasswordRequest $request)
     {
         $admin = Admin::where('id', $request->id);
-        if (!$admin->first()) return redirect()->back()->with('error', 'Some thing went wrong');
+        if (!$admin->first()) return redirect()->back()->with('error', __('view.wrong'));
 
         $admin->update([
             'password' => Hash::make($request->password)
@@ -95,11 +95,11 @@ class AdminsController extends Controller
     {
         $admin = Admin::where('id', $adminId);
         if (!$admin) {
-            return redirect()->back()->with('error', 'Something Went Wrong');
+            return redirect()->back()->with('error', __('view.wrong'));
         }
         $name = $admin->name;
         $admin->update(['deleted_at' => now()]);
-        return redirect(route('admin.showAll'))->with('success', $name . ' Deleted Successfully');
+        return redirect(route('admin.showAll'))->with('success', __('adminDeleted'));
     }
 
     public function filter(Request $request)

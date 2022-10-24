@@ -50,14 +50,14 @@ class FlightsController extends Controller
             'activities' => $request->activities,
             'notes' => $request->notes,
         ]);
-        return redirect(route('flight.showAll'))->with('success', 'Flight created Successfully with id : ' .  $flight_id);
+        return redirect(route('flight.showAll'))->with('success', __('view.flightCreated', ['id' => $flight_id]));
     }
 
     public function edit($flightId)
     {
         $flight = Flight::where('deleted_at', null)->where('flight_id', $flightId)->first();
         if (!$flight) {
-            return redirect()->back()->with('error', 'Something Went Wrong');
+            return redirect()->back()->with('error', __('view.wrong'));
         }
 
         $hotels = Hotel::all();
@@ -68,7 +68,7 @@ class FlightsController extends Controller
     {
         $flight = flight::where('deleted_at', null)->where('flight_id', $request->flight_id);
         if (!$flight->first()) {
-            return redirect()->back()->with('error', 'Something Went Wrong');
+            return redirect()->back()->with('error', __('view.wrong'));
         }
         $flight->update([
             'start_date' => Carbon::createFromFormat('Y-m-d', $request->start_date) ?? $flight->first()->start_date,
@@ -78,17 +78,17 @@ class FlightsController extends Controller
             'activities' => $request->activities ?? $flight->first()->activities,
             'notes' => $request->notes ?? $flight->first()->notes,
         ]);
-        return redirect()->back()->with('success', ' Flight with id ' . $request->flight_id . ' updated Successfully');
+        return redirect()->back()->with('success', __('view.flightUpdated'));
     }
 
     public function delete($flightId)
     {
         $flight = Flight::where('flight_id', $flightId);
         if (!$flight) {
-            return redirect()->back()->with('error', 'Something Went Wrong');
+            return redirect()->back()->with('error', __('view.wrong'));
         }
         $flight->update(['deleted_at' => now()]);
-        return redirect(route('flight.showAll'))->with('success', 'Flight with id ' . $flightId . ' Deleted Successfully');
+        return redirect(route('flight.showAll'))->with('success', __('view.flightDeleted'));
     }
 
     public function filter(Request $request)

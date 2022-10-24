@@ -47,14 +47,14 @@ class HotelsController extends Controller
             'city' => $request->city,
             'rooms' => $request->rooms,
         ]);
-        return redirect(route('hotel.showAll'))->with('success', $request->name . ' Hotel Saved Successfully');
+        return redirect(route('hotel.showAll'))->with('success', __('view.hotelCreated', ['hotel' => $request->name]));
     }
 
     public function edit($hotelId)
     {
         $hotel = Hotel::where('deleted_at', null)->where('id', $hotelId)->first();
         if (!$hotel) {
-            return redirect()->back()->with('error', 'Something Went Wrong');
+            return redirect()->back()->with('error', __('view.wrong'));
         }
         $countries = Country::all();
         $cities = City::where('country_code', $hotel->country)->get();
@@ -65,7 +65,7 @@ class HotelsController extends Controller
     {
         $hotel = Hotel::where('deleted_at', null)->where('id', $request->id);
         if (!$hotel->first()) {
-            return redirect()->back()->with('error', 'Something Went Wrong');
+            return redirect()->back()->with('error', __('view.wrong'));
         }
         $hotel->update([
             'name' => $request->name ?? $hotel->first()->name,
@@ -74,18 +74,17 @@ class HotelsController extends Controller
             'city' => $request->city ?? $hotel->first()->city,
             'rooms' => $request->rooms ?? $hotel->first()->rooms,
         ]);
-        return redirect()->back()->with('success', $request->name . ' Hotel Saved Successfully');
+        return redirect()->back()->with('success', __('view.hotelUpdated'));
     }
 
     public function delete($hotelId)
     {
         $hotel = Hotel::where('id', $hotelId);
         if (!$hotel) {
-            return redirect()->back()->with('error', 'Something Went Wrong');
+            return redirect()->back()->with('error', __('view.wrong'));
         }
-        $HotelName = $hotel->first()->name;
         $hotel->update(['deleted_at' => now()]);
-        return redirect(route('hotel.showAll'))->with('success', $HotelName . ' Hotel Deleted Successfully');
+        return redirect(route('hotel.showAll'))->with('success', __('view.hotelDeleted'));
     }
 
     public function filter(Request $request)

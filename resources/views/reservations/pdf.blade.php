@@ -1,3 +1,16 @@
+@php
+$airports = json_decode($flight->airports, true);
+$activities = json_decode($flight->activities, true);
+$flight_hotels = json_decode($flight->hotels, true);
+function search($value, $array, $prop = 'id') {
+foreach ($array as $key => $arr) {
+if ($arr[$prop] == $value) {
+return $arr;
+}
+}
+return null;
+}
+@endphp
 <!doctype html>
 <html>
 
@@ -99,23 +112,23 @@
             <tbody>
                 <tr>
                     <td>
-                        اسم العميل: Ahmed Wael
+                        اسم العميل: {{ $customer->name }}
                     </td>
                     <td>
-                        التاريخ: 12/4/20202
+                        التاريخ: {{ date('d-m-Y', strtotime($reservation->date)) }}
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        رقم العميل: 231424
+                        رقم العميل: {{ $customer->customer_id }}
                     </td>
                     <td>
-                        رقم الرحلة: 234324
+                        رقم الرحلة: {{ $flight->flight_id }}
                     </td>
                 </tr>
                 <tr>
                     <td colspan=2>
-                        رقم الحجز: QWQWQW42532
+                        رقم الحجز: {{ $reservation->reservation_id }}
                     </td>
                 </tr>
             </tbody>
@@ -134,24 +147,22 @@
                     <td>تاريخ الدخول <br> - <br> تاريخ الخروج</td>
                     <td>اليوم</td>
                 </tr>
+                @foreach($flight_hotels AS $flight_hotel)
+                @php
+                $hotel = search($flight_hotel['hotel'], $hotels);
+                $date1 = Carbon\Carbon::parse($flight_hotel['start_date']);
+                $date2 = Carbon\Carbon::parse($flight_hotel['end_date']);
+                $diff = $date1->diffInDays($date2);
+                $country = search($hotel['country'], $countries, 'code')['name'];
+                $city = search($hotel['city'], $cities)['name'];
+                @endphp
                 <tr>
-                    <td>Room Title <br> Quantity: 1 <br> include breakfast</td>
-                    <td>Cairo - Egypt <br> <a href="#">Hotel Name</a> (number Of Days)</span></td>
-                    <td>12-2-2022 <br> - <br> 14-2-2022</td>
-                    <td>Day 1</td>
+                    <td> {{ $flight_hotel['room'] }} <br> {!! nl2br(str_replace('\\n', '<br>', $flight_hotel['notes'])) !!}</td>
+                    <td>{{ $city . '-' . $country }}<br> <a href="{{ $hotel->url }}">{{ $hotel->name }}</a> ({{ $diff }} ليالي)</span></td>
+                    <td>{{ date('d-m-Y', strtotime($flight_hotel['start_date'])) }}<br> - <br>{{ date('d-m-Y', strtotime($flight_hotel['end_date'])) }}</td>
+                    <td>{{ $flight_hotel['day'] }}</td>
                 </tr>
-                <tr>
-                    <td>Room Title <br> Quantity: 1 <br> include breakfast</td>
-                    <td>Cairo - Egypt <br> <a href="https://www.google.com">Hotel Name</a> (number Of Days)</span></td>
-                    <td>12-2-2022 <br> - <br> 14-2-2022</td>
-                    <td>Day 1</td>
-                </tr>
-                <tr>
-                    <td>Room Title <br> Quantity: 1 <br> include breakfast</td>
-                    <td>Cairo - Egypt <br> <a href="#">Hotel Name</a> (number Of Days)</span></td>
-                    <td>12-2-2022 <br> - <br> 14-2-2022</td>
-                    <td>Day 1</td>
-                </tr>
+                @endforeach
             </tbody>
         </table>
 
@@ -168,24 +179,14 @@
                     <td>التاريخ</td>
                     <td>اليوم</td>
                 </tr>
+                @foreach($airports AS $airport)
                 <tr>
-                    <td>Room Title <br> Quantity: 1 <br> include breakfast</td>
-                    <td>Cairo - Egypt <br> <a href="#">Hotel Name</a> (number Of Days)</span></td>
-                    <td>12-2-2022 <br> - <br> 14-2-2022</td>
-                    <td>Day 1</td>
+                    <td>{!! nl2br(str_replace('\\n', '<br>', $airport['notes'])) !!}</td>
+                    <td> من {{ $airport['from'] }} <br> إلي {{ $airport['to'] }} <br> الساعة: {{ $airport['time'] }} </td>
+                    <td>{{ date('d-m-Y h:i A', strtotime($airport['date'])) }}</td>
+                    <td>{{ $airport['day'] }}</td>
                 </tr>
-                <tr>
-                    <td>Room Title <br> Quantity: 1 <br> include breakfast</td>
-                    <td>Cairo - Egypt <br> <a href="#">Hotel Name</a> (number Of Days)</span></td>
-                    <td>12-2-2022 <br> - <br> 14-2-2022</td>
-                    <td>Day 1</td>
-                </tr>
-                <tr>
-                    <td>Room Title <br> Quantity: 1 <br> include breakfast</td>
-                    <td>Cairo - Egypt <br> <a href="#">Hotel Name</a> (number Of Days)</span></td>
-                    <td>12-2-2022 <br> - <br> 14-2-2022</td>
-                    <td>Day 1</td>
-                </tr>
+                @endforeach
             </tbody>
         </table>
 
@@ -202,24 +203,14 @@
                     <td>التاريخ</td>
                     <td>اليوم</td>
                 </tr>
+                @foreach($activities AS $activity)
                 <tr>
-                    <td>Day 1</td>
-                    <td>12-2-2022 <br> - <br> 14-2-2022</td>
-                    <td>Cairo - Egypt <br> <a href="#">Hotel Name</a> (number Of Days)</span></td>
-                    <td>Room Title <br> Quantity: 1 <br> include breakfast</td>
+                    <td>{!! nl2br(str_replace('\\n', '<br>', $activity['notes'])) !!}</td>
+                    <td> من {{ $activity['from'] }} <br> إلي {{ $activity['to'] }} </td>
+                    <td>{{ date('d-m-Y', strtotime($activity['date'])) }}</td>
+                    <td>{{ $activity['day'] }}</td>
                 </tr>
-                <tr>
-                    <td>Day 1</td>
-                    <td>12-2-2022 <br> - <br> 14-2-2022</td>
-                    <td>Cairo - Egypt <br> <a href="#">Hotel Name</a> (number Of Days)</span></td>
-                    <td>Room Title <br> Quantity: 1 <br> include breakfast</td>
-                </tr>
-                <tr>
-                    <td>Day 1</td>
-                    <td>12-2-2022 <br> - <br> 14-2-2022</td>
-                    <td>Cairo - Egypt <br> <a href="#">Hotel Name</a> (number Of Days)</span></td>
-                    <td>Room Title <br> Quantity: 1 <br> include breakfast</td>
-                </tr>
+                @endforeach
             </tbody>
         </table>
 
