@@ -12,9 +12,12 @@ return null;
 }
 @endphp
 <!doctype html>
-<html>
+<html lang="ar" dir=rtl>
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             font-size: 14px;
@@ -23,6 +26,9 @@ return null;
             margin: 70px auto 0 auto;
             word-break: break-word;
             padding: 50px 20px;
+            font-family: cairo;
+            background: url("{{ public_path('icon.png') }}") no-repeat center;
+            background-image-opacity: 0.1;
         }
 
         .background_icon {
@@ -41,9 +47,9 @@ return null;
         }
 
         .logo {
-            position: fixed;
-            top: 0;
-            right: 80px;
+            width: 250px;
+            height: 80px;
+
         }
 
         .logo img {
@@ -58,7 +64,7 @@ return null;
 
         table {
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 60px;
         }
 
         table,
@@ -70,6 +76,10 @@ return null;
             text-align: center;
             border-bottom: 2px solid #0985c8;
             border-collapse: collapse;
+        }
+
+        th td:first-of-type {
+            border: none;
         }
 
         .header_table,
@@ -91,15 +101,15 @@ return null;
             text-align: center;
             color: #2a96d0;
             font-size: 30px;
-            margin-top: 40px;
+            margin-top: 100px;
         }
     </style>
 </head>
 
-<body>
-    <div class="background_icon">
+<body dir="rtl">
+    <!-- <div class="background_icon">
         <img src="{{ public_path('icon.png') }}">
-    </div>
+    </div> -->
     <div class="page_container">
 
         <div class=logo>
@@ -142,10 +152,10 @@ return null;
                     </td>
                 </tr>
                 <tr>
-                    <td>نوع الغرف وعددها</td>
-                    <td>الفندق والمدينة <br> اضفط علي اسم الفندق لمشاهدة صور وفيديوهات الفندق </td>
-                    <td>تاريخ الدخول <br> - <br> تاريخ الخروج</td>
                     <td>اليوم</td>
+                    <td>تاريخ الدخول <br> - <br> تاريخ الخروج</td>
+                    <td>الفندق والمدينة <br> اضفط علي اسم الفندق لمشاهدة صور وفيديوهات الفندق </td>
+                    <td>نوع الغرف وعددها</td>
                 </tr>
                 @foreach($flight_hotels AS $flight_hotel)
                 @php
@@ -157,10 +167,10 @@ return null;
                 $city = search($hotel['city'], $cities)['name'];
                 @endphp
                 <tr>
-                    <td> {{ $flight_hotel['room'] }} <br> {!! nl2br(str_replace('\\n', '<br>', $flight_hotel['notes'])) !!}</td>
-                    <td>{{ $city . '-' . $country }}<br> <a href="{{ $hotel->url }}">{{ $hotel->name }}</a> ({{ $diff }} ليالي)</span></td>
-                    <td>{{ date('d-m-Y', strtotime($flight_hotel['start_date'])) }}<br> - <br>{{ date('d-m-Y', strtotime($flight_hotel['end_date'])) }}</td>
                     <td>{{ $flight_hotel['day'] }}</td>
+                    <td>{{ date('d-m-Y', strtotime($flight_hotel['start_date'])) }}<br> - <br>{{ date('d-m-Y', strtotime($flight_hotel['end_date'])) }}</td>
+                    <td>{{ $city . '-' . $country }}<br> <a href="{{ $hotel->url }}">{{ $hotel->name }}</a> ({{ $diff }} ليالي)</span></td>
+                    <td> {{ $flight_hotel['room'] }} <br> {!! nl2br(str_replace('\\n', '<br>', $flight_hotel['notes'])) !!}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -174,17 +184,17 @@ return null;
                     </td>
                 </tr>
                 <tr>
-                    <td>عدد المسافرين</td>
-                    <td>من - إالي</td>
-                    <td>التاريخ</td>
                     <td>اليوم</td>
+                    <td>التاريخ</td>
+                    <td>من - إالي</td>
+                    <td>عدد المسافرين</td>
                 </tr>
                 @foreach($airports AS $airport)
                 <tr>
-                    <td>{!! nl2br(str_replace('\\n', '<br>', $airport['notes'])) !!}</td>
-                    <td> من {{ $airport['from'] }} <br> إلي {{ $airport['to'] }} <br> الساعة: {{ $airport['time'] }} </td>
-                    <td>{{ date('d-m-Y h:i A', strtotime($airport['date'])) }}</td>
                     <td>{{ $airport['day'] }}</td>
+                    <td>{{ date('d-m-Y h:i A', strtotime($airport['date'])) }}</td>
+                    <td> {{ $airport['from'] }} -> {{ $airport['to'] }} <br> الساعة: {{ $airport['time'] }} </td>
+                    <td>{!! nl2br(str_replace('\\n', '<br>', $airport['notes'])) !!}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -198,17 +208,17 @@ return null;
                     </td>
                 </tr>
                 <tr>
-                    <td>عدد السيارات ونوعها</td>
-                    <td>الوصف</td>
-                    <td>التاريخ</td>
                     <td>اليوم</td>
+                    <td>التاريخ</td>
+                    <td>الوصف</td>
+                    <td>عدد السيارات ونوعها</td>
                 </tr>
                 @foreach($activities AS $activity)
                 <tr>
-                    <td>{!! nl2br(str_replace('\\n', '<br>', $activity['notes'])) !!}</td>
-                    <td> من {{ $activity['from'] }} <br> إلي {{ $activity['to'] }} </td>
-                    <td>{{ date('d-m-Y', strtotime($activity['date'])) }}</td>
                     <td>{{ $activity['day'] }}</td>
+                    <td>{{ date('d-m-Y', strtotime($activity['date'])) }}</td>
+                    <td> {{ $activity['from'] }} -> {{ $activity['to'] }} </td>
+                    <td>{!! nl2br(str_replace('\\n', '<br>', $activity['notes'])) !!}</td>
                 </tr>
                 @endforeach
             </tbody>

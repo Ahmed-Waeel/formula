@@ -137,5 +137,7 @@ return [
     'profileUpdated' => 'Profile Updated Successfully',
     'adminUpdated' => 'Admin Deleted Successfully',
 
+    'pdfExported' => 'PDF Downloaded Successfully',
+
     'wrong' => 'Something Went Wrong',
 ];

@@ -9,10 +9,12 @@ use App\Models\Customer;
 use App\Models\Flight;
 use App\Models\Hotel;
 use App\Models\Reservation;
-use ArPHP\I18N\Arabic;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
+use Mpdf\Mpdf;
 
 class ReservationsController extends Controller
 {
@@ -130,15 +132,12 @@ class ReservationsController extends Controller
             'hotels' => $hotels
         ])->render();
 
-        $arabic = new Arabic();
-        $p = $arabic->arIdentify($view);
-
-        for ($i = count($p) - 1; $i >= 0; $i -= 2) {
-            $utf8ar = $arabic->utf8Glyphs(substr($view, $p[$i - 1], $p[$i] - $p[$i - 1]));
-            $view = substr_replace($view, $utf8ar, $p[$i - 1], $p[$i] - $p[$i - 1]);
-        }
-
-        $pdf = Pdf::loadHTML($view)->setPaper([0, 0, 800, 1100], 'portrait');
-        return $pdf->download('Reservation_'. $reservation->reservation_id .'.pdf');
+        $time = time();
+        $pdf = new \Mpdf\Mpdf();
+        $pdf->setFooter('<div style="text-align: center"><p>{PAGENO} من {nbpg}</p></div>');
+        $pdf->WriteHTML($view);
+        $pdf->SetDirectionality('rtl');
+        $pdf->Output(public_path('pdfs/Reservation_' . $time . '.pdf'));
+        return Response::download(public_path('pdfs/Reservation_' . $time . '.pdf'), 'Reservation.pdf')->deleteFileAfterSend(true);
     }
 }
