@@ -134,6 +134,8 @@ return [
     'passwordConfirmation' => 'Passwords doesn\'t match',
     'wrongPassword' => 'Old password is wrong',
     'roleValidation' => 'Please Specift the role',
+    'startDateValidation' => 'Please enter Flight Date',
+    'endDateValidation' => 'Please enter Flight end Date',
 
     /*
     |--------------------------------------------------------------------------

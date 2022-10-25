@@ -34,8 +34,10 @@ class FlightsController extends Controller
 
     public function store(FlightRequest $request)
     {
+        if (!$request->start_date) return redirect()->back()->with('error', __('validation.startDateValidation'));
+        if (!$request->end_date) return redirect()->back()->with('error', __('validation.endDateValidation'));
         while (true) {
-            $flight_id = md5(rand());
+            $flight_id = substr(md5(rand()), 0, 15);
             $flight = Flight::where('flight_id', $flight_id)->first();
             if (!$flight) {
                 break;

@@ -25,6 +25,10 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="mb-3">
+                                        <label class="form-label">{{ __("view.customerId") }}</label>
+                                        <input type="text" class="form-control" value="{{ $customer->customer_id }}">
+                                    </div>
+                                    <div class="mb-3">
                                         <label class="form-label">{{ __("view.name") }}</label>
                                         <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ $customer->name }}">
                                         @error('name')

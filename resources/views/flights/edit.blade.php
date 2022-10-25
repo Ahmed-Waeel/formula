@@ -28,6 +28,11 @@
                             <div class="row">
                                 <div class="col-12">
 
+                                    <div class="mb-3">
+                                        <label class="form-label">{{ __("view.flightId") }}</label>
+                                        <input type="text" class="form-control" value="{{ $flight->flight_id }}">
+                                    </div>
+
                                     <!-- Start & End Date  -->
                                     <div class="mb-3">
                                         <div class="d-flex align-items-center">
