@@ -18,7 +18,7 @@ class CitiesController extends Controller
     }
     public function getCities(Request $request)
     {
-        $cities = City::where('country_code', $request->countryCode)->get();
+        $cities = City::where('country_code', $request->countryCode)->orderBy('name', 'ASC')->get();
         return response()->json([
             'cities' => $cities
         ]);

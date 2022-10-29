@@ -157,6 +157,13 @@ return null;
                     <td>الفندق والمدينة <br> اضفط علي اسم الفندق لمشاهدة صور وفيديوهات الفندق </td>
                     <td>نوع الغرف وعددها</td>
                 </tr>
+                @if(!$flight_hotels)
+                <tr>
+                    <td colspan="4" style="text-align: center;">
+                        لا يوجد فنادق في هذه الرحلة
+                    </td>
+                </tr>
+                @endif
                 @foreach($flight_hotels AS $flight_hotel)
                 @php
                 $hotel = search($flight_hotel['hotel'], $hotels);
@@ -189,6 +196,13 @@ return null;
                     <td>من - إالي</td>
                     <td>عدد المسافرين</td>
                 </tr>
+                @if(!$airports)
+                <tr>
+                    <td colspan="4" style="text-align: center;">
+                        لا يوجد اي مطارات في هذه الرحلة
+                    </td>
+                </tr>
+                @endif
                 @foreach($airports AS $airport)
                 <tr>
                     <td>{{ $airport['day'] }}</td>
@@ -213,6 +227,13 @@ return null;
                     <td>الوصف</td>
                     <td>عدد السيارات ونوعها</td>
                 </tr>
+                @if(!$activities)
+                <tr>
+                    <td colspan="4" style="text-align: center;">
+                        لا يوجد اي مواصلات او انشطة في هذه الرحلة
+                    </td>
+                </tr>
+                @endif
                 @foreach($activities AS $activity)
                 <tr>
                     <td>{{ $activity['day'] }}</td>
@@ -224,6 +245,7 @@ return null;
             </tbody>
         </table>
 
+        @if(trim($flight->notes) != '')
         <table>
             <tbody>
                 <tr>
@@ -238,6 +260,7 @@ return null;
                 </tr>
             </tbody>
         </table>
+        @endif
     </div>
 
 </body>

@@ -25,7 +25,7 @@ class HotelRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:3|max:50',
-            'url' => 'required|url',
+            'url' => 'nullable|url',
             'country' => 'required|string|size:2',
             'city' => 'required|numeric',
         ];

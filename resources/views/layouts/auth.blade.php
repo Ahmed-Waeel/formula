@@ -36,7 +36,7 @@ $dir = ($lang == 'ar' ? 'rtl' : 'ltr')
     <div class="page page-center">
         <div class="container-tight py-4">
             <div class="text-center mb-4">
-                <a class="navbar-brand navbar-brand-autodark"><img src="{{ asset('static/logo.svg') }}" height="36" alt=""></a>
+                <a class="navbar-brand navbar-brand-autodark"><img src="{{ asset( $lang . '_logo.png') }}" height="36" alt=""></a>
             </div>
             @yield('content')
         </div>

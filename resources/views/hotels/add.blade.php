@@ -123,31 +123,41 @@
 <script src="{{ asset('libs/litepicker/dist/litepicker.js') }}"></script>
 <script src="{{ asset('libs/tom-select/dist/js/tom-select.base.min.js') }}"></script>
 <script>
+    const countries = $.map(<?= $countries ?>, (el) => {
+        return el;
+    });
+    console.log(countries);
+
     $('[hotels_tab]').addClass('active');
 
     document.addEventListener("DOMContentLoaded", function() {
         var el;
         window.TomSelect && (new TomSelect(el = document.getElementById('select-countries'), {
-            copyClassesToDropdown: true,
-            maxOptions: 300,
+            maxOptions: 5000,
+            searchField: 'name',
+            valueField: 'code',
+            labelField: 'name',
             dropdownClass: 'dropdown-menu',
             optionClass: 'dropdown-item',
-            controlInput: '<input>',
             render: {
                 item: function(data, escape) {
                     if (data.customProperties) {
-                        return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+                        return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.name) + '</div>';
                     }
                     return '<div>' + escape(data.text) + '</div>';
                 },
                 option: function(data, escape) {
                     if (data.customProperties) {
-                        return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+                        return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.name) + '</div>';
                     }
                     return '<div>' + escape(data.text) + '</div>';
                 },
             },
         }));
+    });
+
+    $(() => {
+        if ($('body').hasClass('theme-dark')) $('[type=select-one]').css('color', '#fff');
     });
 
     $('#select-countries').on('input', () => {
@@ -219,6 +229,27 @@
         rooms.forEach((el) => {
             addRoom(el.name);
         });
+    });
+</script>
+@endif
+
+@if(old('city'))
+<script>
+    $.ajax({
+        url: "{{ route('get.cities') }}",
+        type: "POST",
+        data: {
+            _token: '{{ csrf_token() }}',
+            countryCode: "{{ old('country') }}"
+        },
+        success: function(response) {
+            $('[name=city]').html('');
+            response['cities'].forEach((el, i) => {
+                $('[name=city]').append(`
+<option value=${el['id']}>${el['name']}</option>
+`);
+            });
+        },
     });
 </script>
 @endif

@@ -131,21 +131,22 @@
     document.addEventListener("DOMContentLoaded", function() {
         var el;
         window.TomSelect && (new TomSelect(el = document.getElementById('select-countries'), {
-            copyClassesToDropdown: true,
-            maxOptions: 300,
+            maxOptions: 5000,
+            searchField: 'name',
+            valueField: 'code',
+            labelField: 'name',
             dropdownClass: 'dropdown-menu',
             optionClass: 'dropdown-item',
-            controlInput: '<input>',
             render: {
                 item: function(data, escape) {
                     if (data.customProperties) {
-                        return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+                        return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.name) + '</div>';
                     }
                     return '<div>' + escape(data.text) + '</div>';
                 },
                 option: function(data, escape) {
                     if (data.customProperties) {
-                        return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+                        return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.name) + '</div>';
                     }
                     return '<div>' + escape(data.text) + '</div>';
                 },
@@ -221,6 +222,8 @@
         rooms.forEach((el) => {
             addRoom(el.name);
         });
+
+        if ($('body').hasClass('theme-dark')) $('[type=select-one]').css('color', '#fff');
     });
 </script>
 @endsection
