@@ -418,6 +418,7 @@
 
 <!-- Libs JS -->
 <script src="{{ asset('libs/litepicker/dist/litepicker.js') }}"></script>
+<script src="{{ asset('libs/tom-select/dist/js/tom-select.base.min.js') }}"></script>
 <script>
     const hotels = <?= $hotels ?>;
     $(() => {
@@ -441,6 +442,7 @@
     }
 
     const addHotel = (data = null) => {
+        const id = "select_hotel_" + (Math.random() + 1).toString(36).substring(2);
         let startDateId = "start_data_" + (Math.random() + 1).toString(36).substring(2);
         let endDateId = "end_date_" + (Math.random() + 1).toString(36).substring(2);
 
@@ -449,6 +451,7 @@
         template.find('[end_date]').attr('id', endDateId);
         template.removeAttr('data-hotel-template hidden');
         template.attr('data-hotel', true);
+        console.log(hotels);
         template.find('select[hotel]').on('change', ({
             target
         }) => {
@@ -464,6 +467,7 @@
                 }
             });
         });
+        template.find('select[hotel]').attr('id', id);
         if (data) {
             template.find('input[day]').val(data.day);
             template.find('input[start_date]').val(data.start_date);
@@ -473,6 +477,19 @@
             template.find('textarea[notes]').val(data.notes);
         }
         $('[data-hotels-container]').append(template);
+
+        var hotel_select;
+        window.TomSelect && (new TomSelect(hotel_select = document.getElementById(`${id}`), {
+            maxOptions: 5000,
+            searchField: 'name',
+            valueField: 'id',
+            labelField: 'name',
+            dropdownClass: 'dropdown-menu',
+            optionClass: 'dropdown-item',
+        }));
+
+        if ($('body').hasClass('theme-dark')) $('[type=select-one]').css('color', '#fff');
+
         intailizeDate(startDateId);
         intailizeDate(endDateId);
     };
