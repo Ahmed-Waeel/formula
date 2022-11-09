@@ -176,8 +176,8 @@ return null;
                 <tr>
                     <td>{{ $flight_hotel['day'] }}</td>
                     <td>{{ date('d-m-Y', strtotime($flight_hotel['start_date'])) }}<br> - <br>{{ date('d-m-Y', strtotime($flight_hotel['end_date'])) }}</td>
-                    <td>{{ $city . '-' . $country }}<br> <a href="{{ $hotel->url }}">{{ $hotel->name }}</a> ({{ $diff }} ليالي)</span></td>
-                    <td> {{ $flight_hotel['room'] }} <br> {!! nl2br(str_replace('\\n', '<br>', $flight_hotel['notes'])) !!}</td>
+                    <td>{{ $city . '-' . $country }}<br> <a href="{{ asset('uploads/rooms') . '/' . ((array)json_decode($hotel['rooms'])[+$flight_hotel['room']])['image']}}" target="_blank">{{ $hotel->name }}</a> ({{ $diff }} ليالي)</span></td>
+                    <td> <br> {!! nl2br(str_replace('\\n', '<br>', $flight_hotel['notes'])) !!}</td>
                 </tr>
                 @endforeach
             </tbody>

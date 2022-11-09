@@ -40,12 +40,19 @@ class HotelsController extends Controller
  
     public function store(HotelRequest $request)
     {
+        $rooms = json_decode($request->rooms, TRUE);
+        for ($i = 1; $i < count($_FILES['rooms_image']['size']); $i++) {
+            $extension = explode('/', $_FILES['rooms_image']['type'][$i]);
+            $name = time() * rand(1, 10) .  '.' . (count($extension) > 1 ? $extension[1] : '.png');
+            $rooms[$i - 1]['image'] = $name;
+            move_uploaded_file($_FILES['rooms_image']['tmp_name'][$i], public_path('/uploads/rooms') . '/' . $name);
+        }
+        $rooms = json_encode($rooms);
         Hotel::create([
             'name' => $request->name,
-            'url' => $request->url,
             'country' => $request->country,
             'city' => $request->city,
-            'rooms' => $request->rooms,
+            'rooms' => $rooms,
         ]);
         return redirect(route('hotel.showAll'))->with('success', __('view.hotelCreated', ['hotel' => $request->name]));
     }
@@ -67,12 +74,21 @@ class HotelsController extends Controller
         if (!$hotel->first()) {
             return redirect()->back()->with('error', __('view.wrong'));
         }
+        $rooms = json_decode($request->rooms, TRUE);
+        for ($i = 1; $i < count($_FILES['rooms_image']['size']); $i++) {
+            if ($_FILES['rooms_image']['size'][$i]) {
+                $name = time() * rand(1, 10) .  '.' . explode('/', $_FILES['rooms_image']['type'][$i])[1];
+                $rooms[$i - 1]['image'] = $name;
+                move_uploaded_file($_FILES['rooms_image']['tmp_name'][$i], public_path('/uploads/rooms') . '/' . $name);
+            }
+        }
+        $rooms = json_encode($rooms);
+
         $hotel->update([
             'name' => $request->name ?? $hotel->first()->name,
-            'url' => $request->url ?? $hotel->first()->url,
             'country' => $request->country ?? $hotel->first()->country,
             'city' => $request->city ?? $hotel->first()->city,
-            'rooms' => $request->rooms ?? $hotel->first()->rooms,
+            'rooms' => $rooms ?? $hotel->first()->rooms,
         ]);
         return redirect()->back()->with('success', __('view.hotelUpdated'));
     }

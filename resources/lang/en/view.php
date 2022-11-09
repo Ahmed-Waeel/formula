@@ -24,6 +24,7 @@ return [
     'delete' => 'Delete',
     'rooms' => 'Rooms',
     'room' => 'Room',
+    'roomImage' => 'Room Image',
     'title' => 'Title',
     'name' => 'Name',
     'photo' => 'Photo',
@@ -140,4 +141,6 @@ return [
     'pdfExported' => 'PDF Downloaded Successfully',
 
     'wrong' => 'Something Went Wrong',
+    'roomsValidation' => 'You should fill all rooms data',
+    'currentRoomImage' => 'Current Room Image',
 ];

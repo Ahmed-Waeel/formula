@@ -25,7 +25,6 @@ class HotelRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:3|max:50',
-            'url' => 'nullable|url',
             'country' => 'required|string|size:2',
             'city' => 'required|numeric',
         ];
@@ -43,9 +42,6 @@ class HotelRequest extends FormRequest
             'name.string' =>  __('validation.string', ['attribute' => __('view.name')]),
             'name.min' =>  __('validation.min', ['attribute' => __('view.name'), 'min' => 3]),
             'name.max' =>  __('validation.max', ['attribute' => __('view.name'), 'max' => 50]),
-
-            'url.required' => __('validation.required', ['attribute' => __('view.url')]),
-            'url.url' => __('validation.required', ['attribute' => __('view.url')]),
 
             'country.required' => __('validation.required', ['attribute' => __('view.country')]),
             'country.string' => __('validation.valid'),

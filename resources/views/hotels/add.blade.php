@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="page-body">
-            <form action="{{ route('hotel.store') }}" method="POST" data-form class="card">
+            <form action="{{ route('hotel.store') }}" method="POST" enctype="multipart/form-data"    data-form class="card">
                 @csrf
                 <input type="hidden" name="rooms">
                 <div class="card-body">
@@ -28,13 +28,6 @@
                                         <label class="form-label">{{ __("view.name") }}</label>
                                         <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
                                         @error('name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-3">
-                                        <div class="form-label">{{ __('view.url') }}</div>
-                                        <input type="url" name="url" class="form-control @error('url') is-invalid @enderror" value="{{ old('url') }}">
-                                        @error('url')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -87,6 +80,10 @@
                                             <div class="d-flex align-items-center">
                                                 <span style="width: 100px;">{{ __('view.roomName') }}</span><input type="text" data-name=name name=rooms_titles[] class="form-control" style="margin-bottom: 10px">
                                             </div>
+
+                                            <div class="d-flex align-items-center">
+                                                <span style="width: 100px;">{{ __('view.roomImage') }}</span><input type="file" data-name=image name=rooms_image[] class="form-control" style="margin-bottom: 10px">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="card-footer text-end">
@@ -126,7 +123,6 @@
     const countries = $.map(<?= $countries ?>, (el) => {
         return el;
     });
-    console.log(countries);
 
     $('[hotels_tab]').addClass('active');
 
@@ -175,9 +171,6 @@
                         <option value=${el['id']}>${el['name']}</option>
                     `);
                 });
-            },
-            error: function(response) {
-                console.log(response);
             }
         });
     });
@@ -190,7 +183,7 @@
         } else {
             let template = $('[data-template]').clone();
             template.removeAttr('data-template hidden');
-            template.find('input').val(data)
+            template.find('input[data-name=name]').val(data)
             $('[data-rooms]').append(template);
         }
     };

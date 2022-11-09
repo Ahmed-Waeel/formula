@@ -463,7 +463,7 @@
                     roomsSelect.html('');
                     JSON.parse(el['rooms']).forEach((el, i) => {
                         roomsSelect.append(`
-                            <option value=${el.name}>${el.name}</option>
+                            <option value='${i}'>${el.name}</option>
                         `);
                     });
                 }

@@ -121,8 +121,7 @@ class ReservationsController extends Controller
         $flight = Flight::where('flight_id', $reservation->flight_id)->first();
         $countries = Country::all();
         $cities = City::all();
-        $hotels = Hotel::all();
-
+        $hotels = Hotel::where('deleted_at', null)->get();
         $view = view('reservations/pdf', [
             'reservation' => $reservation,
             'customer' => $customer,

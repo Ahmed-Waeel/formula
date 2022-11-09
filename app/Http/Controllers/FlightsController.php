@@ -62,7 +62,7 @@ class FlightsController extends Controller
             return redirect()->back()->with('error', __('view.wrong'));
         }
 
-        $hotels = Hotel::all();
+        $hotels = Hotel::where('deleted_at', null)->get();
         return view('flights/edit', compact('flight', 'hotels'));
     }
 

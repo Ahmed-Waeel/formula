@@ -451,7 +451,6 @@
         template.find('[end_date]').attr('id', endDateId);
         template.removeAttr('data-hotel-template hidden');
         template.attr('data-hotel', true);
-        console.log(hotels);
         template.find('select[hotel]').on('change', ({
             target
         }) => {
@@ -461,7 +460,7 @@
                     roomsSelect.html('');
                     JSON.parse(el['rooms']).forEach((el, i) => {
                         roomsSelect.append(`
-                            <option value=${el.name}>${el.name}</option>
+                            <option value='${i}'>${el.name}</option>
                         `);
                     });
                 }

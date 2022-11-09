@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="page-body">
-            <form action="{{ route('hotel.update') }}" method="POST" data-form class="card">
+            <form action="{{ route('hotel.update') }}" method="POST" enctype="multipart/form-data" data-form class="card">
                 @csrf
                 <input type="hidden" name="id" value="{{ $hotel->id }}">
                 <input type="hidden" name="rooms">
@@ -29,13 +29,6 @@
                                         <label class="form-label">{{ __("view.name") }}</label>
                                         <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ $hotel->name }}">
                                         @error('name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-3">
-                                        <div class="form-label">{{ __('view.url') }}</div>
-                                        <input type="url" name="url" class="form-control @error('url') is-invalid @enderror" value="{{ $hotel->url }}">
-                                        @error('url')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -89,6 +82,14 @@
                                             <div class="d-flex align-items-center">
                                                 <span style="width: 100px;">{{ __('view.roomName') }}</span><input type="text" data-name=name name=rooms_titles[] class="form-control" style="margin-bottom: 10px">
                                             </div>
+
+                                            <div class="d-flex align-items-center">
+                                                <span style="width: 100px;">{{ __('view.roomImage') }}</span><input type="file" data-name=image name=rooms_image[] class="form-control" style="margin-bottom: 10px">
+                                            </div>
+
+                                            <div class="d-flex align-items-center" image-container>
+
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="card-footer text-end">
@@ -127,7 +128,6 @@
 <script>
     $('[hotels_tab]').addClass('active');
 
-    // @formatter:off
     document.addEventListener("DOMContentLoaded", function() {
         var el;
         window.TomSelect && (new TomSelect(el = document.getElementById('select-countries'), {
@@ -155,7 +155,6 @@
     });
 
     $('#select-countries').on('input', () => {
-        console.log($('#select-countries').val());
         $.ajax({
             url: "{{ route('get.cities') }}",
             type: "POST",
@@ -170,24 +169,23 @@
                         <option value=${el['id']}>${el['name']}</option>
                     `);
                 });
-            },
-            error: function(response) {
-                console.log(response);
             }
         });
     });
 
-    const addRoom = (data = null) => {
-        if (!data) {
-            let template = $('[data-template]').clone();
-            template.removeAttr('data-template hidden');
-            $('[data-rooms]').append(template);
+    const addRoom = (data = {}) => {
+        let template = $('[data-template]').clone();
+        template.removeAttr('data-template hidden');
+
+        if (Object.keys(data).length) {
+            console.log(data.image);
+            template.find('input[data-name=name]').val(data.name ?? '');
+            if (data.image && data.image != '') template.find('[image-container]').append(`<span style="width: 90px;">{{ __('view.currentRoomImage') }}</span><img src="{{ asset('uploads/rooms') }}/${data.image}" style="width: fit-content;height: 200px;margin-bottom: 10px">`).attr('data-image', data.image);
         } else {
-            let template = $('[data-template]').clone();
-            template.removeAttr('data-template hidden');
-            template.find('input').val(data)
-            $('[data-rooms]').append(template);
+            template.find('[image-container]').remove();
         }
+
+        $('[data-rooms]').append(template);
     };
 
     const removeRoom = (target) => {
@@ -202,7 +200,8 @@
         $('[data-room]:not("[data-template]")').each((i, el) => {
             if ($(el).find('[data-name=name]').val()) {
                 let room = {
-                    name: $(el).find('input[type=text]').val()
+                    name: $(el).find('input[type=text]').val(),
+                    image: $(el).find('img').attr('data-image'),
                 }
                 rooms.push(room);
             } else {
@@ -219,9 +218,7 @@
 
     $(() => {
         let rooms = JSON.parse(JSON.stringify(<?= $hotel->rooms ?>));
-        rooms.forEach((el) => {
-            addRoom(el.name);
-        });
+        rooms.forEach(el => addRoom(el));
 
         if ($('body').hasClass('theme-dark')) $('[type=select-one]').css('color', '#fff');
     });
