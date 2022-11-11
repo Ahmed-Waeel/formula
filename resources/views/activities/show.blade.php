@@ -1,21 +1,21 @@
 @extends('layouts.app')
-@section('tabTitle', __("view.customers"))
+@section('tabTitle', __("view.activities"))
 @section('content')
 <div class="col-12">
     <div class="card">
         <div class="card-header d-flex align-items-center justify-content-between">
-            <h3 class="card-title">{{ __('view.customers') }}</h3>
-            <a href="{{ route('customer.add') }}" class="btn btn-facebook btn-sm">
+            <h3 class="card-title">{{ __('view.activities') }}</h3>
+            <a href="{{ route('activity.add') }}" class="btn btn-facebook btn-sm">
                 <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <line x1="12" y1="5" x2="12" y2="19" />
                     <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
-                {{ __('view.addCustomer') }}
+                {{ __('view.addActivity') }}
             </a>
         </div>
-        <form action="{{ route('customer.filter') }}" method="POST" id="form">
+        <form action="{{ route('activity.filter') }}" method="POST" id="form">
             @csrf
             <input type="hidden" name="page">
             <div class="card-body border-bottom py-3">
@@ -24,7 +24,6 @@
                         {{ __('view.show') }}
                         <div class="mx-2 d-inline-block">
                             <select type="text" class="form-select" name="pagination" id="select-users" value="">
-
                                 <option value="25" @if(isset($pagination) && $pagination=='25' || !isset($pagination)) selected @endif>25</option>
                                 <option value="50" @if(isset($pagination) && $pagination=='50' ) selected @endif>50</option>
                                 <option value="100" @if(isset($pagination) && $pagination=='100' ) selected @endif>100</option>
@@ -57,30 +56,26 @@
             <table class="table card-table table-vcenter text-nowrap datatable">
                 <thead>
                     <tr>
-                        <th class="w-2">{{ __('view.customerId') }} </th>
-                        <th class="w-2"> {{ __('view.name') }} </th>
-                        <th class="w-2">{{ __('view.email') }} </th>
-                        <th class="w-2">{{ __('view.phone') }} </th>
+                        <th class="w-2">{{ __('view.id') }} </th>
+                        <th class="w-2"> {{ __('view.title') }} </th>
                         <th class="w-2">{{ __('view.actions') }} </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if(!count($customers))
+                    @if(!count($activities))
                     <tr>
                         <td style="height: 50px;text-align: center" colspan=5> {{ __('view.notAvailable') }} </td>
                     </tr>
                     @endif
-                    @foreach($customers AS $customer)
+                    @foreach($activities AS $activity)
                     <tr>
-                        <td><span class="text-muted">{{ $customer->customer_id }}</span></td>
-                        <td>{{ $customer->name }}</td>
-                        <td>{{ $customer->email }}</td>
-                        <td> {{ $customer->phone }} </td>
+                        <td><span class="text-muted">{{ $activity->id }}</span></td>
+                        <td>{{ $activity->name }}</td>
                         <td>
                             <span class="dropdown">
                                 <button class="btn dropdown-toggle align-text-top" data-bs-boundary="viewport" data-bs-toggle="dropdown">{{ __('view.actions') }}</button>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="{{ route('customer.edit', $customer->customer_id) }}">
+                                    <a class="dropdown-item" href="{{ route('activity.edit', $activity->id) }}">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/edit -->
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -90,7 +85,7 @@
                                         </svg>&nbsp;
                                         {{ __('view.edit') }}
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('customer.delete', $customer->customer_id) }}">
+                                    <a class="dropdown-item" href="{{ route('activity.delete', $activity->id) }}">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/trash -->
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -110,11 +105,11 @@
                 </tbody>
             </table>
         </div>
-        {{ $customers->links('vendor.pagination.custom')}}
+        {{ $activities->links('vendor.pagination.custom')}}
     </div>
 </div>
 <script>
-    $('[customers_tab]').addClass('active');
+    $('[activities_tab]').addClass('active');
     $('#form').on('submit', function(event) {
         if (!$('[name=data]').val()) {
             alert("{{ __('view.searchError') }}");

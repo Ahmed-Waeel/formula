@@ -49,7 +49,7 @@ class FlightsController extends Controller
             'end_date' => Carbon::createFromFormat('Y-m-d', $request->end_date),
             'airports' => $request->airports,
             'hotels' => $request->hotels,
-            'activities' => $request->activities,
+            'transportations' => $request->transportations,
             'notes' => $request->notes,
         ]);
         return redirect(route('flight.showAll'))->with('success', __('view.flightCreated', ['id' => $flight_id]));
@@ -68,7 +68,7 @@ class FlightsController extends Controller
 
     public function update(FlightRequest $request)
     {
-        $flight = flight::where('deleted_at', null)->where('flight_id', $request->flight_id);
+        $flight = Flight::where('deleted_at', null)->where('flight_id', $request->flight_id);
         if (!$flight->first()) {
             return redirect()->back()->with('error', __('view.wrong'));
         }
@@ -77,7 +77,7 @@ class FlightsController extends Controller
             'end_date' => Carbon::createFromFormat('Y-m-d', $request->end_date) ?? $flight->first()->end_date,
             'airports' => $request->airports ?? $flight->first()->airports,
             'hotels' => $request->hotels ?? $flight->first()->hotels,
-            'activities' => $request->activities ?? $flight->first()->activities,
+            'transportations' => $request->transportations ?? $flight->first()->transportations,
             'notes' => $request->notes ?? $flight->first()->notes,
         ]);
         return redirect()->back()->with('success', __('view.flightUpdated'));

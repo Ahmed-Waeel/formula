@@ -54,7 +54,10 @@ return [
     'profile' => 'Profile && Account',
     'settings' => 'Settings',
     'activities' => 'Activities',
+    'transportations' => 'لإransportations',
     'addActivity' => 'Add Activity',
+    'editActivity' => 'ُEdit Activity: ',
+    'addTranspotaion' => 'Add Transpotaion',
     'activity' => 'Activity',
     'phone' => 'Phone',
     'createdAt' => 'Created at',
@@ -121,6 +124,10 @@ return [
     'reservationCreated' => 'Reservation Saved Successfully with ID number: :id',
     'reservationUpdated' => 'Reservation Updated Successfully',
     'reservationDeleted' => 'Reservation Deleted Successfully',
+  
+    'activityCreated' => 'Activity Saved Successfully',
+    'activityUpdated' => 'Activity Updated Successfully',
+    'activityDeleted' => 'Activity Deleted Successfully',
 
     'hotelCreated' => ':hotel Hotel Created Successfully',
     'hotelUpdated' => 'Hotel Updated Successfully',

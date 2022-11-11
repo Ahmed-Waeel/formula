@@ -24,7 +24,7 @@
                         {{ __('view.show') }}
                         <div class="mx-2 d-inline-block">
                             <select type="text" class="form-select" name="pagination" id="select-users" value="">
-                                <option value="1" @if(isset($pagination) && $pagination=='1' ) selected @endif>1</option>
+
                                 <option value="25" @if(isset($pagination) && $pagination=='25' || !isset($pagination)) selected @endif>25</option>
                                 <option value="50" @if(isset($pagination) && $pagination=='50' ) selected @endif>50</option>
                                 <option value="100" @if(isset($pagination) && $pagination=='100' ) selected @endif>100</option>
@@ -74,11 +74,11 @@
                     <tr>
                         <td><span class="text-muted">{{ $reservation->reservation_id }}</span></td>
                         <td><a href="{{ route('customer.edit', $reservation->customer_id) }}">
-                            {{ $reservation->customer_id }}
-                        </a></td>
+                                {{ $reservation->customer_id }}
+                            </a></td>
                         <td><a href="{{ route('flight.edit', $reservation->flight_id) }}">
-                            {{ $reservation->flight_id }}
-                        </a></td>
+                                {{ $reservation->flight_id }}
+                            </a></td>
                         <td> {{ date('l, d/m/Y h:i A', strtotime($reservation->date)) }} </td>
                         <td>
                             <span class="dropdown">

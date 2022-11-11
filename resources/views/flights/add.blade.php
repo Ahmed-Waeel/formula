@@ -20,7 +20,7 @@
                 @csrf
                 <input type="hidden" name="hotels">
                 <input type="hidden" name="airports">
-                <input type="hidden" name="activities">
+                <input type="hidden" name="transportations">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
@@ -292,36 +292,36 @@
                                         </div>
                                     </div>
 
-                                    <!-- Activities Container -->
-                                    <div class="mb-3" data-activities-container>
+                                    <!-- transportations Container -->
+                                    <div class="mb-3" data-transportations-container>
                                         <!-- Title -->
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <div class="page-title">{{ __('view.activities') }}</div>
+                                            <div class="page-title">{{ __('view.transportations') }}</div>
                                             <div>
-                                                <a onclick="addActivity()" type="button" class="btn btn-facebook btn-sm">
+                                                <a onclick="addTranspotaion()" type="button" class="btn btn-facebook btn-sm">
                                                     <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                         <line x1="12" y1="5" x2="12" y2="19" />
                                                         <line x1="5" y1="12" x2="19" y2="12" />
                                                     </svg>
-                                                    {{ __('view.addActivity') }}
+                                                    {{ __('view.addTranspotaion') }}
                                                 </a>
                                             </div>
                                         </div>
 
-                                        <!-- Activity template -->
-                                        <div data-activities-template hidden class="mt-3 mb-3">
+                                        <!-- Transportation template -->
+                                        <div data-transportations-template hidden class="mt-3 mb-3">
                                             <!-- buttons  -->
                                             <div style="margin: 25px 0">
-                                                <a onclick="addActivity()" type="button" class="btn btn-facebook btn-sm">
+                                                <a onclick="addTranspotaion()" type="button" class="btn btn-facebook btn-sm">
                                                     <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                         <line x1="12" y1="5" x2="12" y2="19" />
                                                         <line x1="5" y1="12" x2="19" y2="12" />
                                                     </svg>
-                                                    {{ __('view.addActivity') }}
+                                                    {{ __('view.addTranspotaion') }}
                                                 </a>
 
                                                 <a onclick="removeItem(this)" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-modal">
@@ -522,12 +522,12 @@
         intailizeDate(dateId);
     };
 
-    const addActivity = (data = null) => {
+    const addTranspotaion = (data = null) => {
         let dateId = "data_" + (Math.random() + 1).toString(36).substring(2);
 
-        let template = $('[data-activities-template]').clone();
-        template.removeAttr('data-activities-template hidden');
-        template.attr('data-activity', true);
+        let template = $('[data-transportations-template]').clone();
+        template.removeAttr('data-transportations-template hidden');
+        template.attr('data-Transportation', true);
         template.find('[date]').attr('id', dateId);
 
         if (data) {
@@ -537,7 +537,7 @@
             template.find('input[to]').val(data.to);
             template.find('textarea[notes]').val(data.notes);
         }
-        $('[data-activities-container]').append(template);
+        $('[data-transportations-container]').append(template);
         intailizeDate(dateId);
     };
 
@@ -611,8 +611,8 @@
             return alert("{{ __('view.submitError') }}");
         }
         // Collect Airports Data
-        let activities = [];
-        $('[data-activities-container] [data-activity]').each((i, e) => {
+        let transportations = [];
+        $('[data-transportations-container] [data-Transportation]').each((i, e) => {
             let day = $(e).find('input[day]').val();
             let date = $(e).find('input[date]').val();
             let from = $(e).find('input[from]').val();
@@ -624,16 +624,16 @@
                 return;
             }
 
-            let activity = {
+            let Transportation = {
                 day,
                 date,
                 from,
                 to,
                 notes
             };
-            activities.push(activity);
+            transportations.push(Transportation);
         });
-        $('input[name=activities]').val(JSON.stringify(activities));
+        $('input[name=transportations]').val(JSON.stringify(transportations));
         if (validationError) {
             e.preventDefault();
             return alert("{{ __('view.submitError') }}");
@@ -662,12 +662,12 @@
 </script>
 @endif
 
-@if(old('activities'))
+@if(old('transportations'))
 <script>
     $(() => {
-        let activities = JSON.parse(JSON.stringify(<?= old('activities') ?>));
-        activities.forEach((el) => {
-            addActivity(el);
+        let transportations = JSON.parse(JSON.stringify(<?= old('transportations') ?>));
+        transportations.forEach((el) => {
+            addTranspotaion(el);
         });
     });
 </script>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivitiesController;
 use App\Http\Controllers\AdminsController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CitiesController;
@@ -62,6 +63,15 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::post('hotel/update', [HotelsController::class, 'update'])->name('hotel.update');
     Route::get('hotel/delete/{hotel_id}', [HotelsController::class, 'delete'])->name('hotel.delete');
     Route::match(['GET', 'POST'], 'hotel/filter', [HotelsController::class, 'filter'])->name('hotel.filter');
+
+    // Activity
+    Route::get('activities/{pagination?}', [ActivitiesController::class, 'index'])->name('activity.showAll')->where('pagination', '[0-9]+');
+    Route::get('activity/add', [ActivitiesController::class, 'add'])->name('activity.add');
+    Route::post('activity/store', [ActivitiesController::class, 'store'])->name('activity.store');
+    Route::get('activity/edit/{activity_id}', [ActivitiesController::class, 'edit'])->name('activity.edit');
+    Route::post('activity/update', [ActivitiesController::class, 'update'])->name('activity.update');
+    Route::get('activity/delete/{activity_id}', [ActivitiesController::class, 'delete'])->name('activity.delete');
+    Route::match(['GET', 'POST'], 'activity/filter', [ActivitiesController::class, 'filter'])->name('activity.filter');
 
     // Reservation
     Route::get('reservations/{pagination?}', [ReservationsController::class, 'index'])->name('reservation.showAll')->where('pagination', '[0-9]+');

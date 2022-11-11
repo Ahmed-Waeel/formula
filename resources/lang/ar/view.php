@@ -54,7 +54,10 @@ return [
     'profile' => 'الملف الشخصي',
     'settings' => 'الإعدادات',
     'activities' => 'الأنشطة',
+    'transportations' => 'المواصلات',
     'addActivity' => 'إضافة نشاط',
+    'editActivity' => 'تعديل النشاط: ',
+    'addTranspotaion' => 'إضافة مواصلة',
     'activity' => 'نشاط',
     'phone' => 'رقم الهاتف',
     'createdAt' => 'تاريخ الإنشاء',
@@ -121,6 +124,10 @@ return [
     'reservationCreated' => 'تم الحجز بنجاح برقم: :id',
     'reservationUpdated' => 'تم تحديث الحجز بنجاح',
     'reservationDeleted' => 'تم حذف الحجز بنجاح',
+
+    'activityCreated' => 'تم انشاء النشاط بنجاح',
+    'activityUpdated' => 'تم تحديث النشاط بنجاح',
+    'activityDeleted' => 'تم حذف النشاط بنجاح',
 
     'hotelCreated' => ':hotel تم تسجيل الفندق بنجاح',
     'hotelUpdated' => 'تم تحديث بيانات الفندق بنجاح',

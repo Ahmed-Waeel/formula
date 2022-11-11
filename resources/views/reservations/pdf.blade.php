@@ -1,6 +1,6 @@
 @php
 $airports = json_decode($flight->airports, true);
-$activities = json_decode($flight->activities, true);
+$transportations = json_decode($flight->transportations, true);
 $flight_hotels = json_decode($flight->hotels, true);
 function search($value, $array, $prop = 'id') {
 foreach ($array as $key => $arr) {
@@ -227,19 +227,19 @@ return null;
                     <td>الوصف</td>
                     <td>عدد السيارات ونوعها</td>
                 </tr>
-                @if(!$activities)
+                @if(!$transportations)
                 <tr>
                     <td colspan="4" style="text-align: center;">
                         لا يوجد اي مواصلات او انشطة في هذه الرحلة
                     </td>
                 </tr>
                 @endif
-                @foreach($activities AS $activity)
+                @foreach($transportations AS $transportation)
                 <tr>
-                    <td>{{ $activity['day'] }}</td>
-                    <td>{{ date('d-m-Y', strtotime($activity['date'])) }}</td>
-                    <td> {{ $activity['from'] }} -> {{ $activity['to'] }} </td>
-                    <td>{!! nl2br(str_replace('\\n', '<br>', $activity['notes'])) !!}</td>
+                    <td>{{ $transportation['day'] }}</td>
+                    <td>{{ date('d-m-Y', strtotime($transportation['date'])) }}</td>
+                    <td> {{ $transportation['from'] }} -> {{ $transportation['to'] }} </td>
+                    <td>{!! nl2br(str_replace('\\n', '<br>', $transportation['notes'])) !!}</td>
                 </tr>
                 @endforeach
             </tbody>
