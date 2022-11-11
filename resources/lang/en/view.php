@@ -124,19 +124,19 @@ return [
 
     'hotelCreated' => ':hotel Hotel Created Successfully',
     'hotelUpdated' => 'Hotel Updated Successfully',
-    'hotelUpdated' => 'Hotel Deleted Successfully',
+    'hotelDeleted' => 'Hotel Deleted Successfully',
 
     'flightCreated' => 'Flight Created Successfully with ID number: :id',
     'flightUpdated' => 'Flight Updated Successfully',
-    'flightUpdated' => 'Flight Deleted Successfully',
+    'flightDeleted' => 'Flight Deleted Successfully',
 
     'customerCreated' => 'Customer Created Successfully with ID number: :id',
     'customerUpdated' => 'Customer Updated Successfully',
-    'customerUpdated' => 'Customer Deleted Successfully',
+    'customerDeleted' => 'Customer Deleted Successfully',
 
     'adminCreated' => 'Admin Created Successfully',
     'profileUpdated' => 'Profile Updated Successfully',
-    'adminUpdated' => 'Admin Deleted Successfully',
+    'adminDeleted' => 'Admin Deleted Successfully',
 
     'pdfExported' => 'PDF Downloaded Successfully',
 

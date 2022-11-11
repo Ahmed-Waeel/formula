@@ -424,6 +424,7 @@
 
 <!-- Libs JS -->
 <script src="{{ asset('libs/litepicker/dist/litepicker.js') }}"></script>
+<script src="{{ asset('libs/tom-select/dist/js/tom-select.base.min.js') }}"></script>
 <script>
     const hotels = <?= $hotels ?>;
     $(() => {
@@ -446,6 +447,8 @@
     }
 
     const addHotel = (data = null) => {
+        const hotel_id = "select_hotel_" + (Math.random() + 1).toString(36).substring(2);
+        const room_id = "select_room_" + (Math.random() + 1).toString(36).substring(2);
         let startDateId = "start_data_" + (Math.random() + 1).toString(36).substring(2);
         let endDateId = "end_date_" + (Math.random() + 1).toString(36).substring(2);
 
@@ -463,22 +466,44 @@
                     roomsSelect.html('');
                     JSON.parse(el['rooms']).forEach((el, i) => {
                         roomsSelect.append(`
-                            <option value='${i}'>${el.name}</option>
+                            <option value="${i+1}">${el.name}</option>
                         `);
                     });
                 }
             });
         });
-        if (data) {
-            template.find('input[day]').val(data.day);
-            template.find('input[start_date]').val(data.start_date);
-            template.find('input[end_date]').val(data.end_date);
-            template.find('select[hotel] option[value=' + (data.hotel != '' ? data.hotel : '0') + ']').attr('selected', true);
-            template.find('select[hotel]').trigger('change');
-            template.find('select[room] option[value=' + (data.room != '' ? data.room : '0') + ']').attr('selected', true);
-            template.find('textarea[notes]').val(data.notes);
-        }
+
+        template.find('select[hotel]').attr('id', hotel_id);
+        template.find('select[room]').attr('id', room_id);
         $('[data-hotels-container]').append(template);
+        if (data) {
+            $('[data-hotels-container] [data-hotel]:last').find('input[day]').val(data.day);
+            $('[data-hotels-container] [data-hotel]:last').find('input[start_date]').val(data.start_date);
+            $('[data-hotels-container] [data-hotel]:last').find('input[end_date]').val(data.end_date);
+            $('[data-hotels-container] [data-hotel]:last').find(`select[hotel] option[value=${data.hotel}]`).attr('selected', true).trigger('change');
+            $('[data-hotels-container] [data-hotel]:last').find(`select[room] option[value=${+data.room}]`).attr('selected', true);
+            $('[data-hotels-container] [data-hotel]:last').find('textarea[notes]').val(data.notes);
+        }
+
+        var hotel_select;
+        window.TomSelect && (new TomSelect(hotel_select = document.getElementById(`${hotel_id}`), {
+            maxOptions: 5000,
+            searchField: 'name',
+            valueField: 'id',
+            labelField: 'name',
+            dropdownClass: 'dropdown-menu',
+            optionClass: 'dropdown-item',
+        }));
+
+        var room_select;
+        window.TomSelect && (new TomSelect(room_select = document.getElementById(`${room_id}`), {
+            maxOptions: 5000,
+            dropdownClass: 'dropdown-menu',
+            optionClass: 'dropdown-item',
+        }));
+
+        if ($('body').hasClass('theme-dark')) $('[type=select-one]').css('color', '#fff');
+
         intailizeDate(startDateId);
         intailizeDate(endDateId);
     };
