@@ -150,4 +150,7 @@ return [
     'wrong' => 'Something Went Wrong',
     'roomsValidation' => 'You should fill all rooms data',
     'currentRoomImage' => 'Current Room Image',
+
+    'addDay' => 'Add New Day',
+    'days' => 'Days',
 ];

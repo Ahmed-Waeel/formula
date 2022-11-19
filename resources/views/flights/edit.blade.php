@@ -22,6 +22,7 @@
                 <input type="hidden" name="hotels" value="{{ $flight->hotels }}">
                 <input type="hidden" name="airports" value="{{ $flight->airports }}">
                 <input type="hidden" name="transportations" value="{{ $flight->transportations }}">
+                <input type="hidden" name="activities" value="{{ $flight->activities }}">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
@@ -389,6 +390,97 @@
                                                 <textarea class="form-control" notes rows="4"></textarea>
                                             </div>
                                         </div>
+
+                                    </div>
+
+                                    <!-- Activities Container -->
+                                    <div class="mb-3" data-activities-container>
+                                        <!-- Title -->
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="page-title">{{ __('view.activities') }}</div>
+                                            <div>
+                                                <a onclick="addActivity()" type="button" class="btn btn-facebook btn-sm">
+                                                    <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                        <line x1="12" y1="5" x2="12" y2="19" />
+                                                        <line x1="5" y1="12" x2="19" y2="12" />
+                                                    </svg>
+                                                    {{ __('view.addActivity') }}
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <!-- activities template -->
+                                        <div data-activities-template hidden class="mt-3 mb-3">
+                                            <!-- buttons  -->
+                                            <div style="margin: 25px 0">
+                                                <a onclick="addActivity()" type="button" class="btn btn-facebook btn-sm">
+                                                    <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                        <line x1="12" y1="5" x2="12" y2="19" />
+                                                        <line x1="5" y1="12" x2="19" y2="12" />
+                                                    </svg>
+                                                    {{ __('view.addActivity') }}
+                                                </a>
+
+                                                <a onclick="removeItem(this)" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                                    <!-- Download SVG icon from http://tabler-icons.io/i/x -->
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                        <line x1="18" y1="6" x2="6" y2="18" />
+                                                        <line x1="6" y1="6" x2="18" y2="18" />
+                                                    </svg>
+                                                    {{ __('view.delete') }}
+                                                </a>
+                                            </div>
+
+                                            <!-- day -->
+                                            <div class="mb-3">
+                                                <label class="form-label">{{ __('view.day') }}</label>
+                                                <input type="text" class="form-control" day></input>
+                                            </div>
+
+                                            <!-- Date  -->
+                                            <div class="mb-3">
+                                                <div class="w-100">
+                                                    <label class="form-label">{{ __('view.date') }}</label>
+                                                    <div class="input-icon">
+                                                        <span class="input-icon-addon">
+                                                            <!-- Download SVG icon from http://tabler-icons.io/i/calendar -->
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                                <rect x="4" y="5" width="16" height="16" rx="2" />
+                                                                <line x1="16" y1="3" x2="16" y2="7" />
+                                                                <line x1="8" y1="3" x2="8" y2="7" />
+                                                                <line x1="4" y1="11" x2="20" y2="11" />
+                                                                <line x1="11" y1="15" x2="12" y2="15" />
+                                                                <line x1="12" y1="15" x2="12" y2="18" />
+                                                            </svg>
+                                                        </span>
+                                                        <input class="form-control" date placeholder="Select a date" value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Activity -->
+                                            <div class="mb-3">
+                                                <label class="form-label">{{ __('view.activity') }}</label>
+                                                <select activity class="form-select">
+                                                    <option value="" hidden>{{ __('view.selectOption') }}</option>
+                                                    @foreach($activities As $activity)
+                                                    <option value="{{ $activity->id }}">{{ $activity->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <!-- notes with the room -->
+                                            <div class="mb-3">
+                                                <label class="form-label">{{ __('view.notes') }}</label>
+                                                <textarea class="form-control" notes rows="4"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="card-footer text-end">
@@ -547,6 +639,39 @@
         intailizeDate(dateId);
     };
 
+    const addActivity = (data = null) => {
+        let dateId = "date_" + (Math.random() + 1).toString(36).substring(2);
+        let activity_id = "activity_" + (Math.random() + 1).toString(36).substring(2);
+
+        let template = $('[data-activities-template]').clone();
+        template.find('[date]').attr('id', dateId);
+        template.find('select[activity]').attr('id', activity_id);
+        template.removeAttr('data-activities-template hidden');
+        template.attr('data-activity', true);
+
+        if (data) {
+            template.find('input[day]').val(data.day);
+            template.find('input[date]').val(data.date);
+            template.find(`select[activity] option[value=${data.activity}]`).attr('selected', true);
+            template.find('textarea[notes]').val(data.notes);
+        }
+        $('[data-activities-container]').append(template);
+
+        var activity_select;
+        window.TomSelect && (new TomSelect(activity_select = document.getElementById(`${activity_id}`), {
+            maxOptions: 5000,
+            searchField: 'name',
+            valueField: 'id',
+            labelField: 'name',
+            dropdownClass: 'dropdown-menu',
+            optionClass: 'dropdown-item',
+        }));
+
+        if ($('body').hasClass('theme-dark')) $('[type=select-one]').css('color', '#fff');
+
+        intailizeDate(dateId);
+    };
+
     const removeItem = (target) => {
         $('[data-delete]').on('click', () => {
             $(target).parent().parent().remove();
@@ -584,6 +709,34 @@
             e.preventDefault();
             return alert("{{ __('view.submitError') }}");
         }
+
+        // Collect activities Data
+        let activities = [];
+        $('[data-activities-container] [data-activity]').each((i, e) => {
+            let day = $(e).find('input[day]').val();
+            let date = $(e).find('input[date]').val();
+            let activity = $(e).find('select[activity]').val();
+            let notes = $(e).find('textarea[notes]').val().replace(/\n/g, "\\n");
+            if (!day || !date || !activity || !notes) {
+                validationError = true;
+                return;
+            }
+            let activityObj = {
+                day,
+                date,
+                activity,
+                notes,
+            };
+            activities.push(activityObj);
+        });
+        $('[name=activities]').val(JSON.stringify(activities));
+
+        if (validationError) {
+            e.preventDefault();
+            return alert("{{ __('view.submitError') }}");
+        }
+
+        
         // Collect Airports Data
         let airports = [];
         $('[data-airports-container] [data-airport]').each((i, e) => {
@@ -661,6 +814,11 @@
         let transportations = JSON.parse('<?= $flight->transportations ?>');
         transportations.forEach((el) => {
             addTranspotaion(el);
+        });
+
+        let activities = JSON.parse('<?= $flight->activities ?>');
+        activities.forEach((el) => {
+            addActivity(el);
         });
     });
 </script>

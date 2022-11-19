@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FlightRequest;
+use App\Models\Activity;
 use App\Models\Flight;
 use App\Models\Hotel;
 use Carbon\Carbon;
@@ -29,7 +30,8 @@ class FlightsController extends Controller
     public function add()
     {
         $hotels = Hotel::where('deleted_at', null)->get();
-        return view('flights/add', compact('hotels'));
+        $activities = Activity::where('deleted_at', null)->get();
+        return view('flights/add', compact('hotels', 'activities'));
     }
 
     public function store(FlightRequest $request)
@@ -50,6 +52,7 @@ class FlightsController extends Controller
             'airports' => $request->airports,
             'hotels' => $request->hotels,
             'transportations' => $request->transportations,
+            'activities' => $request->activities,
             'notes' => $request->notes,
         ]);
         return redirect(route('flight.showAll'))->with('success', __('view.flightCreated', ['id' => $flight_id]));
@@ -63,7 +66,8 @@ class FlightsController extends Controller
         }
 
         $hotels = Hotel::where('deleted_at', null)->get();
-        return view('flights/edit', compact('flight', 'hotels'));
+        $activities = Activity::where('deleted_at', null)->get();
+        return view('flights/edit', compact('flight', 'hotels', 'activities'));
     }
 
     public function update(FlightRequest $request)
@@ -78,6 +82,7 @@ class FlightsController extends Controller
             'airports' => $request->airports ?? $flight->first()->airports,
             'hotels' => $request->hotels ?? $flight->first()->hotels,
             'transportations' => $request->transportations ?? $flight->first()->transportations,
+            'activities' => $request->activities ?? $flight->first()->activities,
             'notes' => $request->notes ?? $flight->first()->notes,
         ]);
         return redirect()->back()->with('success', __('view.flightUpdated'));
