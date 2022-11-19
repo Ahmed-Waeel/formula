@@ -865,14 +865,14 @@
         let days = {};
         $('[day-component] [data-day]').each((i, e) => {
             let day = {};
-
             day['day'] = $(e).find(`[day]`).val();
             if (!day['day']) validationError = true;
 
             if (validationError) {
-                e.preventDefault();
+                // e.preventDefault();
                 return alert("{{ __('view.submitError') }}");
             }
+
             // Collect Hotels Data
             let hotels = [];
             $(e).find(`[data-hotels-container] [data-hotel]`).each((i, e) => {
@@ -987,8 +987,6 @@
             days[i] = day;
         });
         $('[name=options]').val(JSON.stringify(days));
-
-        e.preventDefault();
     });
 </script>
 
@@ -1007,19 +1005,19 @@
 
             const hotels = day.hotels;
             const airports = day.airports;
-            const transportation = day.transportation;
+            const transportations = day.transportation;
             const activities = day.activities;
 
             $.each(hotels, (i, el) => {
                 addHotel(hotelElement, el);
             });
-            $.each(hotels, (i, el) => {
+            $.each(airports, (i, el) => {
                 addAirport(airportElement, el);
             });
-            $.each(hotels, (i, el) => {
+            $.each(transportations, (i, el) => {
                 addTranspotaion(transportationElement, el);
             });
-            $.each(hotels, (i, el) => {
+            $.each(activities, (i, el) => {
                 addActivity(activityElement, el);
             });
         });
