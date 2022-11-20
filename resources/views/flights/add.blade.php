@@ -644,7 +644,7 @@
 
         let template = $('[data-transportations-template]').clone();
         template.removeAttr('data-transportations-template hidden');
-        template.attr('data-Transportation', true);
+        template.attr('data-transportation', true);
         template.find('[date]').attr('id', dateId);
 
         if (data) {
@@ -827,7 +827,7 @@
 
             // Collect Transportations Data
             let transportations = [];
-            $(e).find(`[data-transportations-container] [data-Transportation]`).each((i, e) => {
+            $(e).find(`[data-transportations-container] [data-transportation]`).each((i, e) => {
                 let date = $(e).find('input[date]').val();
                 let from = $(e).find('input[from]').val();
                 let to = $(e).find('input[to]').val();
@@ -855,6 +855,7 @@
 
             days[i] = day;
         });
+        $('[name=options]').val(JSON.stringify(days));
         console.log(days);
         return days;
     }
@@ -869,7 +870,7 @@
             if (!day['day']) validationError = true;
 
             if (validationError) {
-                // e.preventDefault();
+                e.preventDefault();
                 return alert("{{ __('view.submitError') }}");
             }
 
@@ -895,7 +896,7 @@
                 hotels.push(hotelObj);
             });
             if (validationError) {
-                // e.preventDefault();
+                e.preventDefault();
                 return alert("{{ __('view.submitError') }}");
             }
 
@@ -919,7 +920,7 @@
                 activities.push(activityObj);
             });
             if (validationError) {
-                // e.preventDefault();
+                e.preventDefault();
                 return alert("{{ __('view.submitError') }}");
             }
 
@@ -950,7 +951,7 @@
                 airports.push(airport);
             });
             if (validationError) {
-                // e.preventDefault();
+                e.preventDefault();
                 return alert("{{ __('view.submitError') }}");
             }
 
@@ -978,7 +979,7 @@
                 transportations.push(Transportation);
             });
             if (validationError) {
-                // e.preventDefault();
+                e.preventDefault();
                 return alert("{{ __('view.submitError') }}");
             }
 
@@ -1005,7 +1006,7 @@
 
             const hotels = day.hotels;
             const airports = day.airports;
-            const transportations = day.transportation;
+            const transportations = day.transportations;
             const activities = day.activities;
 
             $.each(hotels, (i, el) => {

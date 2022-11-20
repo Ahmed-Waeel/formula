@@ -12,6 +12,6 @@ class Flight extends Model
     protected $table = 'flights';
 
     protected $fillable = [
-        'flight_id', 'airports', 'hotels', 'activities', 'transportations', 'notes', 'start_date', 'end_date'
+        'flight_id', 'options', 'notes', 'start_date', 'end_date'
     ];
 }

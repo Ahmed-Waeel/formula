@@ -36,6 +36,7 @@ class FlightsController extends Controller
 
     public function store(FlightRequest $request)
     {
+        // return json_encode($request->options);
         if (!$request->start_date) return redirect()->back()->with('error', __('validation.startDateValidation'));
         if (!$request->end_date) return redirect()->back()->with('error', __('validation.endDateValidation'));
         while (true) {
@@ -49,10 +50,7 @@ class FlightsController extends Controller
             'flight_id' => $flight_id,
             'start_date' => Carbon::createFromFormat('Y-m-d', $request->start_date),
             'end_date' => Carbon::createFromFormat('Y-m-d', $request->end_date),
-            'airports' => $request->airports,
-            'hotels' => $request->hotels,
-            'transportations' => $request->transportations,
-            'activities' => $request->activities,
+            'options' => $request->options,
             'notes' => $request->notes,
         ]);
         return redirect(route('flight.showAll'))->with('success', __('view.flightCreated', ['id' => $flight_id]));
@@ -79,10 +77,7 @@ class FlightsController extends Controller
         $flight->update([
             'start_date' => Carbon::createFromFormat('Y-m-d', $request->start_date) ?? $flight->first()->start_date,
             'end_date' => Carbon::createFromFormat('Y-m-d', $request->end_date) ?? $flight->first()->end_date,
-            'airports' => $request->airports ?? $flight->first()->airports,
-            'hotels' => $request->hotels ?? $flight->first()->hotels,
-            'transportations' => $request->transportations ?? $flight->first()->transportations,
-            'activities' => $request->activities ?? $flight->first()->activities,
+            'options' => $request->options ?? $flight->first()->options,
             'notes' => $request->notes ?? $flight->first()->notes,
         ]);
         return redirect()->back()->with('success', __('view.flightUpdated'));
