@@ -719,7 +719,7 @@
                 airports: [{}, {}, {}],
                 transportations: [{}, {}, {}],
             },
-            day2:{}
+            day2:{
                 hotels: [{}, {}, {}],
                 activities: [{}, {}, {}],
                 airports: [{}, {}, {}],

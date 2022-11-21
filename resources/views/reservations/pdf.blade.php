@@ -1,16 +1,19 @@
 @php
-$airports = json_decode($flight->airports, true);
-$transportations = json_decode($flight->transportations, true);
-$flight_hotels = json_decode($flight->hotels, true);
-function search($value, $array, $prop = 'id') {
-foreach ($array as $key => $arr) {
-if ($arr[$prop] == $value) {
-return $arr;
-}
-}
-return null;
-}
+    $options = json_decode($flight->options, true);
+
+    $activities_check = false;
+    $airports_check = false;
+    $transportations_check = false;
+    $hotels_check = false;
+
+    foreach($options AS $option){
+        if(count($option['hotels'])) $hotels_check = true;
+        if(count($option['airports'])) $airports_check = true;
+        if(count($option['activities'])) $activities_check = true;
+        if(count($option['transportations'])) $transportations_check = true;
+    }
 @endphp
+
 <!doctype html>
 <html lang="ar" dir=rtl>
 
@@ -107,9 +110,7 @@ return null;
 </head>
 
 <body dir="rtl">
-    <!-- <div class="background_icon">
-        <img src="{{ public_path('icon.png') }}">
-    </div> -->
+  
     <div class="page_container">
 
         <div class=logo>
@@ -117,152 +118,195 @@ return null;
         </div>
 
         <hr>
+    </div>
+    <table class="header_table" style="text-align: right">
+        <tbody>
+            <tr>
+                <td>
+                    اسم العميل: {{ $customer->name }}
+                </td>
+                <td>
+                    التاريخ: {{ date('d-m-Y', strtotime($reservation->date)) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    رقم العميل: {{ $customer->customer_id }}
+                </td>
+                <td>
+                    رقم الرحلة: {{ $flight->flight_id }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2>
+                    رقم الحجز: {{ $reservation->reservation_id }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-        <table class="header_table" style="text-align: right">
-            <tbody>
-                <tr>
-                    <td>
-                        اسم العميل: {{ $customer->name }}
-                    </td>
-                    <td>
-                        التاريخ: {{ date('d-m-Y', strtotime($reservation->date)) }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        رقم العميل: {{ $customer->customer_id }}
-                    </td>
-                    <td>
-                        رقم الرحلة: {{ $flight->flight_id }}
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan=2>
-                        رقم الحجز: {{ $reservation->reservation_id }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <table>
+        <tbody>
+            <tr>
+                <td colspan=4 class="table_title">
+                    حجز الفنادق
+                </td>
+            </tr>
+            <tr>
+                <td>اليوم</td>
+                <td>تاريخ الدخول <br> - <br> تاريخ الخروج</td>
+                <td>الفندق والمدينة <br> اضفط علي اسم الفندق لمشاهدة صور وفيديوهات الفندق </td>
+                <td>نوع الغرف وعددها</td>
+            </tr>
+            @if(!$hotels_check)
+            <tr>
+                <td colspan="4" style="text-align: center;">
+                    لا يوجد فنادق في هذه الرحلة
+                </td>
+            </tr>
+            @else
+                @foreach($options AS $option)
+                    @foreach($option['hotels'] AS $hotel)
+                        @php $date1 = Carbon\Carbon::parse($hotel['start_date']);
+                            $date2 = Carbon\Carbon::parse($hotel['end_date']);
+                            $diff = $date1->diffInDays($date2);
 
-        <table>
-            <tbody>
-                <tr>
-                    <td colspan=4 class="table_title">
-                        حجز الفنادق
-                    </td>
-                </tr>
-                <tr>
-                    <td>اليوم</td>
-                    <td>تاريخ الدخول <br> - <br> تاريخ الخروج</td>
-                    <td>الفندق والمدينة <br> اضفط علي اسم الفندق لمشاهدة صور وفيديوهات الفندق </td>
-                    <td>نوع الغرف وعددها</td>
-                </tr>
-                @if(!$flight_hotels)
-                <tr>
-                    <td colspan="4" style="text-align: center;">
-                        لا يوجد فنادق في هذه الرحلة
-                    </td>
-                </tr>
-                @endif
-                @foreach($flight_hotels AS $flight_hotel)
-                @php
-                $hotel = search($flight_hotel['hotel'], $hotels);
-                $date1 = Carbon\Carbon::parse($flight_hotel['start_date']);
-                $date2 = Carbon\Carbon::parse($flight_hotel['end_date']);
-                $diff = $date1->diffInDays($date2);
-                $country = search($hotel['country'], $countries, 'code')['name'];
-                $city = search($hotel['city'], $cities)['name'];
-                @endphp
-                <tr>
-                    <td>{{ $flight_hotel['day'] }}</td>
-                    <td>{{ date('d-m-Y', strtotime($flight_hotel['start_date'])) }}<br> - <br>{{ date('d-m-Y', strtotime($flight_hotel['end_date'])) }}</td>
-                    <td>{{ $city . '-' . $country }}<br> <a href="{{ asset('uploads/rooms') . '/' . ((array)json_decode($hotel['rooms'])[+$flight_hotel['room']])['image']}}" target="_blank">{{ $hotel->name }}</a> <br> {{ $diff }} ليالي</span></td>
-                    <td> <br> {!! nl2br(str_replace('\\n', '<br>', $flight_hotel['notes'])) !!}</td>
-                </tr>
+                            $hotel_data = [];
+                            foreach ($hotels as $key => $arr) {
+                                if ($arr['id'] == $hotel['hotel']) $hotel_data = $arr;
+                            }
+
+
+                            $country = '';
+                            foreach ($countries as $key => $arr) {
+                                if ($arr['code'] == $hotel_data['country']) $country = $arr['name'];
+                            }
+
+                            $city = '';
+                            foreach ($cities as $key => $arr) {
+                                if ($arr['id'] == $hotel_data['city']) $city = $arr['name'];
+                            }
+                        @endphp
+                        <tr>
+                            <td>{{ $option['day'] }}</td>
+                            <td>{{ date('d-m-Y', strtotime($hotel['start_date'])) }}<br> - <br>{{ date('d-m-Y', strtotime($hotel['end_date'])) }}</td>
+                            <td>{{ $city . '-' . $country }}<br>  <a href="{{ asset('uploads/rooms') . '/' . ((array)json_decode($hotel_data['rooms'])[+$hotel['room'] - 1])['image']}}" target="_blank">{{ $hotel_data['name'] }}</a> <br> {{ $diff }} ليالي</span></td>
+                            <td> <br> {!! nl2br(str_replace('\\n', '<br>', $hotel['notes'])) !!}</td>
+                        </tr>
+                    @endforeach
                 @endforeach
-            </tbody>
-        </table>
+            @endif
+        </tbody>
+    </table>
 
-        <table>
-            <tbody>
-                <tr>
-                    <td colspan=4 class="table_title">
-                        الطيران
-                    </td>
-                </tr>
-                <tr>
-                    <td>اليوم</td>
-                    <td>التاريخ</td>
-                    <td>من - إالي</td>
-                    <td>عدد المسافرين</td>
-                </tr>
-                @if(!$airports)
+    <table>
+        <tbody>
+            <tr>
+                <td colspan=4 class="table_title">
+                    الطيران
+                </td>
+            </tr>
+            <tr>
+                <td>اليوم</td>
+                <td>التاريخ</td>
+                <td>من - إالي</td>
+                <td>عدد المسافرين</td>
+            </tr>
+            @if(!$airports_check)
                 <tr>
                     <td colspan="4" style="text-align: center;">
                         لا يوجد اي مطارات في هذه الرحلة
                     </td>
                 </tr>
-                @endif
-                @foreach($airports AS $airport)
-                <tr>
-                    <td>{{ $airport['day'] }}</td>
-                    <td>{{ date('d-m-Y h:i A', strtotime($airport['date'])) }}</td>
-                    <td> {{ $airport['from'] }} -> {{ $airport['to'] }} <br> الساعة: {{ $airport['time'] }} </td>
-                    <td>{!! nl2br(str_replace('\\n', '<br>', $airport['notes'])) !!}</td>
-                </tr>
+            @else
+                @foreach($options AS $option)
+                    @foreach($option['airports'] AS $airport)
+                        <tr>
+                            <td>{{ $option['day'] }}</td>
+                            <td>{{ date('d-m-Y h:i A', strtotime($airport['date'])) }}</td>
+                            <td> {{ $airport['from'] }} -> {{ $airport['to'] }} <br> الساعة: {{ $airport['time'] }} </td>
+                            <td>{!! nl2br(str_replace('\\n', '<br>', $airport['notes'])) !!}</td>
+                        </tr>
+                    @endforeach
                 @endforeach
-            </tbody>
-        </table>
+            @endif
+        </tbody>
+    </table>
 
-        <table>
-            <tbody>
-                <tr>
-                    <td colspan=4 class="table_title">
-                        المواصلات
-                    </td>
-                </tr>
-                <tr>
-                    <td>اليوم</td>
-                    <td>التاريخ</td>
-                    <td>الوصف</td>
-                    <td>عدد السيارات ونوعها</td>
-                </tr>
-                @if(!$transportations)
+    <table>
+        <tbody>
+            <tr>
+                <td colspan=4 class="table_title">
+                    المواصلات
+                </td>
+            </tr>
+            <tr>
+                <td>اليوم</td>
+                <td>التاريخ</td>
+                <td>الوصف</td>
+                <td>عدد السيارات ونوعها</td>
+            </tr>
+            @if(!$transportations_check)
                 <tr>
                     <td colspan="4" style="text-align: center;">
                         لا يوجد اي مواصلات او انشطة في هذه الرحلة
                     </td>
                 </tr>
-                @endif
-                @foreach($transportations AS $transportation)
-                <tr>
-                    <td>{{ $transportation['day'] }}</td>
-                    <td>{{ date('d-m-Y', strtotime($transportation['date'])) }}</td>
-                    <td> {{ $transportation['from'] }} -> {{ $transportation['to'] }} </td>
-                    <td>{!! nl2br(str_replace('\\n', '<br>', $transportation['notes'])) !!}</td>
-                </tr>
+            @else
+                @foreach($options AS $option)
+                    @foreach($option['transportations'] AS $transportation)
+                        <tr>
+                            <td>{{ $option['day'] }}</td>
+                            <td>{{ date('d-m-Y', strtotime($transportation['date'])) }}</td>
+                            <td> {{ $transportation['from'] }}  ->  {{ $transportation['to'] }} </td>
+                            <td>{!! nl2br(str_replace('\\n', '<br>', $transportation['notes'])) !!}</td>
+                        </tr>
+                    @endforeach
                 @endforeach
-            </tbody>
-        </table>
+            @endif
+        </tbody>
+    </table>
 
-        @if(trim($flight->notes) != '')
-        <table>
-            <tbody>
+    <table>
+        <tbody>
+            <tr>
+                <td colspan=4 class="table_title">
+                    الأنشطة
+                </td>
+            </tr>
+            <tr>
+                <td>اليوم</td>
+                <td>التاريخ</td>
+                <td>الوصف</td>
+                <td>الملاحظات</td>
+            </tr>
+            @if(!$activities_check)
                 <tr>
-                    <td class="table_title">
-                        ملاحظات مهمة جدا
+                    <td colspan="4" style="text-align: center;">
+                        لا يوجد اي مواصلات او انشطة في هذه الرحلة
                     </td>
                 </tr>
-                <tr>
-                    <td style="min-width: 100%;text-align: right">
-                        {!! nl2br(e($flight->notes)) !!}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        @endif
-    </div>
+            @else
+                @foreach($options AS $option)
+                    @foreach($option['activities'] AS $activity)
+                        @php 
+                            $activity_data = [];
+                            foreach ($activities as $key => $arr) {
+                                if ($arr['id'] == $activity['activity']) $activity_data = $arr;
+                            }
+                        @endphp
+                        <tr>
+                            <td>{{ $option['day'] }}</td>
+                            <td>{{ date('d-m-Y', strtotime($activity['date'])) }}</td>
+                            <td> <a href="{{ asset('uploads/activities') . '/' . $activity_data['image']}}" target="_blank">{{ $activity_data['name'] }}</a> </td>
+                            <td>{!! nl2br(str_replace('\\n', '<br>', $activity['notes'])) !!}</td>
+                        </tr>
+                    @endforeach
+                @endforeach
+            @endif
 
+        </tbody>
+    </table>
 </body>
 
 </html>

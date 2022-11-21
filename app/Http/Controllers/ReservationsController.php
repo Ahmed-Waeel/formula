@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ReservationRequest;
+use App\Models\Activity;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Customer;
@@ -122,14 +123,18 @@ class ReservationsController extends Controller
         $countries = Country::all();
         $cities = City::all();
         $hotels = Hotel::where('deleted_at', null)->get();
+        $activities = Activity::where('deleted_at', null)->get();
         $view = view('reservations/pdf', [
             'reservation' => $reservation,
             'customer' => $customer,
             'flight' => $flight,
             'countries' => $countries,
             'cities' => $cities,
-            'hotels' => $hotels
+            'hotels' => $hotels,
+            'activities' => $activities,
         ])->render();
+
+        // return view('reservations/pdf', compact('customer', 'activities', 'reservation', 'flight', 'countries', 'cities', 'hotels', 'activities'));
 
         $time = time();
         $pdf = new \Mpdf\Mpdf();
