@@ -45,7 +45,7 @@ class ReservationsController extends Controller
     public function store(ReservationRequest $request)
     {
         while (true) {
-            $reservation_id = md5(rand());
+            $reservation_id = substr(md5(rand()), 0, 15);
             $reservation = Reservation::where('reservation_id', $reservation_id)->first();
             if (!$reservation) {
                 break;
@@ -124,6 +124,7 @@ class ReservationsController extends Controller
         $cities = City::all();
         $hotels = Hotel::where('deleted_at', null)->get();
         $activities = Activity::where('deleted_at', null)->get();
+        $numberOfCustomers = Reservation::where('flight_id', $reservation->flight_id)->count();
         $view = view('reservations/pdf', [
             'reservation' => $reservation,
             'customer' => $customer,
@@ -132,9 +133,10 @@ class ReservationsController extends Controller
             'cities' => $cities,
             'hotels' => $hotels,
             'activities' => $activities,
+            'numberOfCustomers' => $numberOfCustomers,
         ])->render();
 
-        // return view('reservations/pdf', compact('customer', 'activities', 'reservation', 'flight', 'countries', 'cities', 'hotels', 'activities'));
+        // return view('reservations/pdf', compact('customer', 'activities', 'reservation', 'flight', 'countries', 'cities', 'hotels', 'activities', 'numberOfCustomers'));
 
         $time = time();
         $pdf = new \Mpdf\Mpdf();

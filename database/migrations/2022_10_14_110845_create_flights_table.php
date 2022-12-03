@@ -17,6 +17,7 @@ class CreateFlightsTable extends Migration
             $table->id();
             $table->string('flight_id');
             $table->text('options')->default('[]');
+            $table->string('flight_to')->nullable();
             $table->text('notes')->nullable();
             $table->timestamp('start_date');
             $table->timestamp('end_date');

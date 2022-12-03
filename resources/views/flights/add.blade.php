@@ -67,6 +67,12 @@
                                         </div>
                                     </div>
 
+                                    <!-- to -->
+                                    <div class="mb-3">
+                                        <label class="form-label">{{ __('view.flightTo') }}</label>
+                                        <textarea class="form-control" name="flight_to" rows="4"></textarea>
+                                    </div>
+
                                     <!-- Notes -->
                                     <div class="mb-3">
                                         <label class="form-label">{{ __('view.notes') }}</label>
@@ -326,7 +332,7 @@
     <!-- Date  -->
     <div class="mb-3">
         <div class="d-flex align-items-center">
-            <div class="w-50">
+            <div class="w-100">
                 <label class="form-label">{{ __('view.date') }}</label>
                 <div class="input-icon">
                     <span class="input-icon-addon">
@@ -344,9 +350,19 @@
                     <input class="form-control" date placeholder="Select a date" value="" />
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Time -->
+    <div class="mb-3">
+        <div class="d-flex align-items-center">
             <div class="w-50">
-                <label class="form-label">{{ __('view.time') }}</label>
-                <input type="time" class="form-control" time />
+                <label class="form-label">{{ __('view.from') }}</label>
+                <input type="time" class="form-control" time_from />
+            </div>
+            <div class="w-50">
+                <label class="form-label">{{ __('view.to') }}</label>
+                <input type="time" class="form-control" time_to />
             </div>
         </div>
     </div>
@@ -361,6 +377,20 @@
             <div class="w-50">
                 <label class="form-label">{{ __('view.to') }}</label>
                 <input type="text" to class="form-control">
+            </div>
+        </div>
+    </div>
+
+    <!-- {company}  {flight Number} -->
+    <div class="mb-3">
+        <div class="d-flex align-items-center">
+            <div class="w-50">
+                <label class="form-label">{{ __('view.company') }}</label>
+                <input type="text" company class="form-control">
+            </div>
+            <div class="w-50">
+                <label class="form-label">{{ __('view.flightNumber') }}</label>
+                <input type="text" flight_number class="form-control">
             </div>
         </div>
     </div>
@@ -501,7 +531,13 @@
         </select>
     </div>
 
-    <!-- notes with the room -->
+    <!-- description -->
+    <div class="mb-3">
+        <label class="form-label">{{ __('view.description') }}</label>
+        <textarea class="form-control" description rows="4"></textarea>
+    </div>
+
+    <!-- notes -->
     <div class="mb-3">
         <label class="form-label">{{ __('view.notes') }}</label>
         <textarea class="form-control" notes rows="4"></textarea>
@@ -626,9 +662,12 @@
         if (data) {
             console.log(data);
             template.find('input[date]').val(data.date);
-            template.find('input[time]').val(data.time);
+            template.find('input[time_from]').val(data.time_from);
+            template.find('input[time_to]').val(data.time_to);
             template.find('input[from]').val(data.from);
             template.find('input[to]').val(data.to);
+            template.find('input[company]').val(data.compnay);
+            template.find('input[flight_number]').val(data.flight_number);
             template.find('textarea[notes]').val(data.notes);
         }
         if (target) {
@@ -676,6 +715,7 @@
             console.log(data);
             template.find('input[date]').val(data.date);
             template.find(`select[activity] option[value=${data.activity}]`).attr('selected', true);
+            template.find('textarea[description]').val(data.description);
             template.find('textarea[notes]').val(data.notes);
         }
         if (target) {
@@ -701,7 +741,7 @@
 
     const removeItem = (target) => {
         $('[data-delete]').on('click', () => {
-            $(target).parent().parent().remove();
+            $(target).parent().parent().parent().remove();
         });
     };
 
@@ -728,137 +768,137 @@
         }
     */
 
-    const ahmed = () => {
-        let validationError = false
+    // const ahmed = () => {
+    //     let validationError = false
 
-        let days = {};
-        $('[day-component] [data-day]').each((i, e) => {
-            let day = {};
-            day['day'] = $(e).find(`[day]`).val();
-            if (!day['day']) validationError = true;
+    //     let days = {};
+    //     $('[day-component] [data-day]').each((i, e) => {
+    //         let day = {};
+    //         day['day'] = $(e).find(`[day]`).val();
+    //         if (!day['day']) validationError = true;
 
-            if (validationError) {
-                // e.preventDefault();
-                return alert("{{ __('view.submitError') }}");
-            }
+    //         if (validationError) {
+    //             // e.preventDefault();
+    //             return alert("{{ __('view.submitError') }}");
+    //         }
 
-            // Collect Hotels Data
-            let hotels = [];
-            $(e).find(`[data-hotels-container] [data-hotel]`).each((i, e) => {
-                let start_date = $(e).find('input[start_date]').val();
-                let end_date = $(e).find('input[end_date]').val();
-                let hotel = $(e).find('select[hotel]').val();
-                let room = $(e).find('select[room]').val();
-                let notes = $(e).find('textarea[notes]').val().replace(/\n/g, "\\n");
-                if (!start_date || !end_date || !hotel || !room || !notes) {
-                    validationError = true;
-                    return;
-                }
-                let hotelObj = {
-                    start_date,
-                    end_date,
-                    hotel,
-                    room,
-                    notes,
-                };
-                hotels.push(hotelObj);
-            });
-            if (validationError) {
-                // e.preventDefault();
-                return alert("{{ __('view.submitError') }}");
-            }
+    //         // Collect Hotels Data
+    //         let hotels = [];
+    //         $(e).find(`[data-hotels-container] [data-hotel]`).each((i, e) => {
+    //             let start_date = $(e).find('input[start_date]').val();
+    //             let end_date = $(e).find('input[end_date]').val();
+    //             let hotel = $(e).find('select[hotel]').val();
+    //             let room = $(e).find('select[room]').val();
+    //             let notes = $(e).find('textarea[notes]').val().replace(/\n/g, "\\n");
+    //             if (!start_date || !end_date || !hotel || !room || !notes) {
+    //                 validationError = true;
+    //                 return;
+    //             }
+    //             let hotelObj = {
+    //                 start_date,
+    //                 end_date,
+    //                 hotel,
+    //                 room,
+    //                 notes,
+    //             };
+    //             hotels.push(hotelObj);
+    //         });
+    //         if (validationError) {
+    //             // e.preventDefault();
+    //             return alert("{{ __('view.submitError') }}");
+    //         }
 
-            day['hotels'] = hotels;
+    //         day['hotels'] = hotels;
 
-            // Collect activities Data
-            let activities = [];
-            $(e).find(`[data-activities-container] [data-activity]`).each((i, e) => {
-                let date = $(e).find('input[date]').val();
-                let activity = $(e).find('select[activity]').val();
-                let notes = $(e).find('textarea[notes]').val().replace(/\n/g, "\\n");
-                if (!date || !activity || !notes) {
-                    validationError = true;
-                    return;
-                }
-                let activityObj = {
-                    date,
-                    activity,
-                    notes,
-                };
-                activities.push(activityObj);
-            });
-            if (validationError) {
-                // e.preventDefault();
-                return alert("{{ __('view.submitError') }}");
-            }
+    //         // Collect activities Data
+    //         let activities = [];
+    //         $(e).find(`[data-activities-container] [data-activity]`).each((i, e) => {
+    //             let date = $(e).find('input[date]').val();
+    //             let activity = $(e).find('select[activity]').val();
+    //             let notes = $(e).find('textarea[notes]').val().replace(/\n/g, "\\n");
+    //             if (!date || !activity || !notes) {
+    //                 validationError = true;
+    //                 return;
+    //             }
+    //             let activityObj = {
+    //                 date,
+    //                 activity,
+    //                 notes,
+    //             };
+    //             activities.push(activityObj);
+    //         });
+    //         if (validationError) {
+    //             // e.preventDefault();
+    //             return alert("{{ __('view.submitError') }}");
+    //         }
 
-            day['activities'] = activities;
+    //         day['activities'] = activities;
 
-            // Collect Airports Data
-            let airports = [];
-            $(e).find(`[data-airports-container] [data-airport]`).each((i, e) => {
-                let date = $(e).find('input[date]').val();
-                let time = $(e).find('input[time]').val();
-                let from = $(e).find('input[from]').val();
-                let to = $(e).find('input[to]').val();
-                let notes = $(e).find('textarea[notes]').val().replace(/\n/g, "\\n");
+    //         // Collect Airports Data
+    //         let airports = [];
+    //         $(e).find(`[data-airports-container] [data-airport]`).each((i, e) => {
+    //             let date = $(e).find('input[date]').val();
+    //             let time = $(e).find('input[time]').val();
+    //             let from = $(e).find('input[from]').val();
+    //             let to = $(e).find('input[to]').val();
+    //             let notes = $(e).find('textarea[notes]').val().replace(/\n/g, "\\n");
 
-                if (!date || !from || !to || !notes) {
-                    validationError = true;
-                    return;
-                }
+    //             if (!date || !from || !to || !notes) {
+    //                 validationError = true;
+    //                 return;
+    //             }
 
-                let airport = {
-                    date,
-                    time,
-                    from,
-                    to,
-                    notes
-                };
+    //             let airport = {
+    //                 date,
+    //                 time,
+    //                 from,
+    //                 to,
+    //                 notes
+    //             };
 
-                airports.push(airport);
-            });
-            if (validationError) {
-                // e.preventDefault();
-                return alert("{{ __('view.submitError') }}");
-            }
+    //             airports.push(airport);
+    //         });
+    //         if (validationError) {
+    //             // e.preventDefault();
+    //             return alert("{{ __('view.submitError') }}");
+    //         }
 
-            day['airports'] = airports;
+    //         day['airports'] = airports;
 
-            // Collect Transportations Data
-            let transportations = [];
-            $(e).find(`[data-transportations-container] [data-transportation]`).each((i, e) => {
-                let date = $(e).find('input[date]').val();
-                let from = $(e).find('input[from]').val();
-                let to = $(e).find('input[to]').val();
-                let notes = $(e).find('textarea[notes]').val().replace(/\n/g, "\\n");
+    //         // Collect Transportations Data
+    //         let transportations = [];
+    //         $(e).find(`[data-transportations-container] [data-transportation]`).each((i, e) => {
+    //             let date = $(e).find('input[date]').val();
+    //             let from = $(e).find('input[from]').val();
+    //             let to = $(e).find('input[to]').val();
+    //             let notes = $(e).find('textarea[notes]').val().replace(/\n/g, "\\n");
 
-                if (!date || !from || !to || !notes) {
-                    validationError = true;
-                    return;
-                }
+    //             if (!date || !from || !to || !notes) {
+    //                 validationError = true;
+    //                 return;
+    //             }
 
-                let Transportation = {
-                    date,
-                    from,
-                    to,
-                    notes
-                };
-                transportations.push(Transportation);
-            });
-            if (validationError) {
-                // e.preventDefault();
-                return alert("{{ __('view.submitError') }}");
-            }
+    //             let Transportation = {
+    //                 date,
+    //                 from,
+    //                 to,
+    //                 notes
+    //             };
+    //             transportations.push(Transportation);
+    //         });
+    //         if (validationError) {
+    //             // e.preventDefault();
+    //             return alert("{{ __('view.submitError') }}");
+    //         }
 
-            day['transportations'] = transportations;
+    //         day['transportations'] = transportations;
 
-            days[i] = day;
-        });
-        $('[name=options]').val(JSON.stringify(days));
-        console.log(days);
-        return days;
-    }
+    //         days[i] = day;
+    //     });
+    //     $('[name=options]').val(JSON.stringify(days));
+    //     console.log(days);
+    //     return days;
+    // }
 
     $('[data-form]').on('submit', (e) => {
         let validationError = false
@@ -907,14 +947,16 @@
             $(e).find(`[data-activities-container] [data-activity]`).each((i, e) => {
                 let date = $(e).find('input[date]').val();
                 let activity = $(e).find('select[activity]').val();
+                let description = $(e).find('textarea[description]').val().replace(/\n/g, "\\n");
                 let notes = $(e).find('textarea[notes]').val().replace(/\n/g, "\\n");
-                if (!date || !activity || !notes) {
+                if (!date || !activity || !notes || !description) {
                     validationError = true;
                     return;
                 }
                 let activityObj = {
                     date,
                     activity,
+                    description,
                     notes,
                 };
                 activities.push(activityObj);
@@ -930,21 +972,27 @@
             let airports = [];
             $(e).find(`[data-airports-container] [data-airport]`).each((i, e) => {
                 let date = $(e).find('input[date]').val();
-                let time = $(e).find('input[time]').val();
+                let time_from = $(e).find('input[time_from]').val();
+                let time_to = $(e).find('input[time_to]').val();
                 let from = $(e).find('input[from]').val();
                 let to = $(e).find('input[to]').val();
+                let company = $(e).find('input[company]').val();
+                let flight_number = $(e).find('input[flight_number]').val();
                 let notes = $(e).find('textarea[notes]').val().replace(/\n/g, "\\n");
 
-                if (!date || !from || !to || !notes) {
+                if (!date || !time_from || !time_to || !from || !to || !notes || !company || !flight_number) {
                     validationError = true;
                     return;
                 }
 
                 let airport = {
                     date,
-                    time,
+                    time_from,
+                    time_to,
                     from,
                     to,
+                    company,
+                    flight_number,
                     notes
                 };
 

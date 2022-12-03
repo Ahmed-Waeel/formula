@@ -154,4 +154,8 @@ return [
 
     'addDay' => 'إضافة يوم',
     'days' => 'الأيام',
+    'description' => 'الوصف',
+    'company' => 'شركه الطيران',
+    'flightNumber' => 'رقم الرحلة',
+    'flightTo' => 'الوجهة',
 ];

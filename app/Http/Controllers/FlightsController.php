@@ -51,6 +51,7 @@ class FlightsController extends Controller
             'start_date' => Carbon::createFromFormat('Y-m-d', $request->start_date),
             'end_date' => Carbon::createFromFormat('Y-m-d', $request->end_date),
             'options' => $request->options,
+            'flight_to' => $request->flight_to,
             'notes' => $request->notes,
         ]);
         return redirect(route('flight.showAll'))->with('success', __('view.flightCreated', ['id' => $flight_id]));
@@ -78,6 +79,7 @@ class FlightsController extends Controller
             'start_date' => Carbon::createFromFormat('Y-m-d', $request->start_date) ?? $flight->first()->start_date,
             'end_date' => Carbon::createFromFormat('Y-m-d', $request->end_date) ?? $flight->first()->end_date,
             'options' => $request->options ?? $flight->first()->options,
+            'flight_to' => $request->flight_to ?? $flight->first()->flight_to,
             'notes' => $request->notes ?? $flight->first()->notes,
         ]);
         return redirect()->back()->with('success', __('view.flightUpdated'));
@@ -90,6 +92,7 @@ class FlightsController extends Controller
             return redirect()->back()->with('error', __('view.wrong'));
         }
         $flight->update(['deleted_at' => now()]);
+        
         return redirect(route('flight.showAll'))->with('success', __('view.flightDeleted'));
     }
 

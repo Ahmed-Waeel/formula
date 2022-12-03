@@ -153,4 +153,8 @@ return [
 
     'addDay' => 'Add New Day',
     'days' => 'Days',
+    'description' => 'Description',
+    'company' => 'Company',
+    'flightNumber' => 'Flight Number',
+    'flightTo' => 'To',
 ];
