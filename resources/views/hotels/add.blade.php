@@ -31,18 +31,20 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+
                                     <div class="mb-3">
                                         <label class="form-label">{{ __('view.country') }}</label>
                                         <select type="text" name="country" class="form-select @error('country') is-invalid @enderror" id="select-countries">
                                             <option value="" selected></option>
                                             @foreach($countries AS $country)
-                                            <option value="{{ $country->code }}" @if($country->code == old('country')) selected @endif data-custom-properties=" &lt;span class=&quot;flag flag-xs flag-country-{{ $country->code }}&quot;&gt;&lt;/span&gt;">{{ $country->name }}</option>
+                                                <option value="{{ $country->code }}" @if($country->code == old('country')) selected @endif data-custom-properties=" &lt;span class=&quot;flag flag-xs flag-country-{{ $country->code }}&quot;&gt;&lt;/span&gt;">{{ $country->name }}</option>
                                             @endforeach
                                         </select>
                                         @error('country')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+
                                     <div class="mb-3">
                                         <label class="form-label">{{ __('view.city') }}</label>
                                         <select type="text" name="city" class="form-select @error('city') is-invalid @enderror">
@@ -52,6 +54,7 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+
                                     <div class="mb-3" data-rooms>
                                         <div class="d-flex align-items-center justify-content-between">
                                             <div class="page-title">{{ __('view.rooms') }}</div>

@@ -74,12 +74,16 @@ class HotelsController extends Controller
         if (!$hotel->first()) {
             return redirect()->back()->with('error', __('view.wrong'));
         }
-        $rooms = json_decode($request->rooms, TRUE);
+        $rooms = json_decode($request->rooms, true);
+        $old_rooms = json_decode($hotel->first()->rooms, true);
         for ($i = 1; $i < count($_FILES['rooms_image']['size']); $i++) {
             if ($_FILES['rooms_image']['size'][$i]) {
                 $name = time() * rand(1, 10) .  '.' . explode('/', $_FILES['rooms_image']['type'][$i])[1];
                 $rooms[$i - 1]['image'] = $name;
                 move_uploaded_file($_FILES['rooms_image']['tmp_name'][$i], public_path('/uploads/rooms') . '/' . $name);
+            } else if ($old_rooms[$i - 1]['image'] ?? null) {
+                $name = $old_rooms[$i - 1]['image'];
+                $rooms[$i - 1]['image'] = $name;
             }
         }
         $rooms = json_encode($rooms);

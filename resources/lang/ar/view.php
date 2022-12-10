@@ -158,4 +158,10 @@ return [
     'company' => 'شركه الطيران',
     'flightNumber' => 'رقم الرحلة',
     'flightTo' => 'الوجهة',
+
+    'enterEmail' => "أدخل بريدك الإلكتروني",
+    'enterPassword' => "أدخل كلمة المرور الخاصة بك",
+
+    'settings' => "إعدادات الموقع",
+    'settingsSaved' => "تم حفظ الإعدادات بنجاح",
 ];

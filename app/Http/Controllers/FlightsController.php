@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FlightRequest;
 use App\Models\Activity;
+use App\Models\Country;
 use App\Models\Flight;
 use App\Models\Hotel;
 use Carbon\Carbon;
@@ -31,7 +32,9 @@ class FlightsController extends Controller
     {
         $hotels = Hotel::where('deleted_at', null)->get();
         $activities = Activity::where('deleted_at', null)->get();
-        return view('flights/add', compact('hotels', 'activities'));
+        $countries = Country::all();
+
+        return view('flights/add', compact('hotels', 'activities', 'countries'));
     }
 
     public function store(FlightRequest $request)
@@ -65,8 +68,9 @@ class FlightsController extends Controller
         }
 
         $hotels = Hotel::where('deleted_at', null)->get();
+        $countries = Country::all();
         $activities = Activity::where('deleted_at', null)->get();
-        return view('flights/edit', compact('flight', 'hotels', 'activities'));
+        return view('flights/edit', compact('flight', 'hotels', 'activities', 'countries'));
     }
 
     public function update(FlightRequest $request)

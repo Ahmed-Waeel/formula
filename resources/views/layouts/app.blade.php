@@ -1,7 +1,7 @@
 <!doctype html>
 @php
-$lang = LaravelLocalization::getCurrentLocale();
-$dir = ($lang == 'ar' ? 'rtl' : 'ltr')
+    $lang = LaravelLocalization::getCurrentLocale();
+    $dir = ($lang == 'ar' ? 'rtl' : 'ltr')
 @endphp
 <html lang="{{ $lang }}" dir="{{ $dir }}">
 
@@ -40,7 +40,7 @@ $dir = ($lang == 'ar' ? 'rtl' : 'ltr')
                 </button>
                 <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
                     <a>
-                        <img src="{{ asset($lang . '_logo.png') }}" width="110" height="32" alt="Tabler" class="navbar-brand-image">
+                        <img src="{{ asset($lang  .'_logo.png') }}" width="110" height="32" alt="Tabler" class="navbar-brand-image">
                     </a>
                 </h1>
                 <div class="navbar-nav flex-row order-md-last">

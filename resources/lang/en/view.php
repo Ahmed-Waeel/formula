@@ -54,7 +54,7 @@ return [
     'profile' => 'Profile && Account',
     'settings' => 'Settings',
     'activities' => 'Activities',
-    'transportations' => 'لإransportations',
+    'transportations' => 'Transportations',
     'addActivity' => 'Add Activity',
     'editActivity' => 'ُEdit Activity: ',
     'addTranspotaion' => 'Add Transpotaion',
@@ -157,4 +157,9 @@ return [
     'company' => 'Company',
     'flightNumber' => 'Flight Number',
     'flightTo' => 'To',
+
+    'enterEmail' => "Enter your email",
+    'enterPassword' => "Enter your Password",
+    'settings' => "Website Settings",
+    'settingsSaved' => "Settings saved successfully",
 ];

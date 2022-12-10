@@ -32,6 +32,18 @@
                                     </div>
 
                                     <div class="mb-3">
+                                        <label class="form-label">{{ __('view.country') }}</label>
+                                        <select type="text" name="country" class="form-select @error('country') is-invalid @enderror" id="select-countries">
+                                            @foreach($countries AS $country)
+                                                <option value="{{ $country->code }}" @if($country->code == old('country')) selected @endif data-custom-properties=" &lt;span class=&quot;flag flag-xs flag-country-{{ $country->code }}&quot;&gt;&lt;/span&gt;">{{ $country->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('country')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="mb-3">
                                         <div class="form-label">{{ __('view.image') }}</div>
                                         <input type="file" name=image class="form-control @error('image') is-invalid @enderror">
                                         @error('image')
@@ -53,22 +65,34 @@
     </div>
 </div>
 
-<div class="modal modal-blur fade" id="delete-room" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="modal-title">{{ __('view.delete') }}</div>
-                <div>{{ __('view.deleteRoomMessage') }}</div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-link link-secondary me-auto" data-bs-dismiss="modal">{{ __('view.cancel') }}</button>
-                <button data-delete-room type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('view.delete') }}</button>
-            </div>
-        </div>
-    </div>
-</div>
-
+<script src="{{ asset('libs/tom-select/dist/js/tom-select.base.min.js') }}"></script>
 <script>
     $('[activities_tab]').addClass('active');
+
+        document.addEventListener("DOMContentLoaded", function() {
+        var el;
+        window.TomSelect && (new TomSelect(el = document.getElementById('select-countries'), {
+            maxOptions: 5000,
+            searchField: 'name',
+            valueField: 'code',
+            labelField: 'name',
+            dropdownClass: 'dropdown-menu',
+            optionClass: 'dropdown-item',
+            render: {
+                item: function(data, escape) {
+                    if (data.customProperties) {
+                        return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.name) + '</div>';
+                    }
+                    return '<div>' + escape(data.text) + '</div>';
+                },
+                option: function(data, escape) {
+                    if (data.customProperties) {
+                        return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.name) + '</div>';
+                    }
+                    return '<div>' + escape(data.text) + '</div>';
+                },
+            },
+        }));
+    });
 </script>
 @endsection

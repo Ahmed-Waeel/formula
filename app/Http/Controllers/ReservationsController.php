@@ -140,8 +140,65 @@ class ReservationsController extends Controller
 
         $time = time();
         $pdf = new \Mpdf\Mpdf();
-        $pdf->setFooter('<div style="text-align: center"><p>{PAGENO} من {nbpg}</p></div>');
+        // $pdf->setFooter('<div style="text-align: center"><p>{PAGENO} من {nbpg}</p></div>');
+
+        $footer = '
+            <div style="text-align: center">
+                <span>
+                    PO Box. 7155, Jeddah-23534, KSA
+                </span>
+
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+                <span>
+                    92000&nbsp;40&nbsp;80
+                </span>
+
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+                <span>
+                    966&nbsp;126044944+
+                </span>
+
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+                <span>
+                    www.formula.com.sa
+                </span>
+
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+                <span>
+                    @formula_KSA
+                </span>
+            </div>';
+        // $pdf->SetHTMLFooter(`<img src="` . public_path('footer.png') . `" style="widht: 100% height: 40px">`);
+        // $pdf->setFooter('<div style="text-align: center"><p>{PAGENO} من {nbpg}</p></div>');
         $pdf->WriteHTML($view);
+        // $pdf->Image(public_path('footer.png'), 3, 280, 203, 15, 'png', 'https://www.linkedin.com/in/ahmeed-waael/', true, false);
+        $pdf->Image(public_path('static/pdf/post icon.jpeg'), 8, 290, 4, 4, 'jpeg', '', true, false);
+        $pdf->Image(public_path('static/pdf/1.jpeg'), 12, 290, 40, 4, 'jpeg', '', true, false);
+
+        $pdf->Image(public_path('static/pdf/Telephone icon.jpeg'), 56, 290, 4, 4, 'jpeg', '', true, false);
+        $pdf->Image(public_path('static/pdf/2.jpeg'), 60, 291, 20, 2, 'jpeg', '', true, false);
+
+        $pdf->Image(public_path('static/pdf/fax icon.jpeg'), 87, 290, 4, 4, 'jpeg', '', true, false);
+        $pdf->Image(public_path('static/pdf/3.jpeg'), 91, 291, 25, 2.5, 'jpeg', '', true, false);
+
+        $pdf->Image(public_path('static/pdf/web icon.jpeg'), 118, 290, 4, 4, 'jpeg', '', true, false);
+        $pdf->Image(public_path('static/pdf/4.jpeg'), 122, 290, 35, 3.5, 'jpeg', '', true, false);
+
+        $pdf->Image(public_path('static/pdf/facebook icon.jpeg'), 161, 290, 4, 4, 'jpeg', '', true, false);
+        $pdf->Image(public_path('static/pdf/twitter icon.jpeg'), 165, 290, 4, 4, 'jpeg', '', true, false);
+        $pdf->Image(public_path('static/pdf/instagram icon.jpeg'), 169, 290, 4, 4, 'jpeg', '', true, false);
+        $pdf->Image(public_path('static/pdf/snapchat icon.jpeg'), 173, 290, 4, 4, 'jpeg', '', true, false);
+        $pdf->Image(public_path('static/pdf/linked icon.jpeg'), 177, 290, 4, 4, 'jpeg', '', true, false);
+
+        $pdf->Image(public_path('static/pdf/5.jpeg'), 182, 290.5, 22, 3, 'jpeg', '', true, false);
+
+        $pdf->Image(public_path('static/pdf/line 1.jpeg'), 8, 285, 65, 3, 'jpeg', '', true, false);
+        $pdf->Image(public_path('static/pdf/line 2.jpeg'), 73, 285, 65, 3, 'jpeg', '', true, false);
+        $pdf->Image(public_path('static/pdf/line 3.jpeg'), 138, 285, 65, 3, 'jpeg', '', true, false);
         $pdf->SetDirectionality('rtl');
         $pdf->Output(public_path('pdfs/Reservation_' . $time . '.pdf'));
         return Response::download(public_path('pdfs/Reservation_' . $time . '.pdf'), 'Reservation.pdf')->deleteFileAfterSend(true);

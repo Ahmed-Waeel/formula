@@ -276,13 +276,24 @@
         </div>
     </div>
 
+    {{-- Coutries --}}
+    <div class="mb-3">
+        <label class="form-label">{{ __('view.country') }}</label>
+        <select type="text" name="country" class="form-select" country>
+            <option value="" selected></option>
+            @foreach($countries AS $country)
+                <option value="{{ $country->code }}" data-custom-properties=" &lt;span class=&quot;flag flag-xs flag-country-{{ $country->code }}&quot;&gt;&lt;/span&gt;">{{ $country->name }}</option>
+            @endforeach
+        </select>
+    </div>
+
     <!-- Hotel -->
     <div class="mb-3">
-        <label class="form-label">{{ __('view.hotel') }}</label>
+        <label hotel_label class="form-label">{{ __('view.hotel') }}</label>
         <select hotel class="form-select">
             <option value="" hidden>{{ __('view.selectOption') }}</option>
             @foreach($hotels As $hotel)
-            <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
             @endforeach
         </select>
     </div>
@@ -520,14 +531,22 @@
         </div>
     </div>
 
+    {{-- Coutries --}}
+    <div class="mb-3">
+        <label class="form-label">{{ __('view.country') }}</label>
+        <select type="text" name="country" class="form-select" country>
+            <option value="" selected></option>
+            @foreach($countries AS $country)
+                <option value="{{ $country->code }}" data-custom-properties=" &lt;span class=&quot;flag flag-xs flag-country-{{ $country->code }}&quot;&gt;&lt;/span&gt;">{{ $country->name }}</option>
+            @endforeach
+        </select>
+    </div>
+
     <!-- Activity -->
     <div class="mb-3">
-        <label class="form-label">{{ __('view.activity') }}</label>
+        <label class="form-label" activity_label>{{ __('view.activity') }}</label>
         <select activity class="form-select">
             <option value="" hidden>{{ __('view.selectOption') }}</option>
-            @foreach($activities As $activity)
-            <option value="{{ $activity->id }}">{{ $activity->name }}</option>
-            @endforeach
         </select>
     </div>
 
@@ -565,6 +584,8 @@
 <script src="{{ asset('libs/tom-select/dist/js/tom-select.base.min.js') }}"></script>
 <script>
     const hotels = <?= $hotels ?>;
+    const activities = <?= $activities ?>;
+
     $(() => {
         intailizeDate('start_date');
         intailizeDate('end_date');
@@ -585,6 +606,32 @@
         }));
     }
 
+    const intializeCountryTomSelect = (target) => {
+        var el;
+        window.TomSelect && (new TomSelect(el = document.getElementById(`${target}`), {
+            maxOptions: 5000,
+            searchField: 'name',
+            valueField: 'code',
+            labelField: 'name',
+            dropdownClass: 'dropdown-menu',
+            optionClass: 'dropdown-item',
+            render: {
+                item: function(data, escape) {
+                    if (data.customProperties) {
+                        return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.name) + '</div>';
+                    }
+                    return '<div>' + escape(data.text) + '</div>';
+                },
+                option: function(data, escape) {
+                    if (data.customProperties) {
+                        return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.name) + '</div>';
+                    }
+                    return '<div>' + escape(data.text) + '</div>';
+                },
+            },
+        }));
+    };
+
     const addDay = (data = null) => {
         const template = $('[data-days-template]').clone();
 
@@ -595,6 +642,7 @@
     };
 
     const addHotel = (target = null, data = null) => {
+        const country_id = "country_" + (Math.random() + 1).toString(36).substring(2);
         const hotel_id = "select_hotel_" + (Math.random() + 1).toString(36).substring(2);
         const room_id = "select_room_" + (Math.random() + 1).toString(36).substring(2);
         let startDateId = "start_data_" + (Math.random() + 1).toString(36).substring(2);
@@ -605,9 +653,8 @@
         template.find('[end_date]').attr('id', endDateId);
         template.removeAttr('data-hotel-template hidden');
         template.attr('data-hotel', true);
-        template.find('select[hotel]').on('change', ({
-            target
-        }) => {
+        template.find('select[country]').attr('id', country_id);
+        template.find('select[hotel]').on('change', ({ target }) => {
             const roomsSelect = template.find('select[room]');
             hotels.forEach((el, i) => {
                 if (el.id == $(target).val()) {
@@ -622,12 +669,44 @@
         });
         template.find('select[hotel]').attr('id', hotel_id);
         template.find('select[room]').attr('id', room_id);
+
+        template.find('select[country]').on('change', function () {
+            const country_code = $(this).val();
+
+            const country_hotels = [];
+            hotels.forEach(el => {
+                if(el.country == country_code) country_hotels.push(el); 
+            });
+
+            template.find('select[hotel]').next().remove();
+            template.find('select[hotel]').remove();
+            
+
+            const new_id = Math.random();
+            template.find('[hotel_label]').after(`
+                <select hotel class="form-select" id='${new_id}'>
+                    <option value="" hidden>{{ __('view.selectOption') }}</option>
+                </select>`);
+
+            var new_select;
+            window.TomSelect && (new TomSelect(new_select = document.getElementById(`${new_id}`), {
+                maxOptions: 5000,
+                options: country_hotels,
+                searchField: 'name',
+                valueField: 'id',
+                labelField: 'name',
+                dropdownClass: 'dropdown-menu',
+                optionClass: 'dropdown-item',
+            }));
+
+        });
+
         if (data) {
             template.find('input[start_date]').val(data.start_date);
             template.find('input[end_date]').val(data.end_date);
             template.find(`select[hotel] option[value=${data.hotel}]`).attr('selected', true).trigger('change');
             template.find(`select[room] option[value=${data.room}]`).attr('selected', true);
-            template.find('textarea[notes]').val(data.notes);
+            template.find('textarea[notes]').val(data.notes.replaceAll('\\n', '\n'));
         }
         if (target) {
             $(target).closest('[data-day]').find('[data-hotels-container]').append(template);
@@ -644,6 +723,8 @@
             dropdownClass: 'dropdown-menu',
             optionClass: 'dropdown-item',
         }));
+
+        intializeCountryTomSelect(country_id); 
 
         if ($('body').hasClass('theme-dark')) $('[type=select-one]').css('color', '#fff');
 
@@ -668,7 +749,7 @@
             template.find('input[to]').val(data.to);
             template.find('input[company]').val(data.compnay);
             template.find('input[flight_number]').val(data.flight_number);
-            template.find('textarea[notes]').val(data.notes);
+            template.find('textarea[notes]').val(data.notes.replaceAll('\\n', '\n'));
         }
         if (target) {
             $(target).closest('[data-day]').find('[data-airports-container]').append(template);
@@ -691,7 +772,7 @@
             template.find('input[date]').val(data.date);
             template.find('input[from]').val(data.from);
             template.find('input[to]').val(data.to);
-            template.find('textarea[notes]').val(data.notes);
+            template.find('textarea[notes]').val(data.notes.replaceAll('\\n', '\n'));
         }
         if (target) {
             $(target).closest('[data-day]').find('[data-transportations-container]').append(template);
@@ -704,19 +785,65 @@
     const addActivity = (target = null, data = null) => {
         let dateId = "date_" + (Math.random() + 1).toString(36).substring(2);
         let activity_id = "activity_" + (Math.random() + 1).toString(36).substring(2);
+        const country_id = "country_" + (Math.random() + 1).toString(36).substring(2);
 
         let template = $('[data-activities-template]').clone();
         template.find('[date]').attr('id', dateId);
         template.find('select[activity]').attr('id', activity_id);
+        template.find('select[country]').attr('id', country_id);
         template.removeAttr('data-activities-template hidden');
         template.attr('data-activity', true);
+
+        template.find('select[country]').on('change', function () {
+            const country_code = $(this).val();
+
+            const country_activites = [];
+            activities.forEach(el => {
+                if(el.country == country_code) country_activites.push(el); 
+            });
+
+            template.find('select[activity]').next().remove();
+            template.find('select[activity]').remove();
+            
+
+            const new_id = Math.random();
+            template.find('[activity_label]').after(`
+                <select activity class="form-select" id='${new_id}'>
+                    <option value="" hidden>{{ __('view.selectOption') }}</option>
+                </select>`);
+
+            template.find('select[hotel]').on('change', ({target}) => {
+                const roomsSelect = template.find('select[room]');
+                hotels.forEach((el, i) => {
+                    if (el.id == $(target).val()) {
+                        roomsSelect.html('');
+                        JSON.parse(el['rooms']).forEach((room, i) => {
+                            roomsSelect.append(`
+                                <option value='${i+1}'>${room.name}</option>
+                            `);
+                        });
+                    }
+                });
+            });
+            var new_select;
+            window.TomSelect && (new TomSelect(new_select = document.getElementById(`${new_id}`), {
+                maxOptions: 5000,
+                options: country_activites,
+                searchField: 'name',
+                valueField: 'id',
+                labelField: 'name',
+                dropdownClass: 'dropdown-menu',
+                optionClass: 'dropdown-item',
+            }));
+
+        });
 
         if (data) {
             console.log(data);
             template.find('input[date]').val(data.date);
             template.find(`select[activity] option[value=${data.activity}]`).attr('selected', true);
-            template.find('textarea[description]').val(data.description);
-            template.find('textarea[notes]').val(data.notes);
+            template.find('textarea[description]').val(data.description.replaceAll('\\n', '\n'));
+            template.find('textarea[notes]').val(data.notes.replaceAll('\\n', '\n'));
         }
         if (target) {
             $(target).closest('[data-day]').find('[data-activities-container]').append(template);
@@ -733,6 +860,8 @@
             dropdownClass: 'dropdown-menu',
             optionClass: 'dropdown-item',
         }));
+
+        intializeCountryTomSelect(country_id);
 
         if ($('body').hasClass('theme-dark')) $('[type=select-one]').css('color', '#fff');
 

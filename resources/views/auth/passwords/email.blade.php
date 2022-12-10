@@ -16,7 +16,7 @@
         <div class="card-body">
             <div class="mb-3">
                 <label class="form-label">{{ __('view.email') }}</label>
-                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus  @if(LaravelLocalization::getCurrentLocale() == 'ar') style="text-align: right" @endif placeholder="{{ __('view.enterEmail') }}">
                 @error('email')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

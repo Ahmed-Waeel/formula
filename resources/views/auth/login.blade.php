@@ -7,7 +7,7 @@
         <h2 class="card-title text-center mb-4">{{ __('view.login') }}</h2>
         <div class="mb-3">
             <label class="form-label">{{ __('view.email') }}</label>
-            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus @if(LaravelLocalization::getCurrentLocale() == 'ar') style="text-align: right" @endif placeholder="{{ __('view.enterEmail') }}">
             @error('email')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -22,7 +22,7 @@
                 </span>
             </label>
             <div class="input-group input-group-flat">
-                <input type="password" password-input class="form-control @error('password') is-invalid @enderror" name="password" required>
+                <input type="password" password-input class="form-control @error('password') is-invalid @enderror" name="password" required placeholder="{{ __('view.enterPassword') }}">
                 @error('password')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

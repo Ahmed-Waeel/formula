@@ -30,8 +30,7 @@
             word-break: break-word;
             padding: 50px 20px;
             font-family: cairo;
-            background: url("{{ public_path('icon.png') }}") no-repeat center;
-            background-image-opacity: 0.1;
+         
         }
 
         .background_icon {
@@ -120,8 +119,7 @@
 </head>
 
 <body dir="rtl">
-    <div class="page_container">
-
+    <div>
         <table style="width: 100%">
             <tr>
                 <td style="text-align: right">
@@ -186,41 +184,48 @@
                 <td>نوع الغرف وعددها</td>
             </tr>
             @if(!$hotels_check)
-            <tr>
-                <td colspan="4" style="text-align: center;">
-                    لا يوجد فنادق في هذه الرحلة
-                </td>
-            </tr>
+                <tr>
+                    <td colspan="4" style="text-align: center;">
+                        لا يوجد فنادق في هذه الرحلة
+                    </td>
+                </tr>
             @else
             @foreach($options AS $option)
-            @foreach($option['hotels'] AS $hotel)
-            @php $date1 = Carbon\Carbon::parse($hotel['start_date']);
-            $date2 = Carbon\Carbon::parse($hotel['end_date']);
-            $diff = $date1->diffInDays($date2);
+                @foreach($option['hotels'] AS $hotel)
+                    @php 
+                        $date1 = Carbon\Carbon::parse($hotel['start_date']);
+                        $date2 = Carbon\Carbon::parse($hotel['end_date']);
+                        $diff = $date1->diffInDays($date2);
 
-            $hotel_data = [];
-            foreach ($hotels as $key => $arr) {
-            if ($arr['id'] == $hotel['hotel']) $hotel_data = $arr;
-            }
+                        $hotel_data = [];
+                        foreach ($hotels as $key => $arr) {
+                            if ($arr['id'] == $hotel['hotel']) $hotel_data = $arr;
+                        }
 
 
-            $country = '';
-            foreach ($countries as $key => $arr) {
-            if ($arr['code'] == $hotel_data['country']) $country = $arr['name'];
-            }
+                        $country = '';
+                        foreach ($countries as $key => $arr) {
+                            if ($arr['code'] == $hotel_data['country']) $country = $arr['name'];
+                        }
 
-            $city = '';
-            foreach ($cities as $key => $arr) {
-            if ($arr['id'] == $hotel_data['city']) $city = $arr['name'];
-            }
-            @endphp
-            <tr>
-                <td>{{ $option['day'] }}</td>
-                <td>{{ date('d-m-Y', strtotime($hotel['start_date'])) }}<br> - <br>{{ date('d-m-Y', strtotime($hotel['end_date'])) }}</td>
-                <td>{{ $city . '-' . $country }}<br> <a href="{{ asset('uploads/rooms') . '/' . ((array)json_decode($hotel_data['rooms'])[+$hotel['room'] - 1])['image']}}" target="_blank">{{ $hotel_data['name'] }}</a> <br> {{ $diff }} ليالي</span></td>
-                <td> <br> {!! nl2br(str_replace('\\n', '<br>', $hotel['notes'])) !!}</td>
-            </tr>
-            @endforeach
+                        $city = '';
+                        foreach ($cities as $key => $arr) {
+                            if ($arr['id'] == $hotel_data['city']) $city = $arr['name'];
+                        }
+
+                        $rooms = json_decode($hotel_data['rooms'], true);
+                        $roomIdx = +$hotel['room'] - 1;
+                        $roomTitle = $rooms[$roomIdx]['name'];
+                        $roomImage = $rooms[$roomIdx]['image'];
+                        $imagePath = asset('uploads/rooms') . '/' . $roomImage;
+                    @endphp
+                    <tr>
+                        <td>{{ $option['day'] }}</td>
+                        <td>{{ date('d-m-Y', strtotime($hotel['start_date'])) }}<br> - <br>{{ date('d-m-Y', strtotime($hotel['end_date'])) }}</td>
+                        <td>{{ $city . '-' . $country }}<br> {{ $hotel_data['name'] }} <br> <a href={{ $imagePath }} target="_blank"> {{ $roomTitle }} </a> <br> {{ $diff }} ليالي</span></td>
+                        <td> <br> {!! nl2br(str_replace('\\n', '<br>', $hotel['notes'])) !!}</td>
+                    </tr>
+                @endforeach
             @endforeach
             @endif
         </tbody>
@@ -240,22 +245,22 @@
                 <td>ملاحظات</td>
             </tr>
             @if(!$airports_check)
-            <tr>
-                <td colspan="4" style="text-align: center;">
-                    لا يوجد اي مطارات في هذه الرحلة
-                </td>
-            </tr>
+                <tr>
+                    <td colspan="4" style="text-align: center;">
+                        لا يوجد اي مطارات في هذه الرحلة
+                    </td>
+                </tr>
             @else
-            @foreach($options AS $option)
-            @foreach($option['airports'] AS $airport)
-            <tr>
-                <td>{{ $option['day'] }}</td>
-                <td>{{ date('d-m-Y h:i A', strtotime($airport['date'])) }}</td>
-                <td> {{ $airport['from'] }} -> {{ $airport['to'] }} <br> شركة الطيران: {{$airport['company']}} <br> رقم الرحلة: {{$airport['flight_number']}} <br> من: {{ $airport['time_from'] }} - إلي: {{$airport['time_to']}}</td>
-                <td>{!! nl2br(str_replace('\\n', '<br>', $airport['notes'])) !!}</td>
-            </tr>
-            @endforeach
-            @endforeach
+                @foreach($options AS $option)
+                    @foreach($option['airports'] AS $airport)
+                        <tr>
+                            <td>{{ $option['day'] }}</td>
+                            <td>{{ date('d-m-Y h:i A', strtotime($airport['date'])) }}</td>
+                            <td> {{ $airport['from'] }} -> {{ $airport['to'] }} <br> شركة الطيران: {{$airport['company']}} <br> رقم الرحلة: {{$airport['flight_number']}} <br> من: {{ $airport['time_from'] }} - إلي: {{$airport['time_to']}}</td>
+                            <td>{!! nl2br(str_replace('\\n', '<br>', $airport['notes'])) !!}</td>
+                        </tr>
+                    @endforeach
+                @endforeach
             @endif
         </tbody>
     </table>
@@ -309,29 +314,29 @@
                 <td>ملاحظات</td>
             </tr>
             @if(!$activities_check)
-            <tr>
-                <td colspan="4" style="text-align: center;">
-                    لا يوجد اي مواصلات او انشطة في هذه الرحلة
-                </td>
-            </tr>
+                <tr>
+                    <td colspan="4" style="text-align: center;">
+                        لا يوجد اي مواصلات او انشطة في هذه الرحلة
+                    </td>
+                </tr>
             @else
-            @foreach($options AS $option)
-            @foreach($option['activities'] AS $activity)
-            @php
-            $activity_data = [];
-            foreach ($activities as $key => $arr) {
-            if ($arr['id'] == $activity['activity']) $activity_data = $arr;
-            }
-            @endphp
-            <tr>
-                <td>{{ $option['day'] }}</td>
-                <td>{{ date('d-m-Y', strtotime($activity['date'])) }}</td>
-                <td> <a href="{{ asset('uploads/activities') . '/' . $activity_data['image']}}" target="_blank">{{ $activity_data['name'] }}</a> </td>
-                <td>{!! nl2br(str_replace('\\n', '<br>', $activity['description'])) !!}</td>
-                <td>{!! nl2br(str_replace('\\n', '<br>', $activity['notes'])) !!}</td>
-            </tr>
-            @endforeach
-            @endforeach
+                @foreach($options AS $option)
+                    @foreach($option['activities'] AS $activity)
+                        @php
+                            $activity_data = [];
+                            foreach ($activities as $key => $arr) {
+                                if ($arr['id'] == $activity['activity']) $activity_data = $arr;
+                            }
+                        @endphp
+                        <tr>
+                            <td>{{ $option['day'] }}</td>
+                            <td>{{ date('d-m-Y', strtotime($activity['date'])) }}</td>
+                            <td> <a href="{{ asset('uploads/activities') . '/' . $activity_data['image']}}" target="_blank">{{ $activity_data['name'] }}</a> </td>
+                            <td>{!! nl2br(str_replace('\\n', '<br>', $activity['description'])) !!}</td>
+                            <td>{!! nl2br(str_replace('\\n', '<br>', $activity['notes'])) !!}</td>
+                        </tr>
+                    @endforeach
+                @endforeach
             @endif
         </tbody>
     </table>
@@ -353,7 +358,27 @@
         </table>
     @endif
 
-    <table style="width: 100%; height: 10px; background-color: red">
+</body>
+</html>
+
+    {{-- <div style="position: fixed;">
+        <span style="position: fixed; left: 30px bottom 20px">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M10 21v-6.5a3.5 3.5 0 0 0 -7 0v6.5h18v-6a4 4 0 0 0 -4 -4h-10.5" />
+                <path d="M12 11v-8h4l2 2l-2 2h-4" />
+                <path d="M6 15h1" />
+            </svg>
+        </span>
+    </div>
+
+    <div style="position: fixed;">
+        <span style="position: fixed left: 0px ">
+            PO Box. 7155, Jeddah-23534, KSA
+        </span>
+    </div> --}}
+
+ {{-- <table style="width: 100%; height: 10px; background-color: red">
         <tr>
             <td>
                 www.formula.com.sa
@@ -392,10 +417,8 @@
             </td>
             <td>@formula_KSA</td>
         </tr>
-    </table>
-</body>
+    </table> --}}
 
-</html>
 
 <!-- twitter -->
 <!-- <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

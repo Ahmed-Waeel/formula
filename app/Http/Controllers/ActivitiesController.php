@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ActivityRequest;
 use App\Models\Activity;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Action;
 
@@ -27,7 +28,8 @@ class ActivitiesController extends Controller
 
     public function add()
     {
-        return view('activities/add');
+        $countries = Country::all();
+        return view('activities/add', compact('countries'));
     }
 
     public function store(ActivityRequest $request)
@@ -40,6 +42,7 @@ class ActivitiesController extends Controller
         }
         Activity::create([
             'name' => $request->name,
+            'country' => $request->country,
             'image' => $imageName,
         ]);
         return redirect(route('activity.showAll'))->with('success', __('view.activityCreated'));
@@ -52,7 +55,8 @@ class ActivitiesController extends Controller
             return redirect()->back()->with('error', __('view.wrong'));
         }
 
-        return view('activities/edit', compact('activity'));
+        $countries = Country::all();
+        return view('activities/edit', compact('activity', 'countries'));
     }
 
     public function update(ActivityRequest $request)
@@ -69,6 +73,7 @@ class ActivitiesController extends Controller
         }
         $activity->update([
             'name' => $request->name ?? $activity->first()->name,
+            'country' => $request->country ?? $activity->first()->country,
             'image' => ($imageName != '' ?  $imageName : $activity->first()->image),
         ]);
         return redirect()->back()->with('success', __('view.activityUpdated'));
