@@ -39,9 +39,8 @@ class FlightsController extends Controller
 
     public function store(FlightRequest $request)
     {
-        // return json_encode($request->options);
-        if (!$request->start_date) return redirect()->back()->with('error', __('validation.startDateValidation'));
-        if (!$request->end_date) return redirect()->back()->with('error', __('validation.endDateValidation'));
+        if (!$request->start_date) return redirect()->back()->withInput()->with('error', __('validation.startDateValidation'));
+        if (!$request->end_date) return redirect()->back()->withInput()->with('error', __('validation.endDateValidation'));
         while (true) {
             $flight_id = substr(md5(rand()), 0, 15);
             $flight = Flight::where('flight_id', $flight_id)->first();
@@ -54,8 +53,8 @@ class FlightsController extends Controller
             'start_date' => Carbon::createFromFormat('Y-m-d', $request->start_date),
             'end_date' => Carbon::createFromFormat('Y-m-d', $request->end_date),
             'options' => $request->options,
-            'flight_to' => $request->flight_to,
-            'notes' => $request->notes,
+            'flight_to' => $request->flight_to ?? "",
+            'notes' => $request->notes ?? "",
         ]);
         return redirect(route('flight.showAll'))->with('success', __('view.flightCreated', ['id' => $flight_id]));
     }
@@ -75,16 +74,18 @@ class FlightsController extends Controller
 
     public function update(FlightRequest $request)
     {
+        if (!$request->start_date) return redirect()->back()->withInput()->with('error', __('validation.startDateValidation'));
+        if (!$request->end_date) return redirect()->back()->withInput()->with('error', __('validation.endDateValidation'));
+        
         $flight = Flight::where('deleted_at', null)->where('flight_id', $request->flight_id);
         if (!$flight->first()) {
             return redirect()->back()->with('error', __('view.wrong'));
         }
-        $flight->update([
-            'start_date' => Carbon::createFromFormat('Y-m-d', $request->start_date) ?? $flight->first()->start_date,
-            'end_date' => Carbon::createFromFormat('Y-m-d', $request->end_date) ?? $flight->first()->end_date,
+        $flight->update(['start_date' => Carbon::createFromFormat('Y-m-d', $request->start_date),
+            'end_date' => Carbon::createFromFormat('Y-m-d', $request->end_date),
             'options' => $request->options ?? $flight->first()->options,
-            'flight_to' => $request->flight_to ?? $flight->first()->flight_to,
-            'notes' => $request->notes ?? $flight->first()->notes,
+            'flight_to' => $request->flight_to ?? "",
+            'notes' => $request->notes ?? "",
         ]);
         return redirect()->back()->with('success', __('view.flightUpdated'));
     }

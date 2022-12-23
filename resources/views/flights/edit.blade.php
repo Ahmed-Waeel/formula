@@ -76,13 +76,13 @@
                                     <!-- to -->
                                     <div class="mb-3">
                                         <label class="form-label">{{ __('view.flightTo') }}</label>
-                                        <textarea class="form-control" name="flight_to" rows="4">{{ $flight->flight_to }}</textarea>
+                                        <input class="form-control" type="text" name="flight_to" value="{{ $flight->flight_to }}">
                                     </div>
 
                                     <!-- Notes -->
                                     <div class="mb-3">
-                                        <label class="form-label">{{ __('view.notes') }}</label>
-                                        <textarea class="form-control" name="notes" rows="4">{{ $flight->notes }}</textarea>
+                                        <label class="form-label">{{ __('view.pdfNotes') }}</label>
+                                        <textarea class="form-control" name="notes" rows="5">{{ $flight->notes }}</textarea>
                                     </div>
 
                                     <!-- Day Component -->
@@ -481,6 +481,12 @@
         </div>
     </div>
 
+    <!-- Description -->
+    <div class="mb-3">
+        <label class="form-label">{{ __('view.description') }}</label>
+        <textarea class="form-control" description rows="4"></textarea>
+    </div>
+
     <!-- notes with the room -->
     <div class="mb-3">
         <label class="form-label">{{ __('view.notes') }}</label>
@@ -792,6 +798,7 @@
             template.find('input[date]').val(data.date);
             template.find('input[from]').val(data.from);
             template.find('input[to]').val(data.to);
+            template.find('textarea[description]').val(data.description.replaceAll('\\n', '\n'));
             template.find('textarea[notes]').val(data.notes.replaceAll('\\n', '\n') );
         }
         if (target) {
@@ -1002,9 +1009,10 @@
                 let date = $(e).find('input[date]').val();
                 let from = $(e).find('input[from]').val();
                 let to = $(e).find('input[to]').val();
+                let description = $(e).find('textarea[description]').val().replace(/\n/g, "\\n");
                 let notes = $(e).find('textarea[notes]').val().replace(/\n/g, "\\n");
 
-                if (!date || !from || !to || !notes) {
+                if (!date || !notes) {
                     validationError = true;
                     return;
                 }
@@ -1013,6 +1021,7 @@
                     date,
                     from,
                     to,
+                    description,
                     notes
                 };
                 transportations.push(Transportation);
@@ -1147,9 +1156,10 @@
                 let date = $(e).find('input[date]').val();
                 let from = $(e).find('input[from]').val();
                 let to = $(e).find('input[to]').val();
+                let description = $(e).find('textarea[description]').val().replace(/\n/g, "\\n");
                 let notes = $(e).find('textarea[notes]').val().replace(/\n/g, "\\n");
 
-                if (!date || !from || !to || !notes) {
+                if (!date || !notes) {
                     validationError = true;
                     return;
                 }
@@ -1158,6 +1168,7 @@
                     date,
                     from,
                     to,
+                    description,
                     notes
                 };
                 transportations.push(Transportation);

@@ -282,7 +282,7 @@
                         <tr>
                             <td>{{ $option['day'] }}</td>
                             <td>{{ date('d-m-Y', strtotime($transportation['date'])) }}</td>
-                            <td> {{ $transportation['from'] }} -> {{ $transportation['to'] }} </td>
+                            <td> @if($transportation['from'] != '') {{ $transportation['from'] . "->" }} @endif   @if($transportation['to'] != '') {{ $transportation['to'] }} {!! "<br>" !!} @endif @if($transportation['description'] != '') {{ $transportation['description'] }} @endif </td>
                             <td>{!! nl2br(str_replace('\\n', '<br>', $transportation['notes'])) !!}</td>
                         </tr>
                     @endforeach

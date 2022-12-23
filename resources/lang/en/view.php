@@ -67,6 +67,7 @@ return [
     'airports' => 'Airports',
     'note' => 'Note',
     'notes' => 'Notes',
+    'pdfNotes' => 'Very Important Notes in the last section of the PDF',
     'date' => 'Date',
     'startDate' => 'Start Date',
     'endDate' => 'End Date',
