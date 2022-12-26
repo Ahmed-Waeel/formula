@@ -286,7 +286,6 @@ class ReservationsController extends Controller
 
         $pdf->WriteHTML($view);
         $pdf->SetDirectionality('ltr');
-        $pdf->WriteHTML('');
         $pdf->Output(public_path('Reservation_' . $time . '.pdf'));
         return Response::download(public_path('Reservation_' . $time . '.pdf'), 'Reservation.pdf')->deleteFileAfterSend(true);
     }
