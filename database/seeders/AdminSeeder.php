@@ -18,7 +18,7 @@ class AdminSeeder extends Seeder
     {
         $admins = array(
             array('name' => 'System Adminstrator', 'email' => 'admin@admin.com', 'password' => Hash::make('12345678'), 'photo' => 'admin_avatar.jpg', 'role' => 1, 'created_at' => Carbon::createFromDate(2022, 12, 10), 'updated_at' => Carbon::createFromDate(2022, 12, 10)),
-            array('name' => 'Ahmed', 'email' => 'Ahmed@wael.com', 'password' => Hash::make('P@ssw0rd'), 'photo' => 'admin_avatar.jpg', 'role' => 1, 'created_at' => Carbon::createFromDate(2022, 12, 10), 'updated_at' => Carbon::createFromDate(2022, 12, 10), 'deleted_at' => Carbon::createFromDate(2022, 12, 10)),
+            array('name' => 'Ahmed', 'email' => 'Ahmed@wael.com', 'password' => Hash::make('P@ssw0rd'), 'photo' => 'admin_avatar.jpg', 'role' => 1, 'created_at' => Carbon::createFromDate(2022, 12, 10), 'updated_at' => Carbon::createFromDate(2022, 12, 10)),
         );
 
         Admin::insert($admins);
