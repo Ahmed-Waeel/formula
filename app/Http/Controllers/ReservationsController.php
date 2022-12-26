@@ -140,7 +140,6 @@ class ReservationsController extends Controller
 
         $time = time();
         $pdf = new \Mpdf\Mpdf();
-        // $pdf->setFooter('<div style="text-align: center"><p>{PAGENO} من {nbpg}</p></div>');
 
         $pdf->defaultfooterline = 0;
         $pdf->setFooter(
@@ -287,8 +286,7 @@ class ReservationsController extends Controller
 
         $pdf->WriteHTML($view);
         $pdf->SetDirectionality('ltr');
-        $pdf->WriteHTML('');
-        $pdf->Output(public_path('pdfs/Reservation_' . $time . '.pdf'));
-        return Response::download(public_path('pdfs/Reservation_' . $time . '.pdf'), 'Reservation.pdf')->deleteFileAfterSend(true);
+        $pdf->Output(public_path('Reservation_' . $time . '.pdf'));
+        return Response::download(public_path('Reservation_' . $time . '.pdf'), 'Reservation.pdf')->deleteFileAfterSend(true);
     }
 }

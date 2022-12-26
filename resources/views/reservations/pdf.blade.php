@@ -23,7 +23,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            font-family: fontawesome;
             font-size: 14px;
             padding: 0;
             width: 800px;

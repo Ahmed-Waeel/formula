@@ -52,7 +52,7 @@ class FlightsController extends Controller
             'flight_id' => $flight_id,
             'start_date' => Carbon::createFromFormat('Y-m-d', $request->start_date),
             'end_date' => Carbon::createFromFormat('Y-m-d', $request->end_date),
-            'options' => $request->options,
+            'options' => $request->options ?? '[]',
             'flight_to' => $request->flight_to ?? "",
             'notes' => $request->notes ?? "",
         ]);

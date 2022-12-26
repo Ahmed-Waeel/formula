@@ -16,7 +16,7 @@ class CreateFlightsTable extends Migration
         Schema::create('flights', function (Blueprint $table) {
             $table->id();
             $table->string('flight_id');
-            $table->text('options')->default('[]');
+            $table->text('options');
             $table->string('flight_to')->nullable();
             $table->text('notes')->nullable();
             $table->timestamp('start_date');

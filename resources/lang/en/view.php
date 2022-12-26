@@ -85,7 +85,7 @@ return [
     'deleteMessage' => 'Are you sure you want to delete this Activity',
     'cancel' => 'Cancel',
     'copyRights' => 'Copyright © :year :company. All rights reserved',
-    'madeBy' => 'Made By :name',
+    'madeBy' => 'Made By',
     'enableLightMode' => 'Enable Light Mode',
     'enableDarkMode' => 'Enable Dark Mode',
     'search' => 'Search',
