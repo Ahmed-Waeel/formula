@@ -136,6 +136,10 @@ return [
     'roleValidation' => 'Please Specift the role',
     'startDateValidation' => 'Please enter Flight Date',
     'endDateValidation' => 'Please enter Flight end Date',
+    'numPassengersError' => 'Please enter the number of passengers Correctly',
+    'priceError' => 'Please enter the Total Price Correctly',
+    'depositeError' => 'Please enter the Deposite Correctly',
+    'depositeLargerThanPriceError' => 'Deposite Mustn\'t be greater than total price',
 
     /*
     |--------------------------------------------------------------------------

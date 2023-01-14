@@ -125,11 +125,19 @@ class HotelsController extends Controller
             $city = City::where('name', 'like', '%' . $request->data . '%')->first();
             if ($city) $cityId = $city->id;
             // Get Hotels
-            $hotels = Hotel::where('country', 'like', '%' . $countryCode != "" ? $countryCode : "1322" . '%')
-            ->orWhere('city', 'like', '%' . $cityId != "" ? $cityId : "dummy" . '%')
-            ->orWhere('name', 'like', '%' . $request->data . '%')
-            ->orWhere('url', 'like', '%' . $request->data . '%')
-            ->paginate($pagination, ['*'], 'page', $request->page ?? 1);
+            $hotels = Hotel::where(function($query) use ($countryCode){
+                     $query->where('deleted_at', null);
+                     $query->where('country', 'like', '%' . $countryCode != "" ? $countryCode : "1322" . '%');
+                })
+                ->orWhere(function($query) use ($cityId){
+                     $query->where('deleted_at', null);
+                     $query->where('city', 'like', '%' . $cityId != "" ? $cityId : "dummy" . '%');
+                })
+                ->orWhere(function($query) use ($data){
+                     $query->where('deleted_at', null);
+                     $query->where('name', 'like', '%' . $data . '%');
+                })
+                ->paginate($pagination, ['*'], 'page', $request->page ?? 1);
         }
         // Representing the Country Name and City Name for Each Hotel
         foreach ($hotels as $hotel) {

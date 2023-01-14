@@ -8,6 +8,7 @@ use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\FlightsController;
 use App\Http\Controllers\HotelsController;
 use App\Http\Controllers\ReservationsController;
+use App\Http\Controllers\SettingController;
 use App\Models\City;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -29,8 +30,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-    // Admin
+    // Must Be Super Admin
     Route::middleware('checkRole')->group(function(){
+        // Admins CRUD Opercations
         Route::get('admins/{pagination?}', [AdminsController::class, 'index'])->name('admin.showAll')->where('pagination', '[0-9]+');
         Route::get('admin/add', [AdminsController::class, 'add'])->name('admin.add');
         Route::post('admin/store', [AdminsController::class, 'store'])->name('admin.store');
@@ -38,6 +40,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::post('admin/update', [AdminsController::class, 'update'])->name('admin.update');
         Route::get('admin/delete/{admin_id}', [AdminsController::class, 'delete'])->name('admin.delete');
         Route::match(['GET', 'POST'], 'admin/filter', [AdminsController::class, 'filter'])->name('admin.filter');
+
+        // Settings
+        Route::get('/settings/', [SettingController::class, 'index'])->name('settings.showAll');
+        Route::post('/settings/', [SettingController::class, 'update'])->name('settings.update');
+    
     });
     Route::get('profile/edit', [AdminsController::class, 'editProfile'])->name('admin.editProfile');
     Route::post('profile/update', [AdminsController::class, 'updateProfile'])->name('admin.updateProfile');
@@ -95,7 +102,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
     // City
     Route::post('/cities/', [CitiesController::class, 'getCities'])->name('get.cities');
-
     Route::fallback(function () {
         return view('404');
     });

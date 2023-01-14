@@ -91,10 +91,22 @@ class CustomersController extends Controller
         } else {
             $data = $request->data;
 
-            $customers = Customer::where('customer_id', $request->data)
-                ->orWhere('name', 'like', '%' . $request->data . '%')
-                ->orWhere('phone', 'like', '%' . $request->data . '%')
-                ->orWhere('email', 'like', '%' . $request->data . '%')
+            $customers = Customer::where(function($query) use ($data){
+                     $query->where('deleted_at', null);
+                     $query->where('name', 'like', '%' . $data . '%');
+                })
+                ->orWhere(function($query) use ($data){
+                     $query->where('deleted_at', null);
+                     $query->where('phone', 'like', '%' . $data . '%');
+                })
+                ->orWhere(function($query) use ($data){
+                     $query->where('deleted_at', null);
+                     $query->where('email', 'like', '%' . $data . '%');
+                })
+                ->orWhere(function($query) use ($data){
+                     $query->where('deleted_at', null);
+                     $query->where('customer_id', $data);
+                })
                 ->paginate($pagination, ['*'], 'page', $request->page ?? 1);
         }
         return view('customers/show', compact('customers', 'data', 'pagination'));

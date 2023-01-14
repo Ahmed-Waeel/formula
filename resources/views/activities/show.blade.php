@@ -58,6 +58,7 @@
                     <tr>
                         <th class="w-2">{{ __('view.id') }} </th>
                         <th class="w-2"> {{ __('view.title') }} </th>
+                        <th class="w-2">{{ __('view.country') }} </th>
                         <th class="w-2">{{ __('view.actions') }} </th>
                     </tr>
                 </thead>
@@ -71,6 +72,10 @@
                     <tr>
                         <td><span class="text-muted">{{ $activity->id }}</span></td>
                         <td>{{ $activity->name }}</td>
+                         <td>
+                            <span class="flag flag-country-{{$activity->country}}"></span>
+                            {{ $activity->countryName }}
+                        </td>
                         <td>
                             <span class="dropdown">
                                 <button class="btn dropdown-toggle align-text-top" data-bs-boundary="viewport" data-bs-toggle="dropdown">{{ __('view.actions') }}</button>

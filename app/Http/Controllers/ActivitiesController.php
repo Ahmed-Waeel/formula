@@ -23,6 +23,11 @@ class ActivitiesController extends Controller
     public function index($pagination = PAGINATION)
     {
         $activities = Activity::where('deleted_at', null)->paginate($pagination);
+        
+        foreach ($activities as $activity) {
+            $activity->countryName = Country::where('code', $activity->country)->first()->name ?? '';
+        } 
+        
         return view('activities/show', compact('activities'));
     }
 
@@ -97,10 +102,29 @@ class ActivitiesController extends Controller
             $data = '';
         } else {
             $data = $request->data;
+            $countryCode = '';
+            
+            
 
-            $activities = Activity::where('flight_id', $request->data)
+            // Get Country Code From its Name
+            $country = Country::where('name', 'like', '%' . $data . '%')->first();
+            if ($country) $countryCode = $country->code;
+
+            $activities = Activity::where(function($query) use ($data){
+                     $query->where('deleted_at', null);
+                     $query->where('name', 'like', '%' . $data . '%');
+                })
+                ->orWhere(function($query) use ($data, $countryCode){
+                     $query->where('deleted_at', null);
+                     $query->where('country', 'like', '%' . ($countryCode != "" ? $countryCode : "1322").'%');
+                })
                 ->paginate($pagination, ['*'], 'page', $request->page ?? 1);
         }
+        
+         foreach ($activities as $activity) {
+            $activity->countryName = Country::where('code', $activity->country)->first()->name ?? '';
+        } 
+        // return $activities;
         return view('activities/show', compact('activities', 'data', 'pagination'));
     }
 }

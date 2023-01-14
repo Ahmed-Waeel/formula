@@ -131,6 +131,17 @@
                                     </span>
                                 </a>
                             </li>
+
+                            @if(Auth::user()->role)
+                            <li class="nav-item" settings_tab>
+                                <a class="nav-link" href="{{ route('settings.showAll') }}">
+                                    <span class="nav-link-title">
+                                        {{ __('view.settings') }}
+                                    </span>
+                                </a>
+                            </li>
+                            @endif
+
                             @if(Auth::user()->role)
                             <li class="nav-item" admins_tab>
                                 <a class="nav-link" href="{{ route('admin.showAll') }}">

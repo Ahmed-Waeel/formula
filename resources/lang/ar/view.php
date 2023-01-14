@@ -13,7 +13,7 @@ return [
     'oldPassword' => 'كلمة المرور القديمة',
     'changePassword' => 'تغيير كلمة المرور',
     'username' => 'اسم المستخدم',
-    'companyName' => 'فورمولا للخدمات السياحية',
+    'companyName' => 'وكالة معادلة للسفر والسياحة',
     'developerName' => 'أحمد وائل',
     'reser' => 'إستعادة',
     'hotel' => 'فندق',
@@ -38,8 +38,9 @@ return [
     'exportPdf' => 'إستخراج PDF',
     'id' => 'المعرف',
     'flightId' => 'رقم الرحلة',
-    'addFlight' => 'رحلة طيران جديدة',
+    'addFlight' => 'حجز جديد',
     'editFlight' => 'تعديل رحلة الطيران رقم: ',
+    'numPassengers' => 'عدد المسافرين',
     'reservationId' => 'رقم الحجز',
     'customerId' => 'رقم العميل',
     'customer' => 'العميل',
@@ -47,10 +48,10 @@ return [
     'editCustomer' => 'تعديل العميل رقم: ',
     'editReservation' => 'تعديل رحلة الطيران رقم: ',
     'customers' => 'العملاء',
-    'flights' => 'رحلات الطيران',
+    'flights' => 'تنظيم حجز',
     'flight' => 'رحلة الطيران',
     'reservation' => 'حجز طيران',
-    'reservations' => 'حجوزات الطيران',
+    'reservations' => 'استخراج عرض',
     'profile' => 'الملف الشخصي',
     'settings' => 'الإعدادات',
     'activities' => 'الأنشطة',
@@ -104,7 +105,10 @@ return [
     'roomsCount' => 'عدد الغرف',
     'day' => 'اليوم',
     'airports' => 'الطيران',
-    'addAirport' => 'إضافة رحلة طيران',
+    'addInternationalFlights' => 'إضافة رحلة طيران دولية',
+    'internationalFlights' => 'رحلات طيران دولية',
+    'addInternalFlights' => 'إضافة رحلة طيران داخلية',
+    'internalFlights' => 'رحلات طيران داخلية',
     'from' => 'من',
     'to' => 'إلي',
     'ChangedSuccessfully' => 'تم تغيير :attribute بنجاح',
@@ -119,6 +123,9 @@ return [
     'addReservation' => 'إضافة حجز جديد',
     'time' => 'الوقت',
     'role' => 'الصلاحية',
+    'totalPrice' => 'السعر الإجمالي',
+    'deposite' => 'الدفعة المقدمة (العربون)',
+    'depositeInstruction' => 'إذا لم يكن هناك دفعة مقدمة اترك الخانة فارغة',
 
 
     
@@ -165,4 +172,69 @@ return [
 
     'settings' => "إعدادات الموقع",
     'settingsSaved' => "تم حفظ الإعدادات بنجاح",
+
+
+
+    // Settings
+    'currentImage' => 'الصورة الحالية',
+    'pdf_ar_logo' => 'الشعار العربي',
+    'pdf_en_logo' => 'الشعار الإنجليزي',
+    'pdf_website_url' => 'رابط الموقع الإلكتروني',
+    'pdf_linkedin' => 'رابط لينكد ان',
+    'pdf_facebook' => 'رابط فيس بوك',
+    'pdf_instagram' => 'رابط انستجرام',
+    'pdf_snapchat' => 'رابط سناب شات',
+    'pdf_twitter' => 'رابط تويتر',
+
+    'title' => 'عنوان الملف',
+
+    'pdf_hotels' => 'عنوان جدول الفنادق',
+    'pdf_hotels_1' => 'اليوم',
+    'pdf_hotels_2' => 'التاريخ',
+    'pdf_hotels_3' => 'الوصف',
+    'pdf_hotels_4' => 'الملاحظات',
+
+    'pdf_international_flights' => 'عنوان جدول الطيران الدولى',
+    'pdf_international_flights_1' => 'اليوم',
+    'pdf_international_flights_2' => 'التاريخ',
+    'pdf_international_flights_3' => 'الوصف',
+    'pdf_international_flights_4' => 'الملاحظات',
+
+    'pdf_internal_flights' => 'عنوان جدول الطيران الداخلي',
+    'pdf_internal_flights_1' => 'اليوم',
+    'pdf_internal_flights_2' => 'التاريخ',
+    'pdf_internal_flights_3' => 'الوصف',
+    'pdf_internal_flights_4' => 'الملاحظات',
+
+    'pdf_transportations' => 'عنوان جدول المواصلات',
+    'pdf_transportations_1' => 'اليوم',
+    'pdf_transportations_2' => 'التاريخ',
+    'pdf_transportations_3' => 'الوصف',
+    'pdf_transportations_4' => 'الملاحظات',
+
+    'pdf_activities' => 'عنوان جدول الأنشطة',
+    'pdf_activities_1' => 'اليوم',
+    'pdf_activities_2' => 'التاريخ',
+    'pdf_activities_3' => 'الصورة',
+    'pdf_activities_4' => 'الوصف',
+    'pdf_activities_5' => 'الملاحظات',
+
+    'notes' => 'عنوان الجزء الخاص بالملاحظات',
+    'price' => 'جملة السعر الإجمالي',
+    'deposite' => 'جملة الدفعة المقدمة (العربون)',
+
+    "enHotelsTable" => "جدول الفنادق فى الملف الإنجليزى",
+    "arHotelsTable" => "جدول الفنادق فى الملف العربى",
+
+    "enInternationalFlightsTable" => "الطيران الخارجى فى الملف الإنجليزى",
+    "arInternationalFlightsTable" => "الطيران الخارجى فى الملف العربي",
+
+    "enInternalFLightsTable" => "الطيران الداخلى فى الملف الإنجليزى",
+    "arInternalFLightsTable" => "الطيران الداخلى فى الملف العربي",
+
+    "enTransportationsTable" => "المواصلات فى الملف الإنجليزى",
+    "arTransportationsTable" => "المواصلات فى الملف العربي",
+
+    "enActivitiesTable" => "الأنشطة فى الملف الإنجليزى",
+    "arActivitiesTable" => "الأنشطة فى الملف العربى",
 ];

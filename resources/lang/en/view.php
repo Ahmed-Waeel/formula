@@ -38,6 +38,7 @@ return [
     'id' => 'ID',
     'flightId' => 'Flight ID',
     'addFlight' => 'New FLight',
+    'numPassengers' => 'Number of Passengers',
     'reservationId' => 'Reservation ID',
     'customerId' => 'Customer ID',
     'customer' => 'Customer',
@@ -50,7 +51,7 @@ return [
     'flights' => 'Flights',
     'flight' => 'Flight',
     'reservation' => 'Reservation',
-    'reservations' => 'Reservations',
+    'reservations' => 'Extract Offer',
     'profile' => 'Profile && Account',
     'settings' => 'Settings',
     'activities' => 'Activities',
@@ -104,7 +105,10 @@ return [
     'roomsCount' => 'Number of Rooms',
     'day' => 'Day Number',
     'airports' => 'Airports',
-    'addAirport' => 'Add New',
+    'addInternationalFlights' => 'Add International Flight',
+    'internationalFlights' => 'International Flights',
+    'addInternalFlights' => 'Add Internal Flight',
+    'internalFlights' => 'Internal Flights',
     'from' => 'From',
     'to' => 'To',
 
@@ -120,6 +124,9 @@ return [
     'addReservation' => 'Add reservation',
     'time' => 'Time',
     'role' => 'Role',
+    'totalPrice' => 'Total Price',
+    'deposite' => 'Deposite',
+    'depositeInstruction' => 'Leave the deposite field empty If there\'s no deposite',
 
 
     'reservationCreated' => 'Reservation Saved Successfully with ID number: :id',
@@ -146,7 +153,7 @@ return [
     'profileUpdated' => 'Profile Updated Successfully',
     'adminDeleted' => 'Admin Deleted Successfully',
 
-    'pdfExported' => 'PDF Downloaded Successfully',
+    'pdfExported' => 'Downloaded Successfully',
 
     'wrong' => 'Something Went Wrong',
     'roomsValidation' => 'You should fill all rooms data',
@@ -163,4 +170,69 @@ return [
     'enterPassword' => "Enter your Password",
     'settings' => "Website Settings",
     'settingsSaved' => "Settings saved successfully",
+
+
+
+    // Settings
+    'currentImage' => 'Current Image',
+    'pdf_ar_logo' => 'Arabic Logo',
+    'pdf_en_logo' => 'English Logo',
+    'pdf_website_url' => 'Website URL',
+    'pdf_linkedin' => 'Linkedin',
+    'pdf_facebook' => 'Facebook',
+    'pdf_instagram' => 'Instagram',
+    'pdf_snapchat' => 'Snapchat',
+    'pdf_twitter' => 'Twitter',
+
+    'title' => 'Title',
+
+    'pdf_hotels' => 'Hotels Title',
+    'pdf_hotels_1' => 'Day',
+    'pdf_hotels_2' => 'Date',
+    'pdf_hotels_3' => 'Description',
+    'pdf_hotels_4' => 'Notes',
+
+    'pdf_international_flights' => 'International Flights Title',
+    'pdf_international_flights_1' => 'Day',
+    'pdf_international_flights_2' => 'Date',
+    'pdf_international_flights_3' => 'Description',
+    'pdf_international_flights_4' => 'Notes',
+
+    'pdf_internal_flights' => 'Internal Flights Table',
+    'pdf_internal_flights_1' => 'Day',
+    'pdf_internal_flights_2' => 'Date',
+    'pdf_internal_flights_3' => 'Description',
+    'pdf_internal_flights_4' => 'Notes',
+
+    'pdf_transportations' => 'Transportations Table',
+    'pdf_transportations_1' => 'Day',
+    'pdf_transportations_2' => 'Date',
+    'pdf_transportations_3' => 'Description',
+    'pdf_transportations_4' => 'Notes',
+
+    'pdf_activities' => 'Activities Table',
+    'pdf_activities_1' => 'Day',
+    'pdf_activities_2' => 'Date',
+    'pdf_activities_3' => 'Image',
+    'pdf_activities_4' => 'Description',
+    'pdf_activities_5' => 'Notes',
+
+    'notes' => 'Notes Section in pdf',
+    'price' => 'Total Price Sentence',
+    'deposite' => 'Deposite Sebtence',
+
+    "enHotelsTable" => "Hotels Table In English",
+    "arHotelsTable" => "Hotels Table In Arabic",
+
+    "enInternationalFlightsTable" => "International Flights Table In English",
+    "arInternationalFlightsTable" => "International Flights Table In Arabic",
+
+    "enInternalFLightsTable" => "Internal FLights Table In English",
+    "arInternalFLightsTable" => "Internal FLights Table In Arabic",
+
+    "enTransportationsTable" => "Transportations Table In English",
+    "arTransportationsTable" => "Transportations Table In Arabic",
+
+    "enActivitiesTable" => "Activities Table In English",
+    "arActivitiesTable" => "Activities Table In Arabic",
 ];
