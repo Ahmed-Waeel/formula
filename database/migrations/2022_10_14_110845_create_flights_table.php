@@ -16,6 +16,7 @@ class CreateFlightsTable extends Migration
         Schema::create('flights', function (Blueprint $table) {
             $table->id();
             $table->string('flight_id');
+            $table->integer('international_flights_cost');
             $table->integer('price');
             $table->integer('deposite');
             $table->string('num_passengers');

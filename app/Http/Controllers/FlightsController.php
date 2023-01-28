@@ -43,7 +43,7 @@ class FlightsController extends Controller
         if (!$request->end_date) return redirect()->back()->withInput()->with('error', __('validation.endDateValidation'));
         if (!$request->price || !preg_match("/^[0-9]*$/", $request->price)) return redirect()->back()->withInput()->with('error', __('validation.priceError'));
         if ($request->deposite && !preg_match("/^[0-9]*$/", $request->deposite)) return redirect()->back()->withInput()->with('error', __('validation.depositeError'));
-        // if (!$request->num_passengers || !preg_match("/^[أ-يa-zA-Z0-9-]*$/", $request->num_passengers)) return redirect()->back()->withInput()->with('error', __('validation.numPassengersError'));
+        if (!$request->num_passengers) return redirect()->back()->withInput()->with('error', __('validation.numPassengersError'));
 
         while (true) {
             $flight_id = substr(md5(rand()), 0, 15);
@@ -56,8 +56,9 @@ class FlightsController extends Controller
             'flight_id' => $flight_id,
             'start_date' => Carbon::createFromFormat('Y-m-d', $request->start_date),
             'end_date' => Carbon::createFromFormat('Y-m-d', $request->end_date),
-            'price' => $request->price,
-            'deposite' => $request->deposite,
+            'international_flights_cost' => $request->international_flights_cost ?? 0,
+            'price' => $request->price ?? 0,
+            'deposite' => $request->deposite ?? 0,
             'num_passengers' => $request->num_passengers,
             'options' => $request->options ?? '[]',
             'flight_to' => $request->flight_to ?? "",
@@ -86,7 +87,7 @@ class FlightsController extends Controller
         if (!$request->price || !preg_match("/^[0-9]*$/", $request->price)) return redirect()->back()->withInput()->with('error', __('validation.priceError'));
         if ($request->deposite && !preg_match("/^[0-9]*$/", $request->deposite)) return redirect()->back()->withInput()->with('error', __('validation.depositeError'));
         if ($request->deposite && $request->deposite > $request->price) return redirect()->back()->withInput()->with('error', __('validation.depositeLargerThanPriceError'));
-        // if (!$request->num_passengers || !preg_match("/^[أ-يa-zA-Z0-9-]*$/", $request->num_passengers)) return redirect()->back()->withInput()->with('error', __('validation.numPassengersError'));
+        if (!$request->num_passengers) return redirect()->back()->withInput()->with('error', __('validation.numPassengersError'));
 
         $flight = Flight::where('deleted_at', null)->where('flight_id', $request->flight_id);
         if (!$flight->first()) {
@@ -94,6 +95,7 @@ class FlightsController extends Controller
         }
         $flight->update(['start_date' => Carbon::createFromFormat('Y-m-d', $request->start_date),
             'end_date' => Carbon::createFromFormat('Y-m-d', $request->end_date),
+            'international_flights_cost' => $request->international_flights_cost ?? 0,
             'price' => $request->price ?? $flight->first()->price,
             'deposite' => $request->deposite ?? 0,
             'num_passengers' => $request->num_passengers ?? $flight->first()->num_passengers,

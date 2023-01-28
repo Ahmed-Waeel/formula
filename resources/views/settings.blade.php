@@ -39,7 +39,7 @@
                                         @enderror
                                         @if(trim($en_logo->value) != '')
                                             <div class="d-flex align-items-center">
-                                                <span style="width: 100px;">{{ __('view.currentImage') }}</span><img src="{{ asset('pdf') . '/' . $en_logo->value }}" style="width: fit-content;height: 90px;margin-bottom: 10px">
+                                                <span style="width: 100px;">{{ __('view.currentImage') }}</span><img src="{{ asset('pdf') . '/' . $en_logo->value }}" style="width: 190px;height: 55px;margin-bottom: 10px">
                                             </div>
                                         @endif
                                     </div>
@@ -52,7 +52,7 @@
                                         @enderror
                                         @if(trim($ar_logo->value) != '')
                                             <div class="d-flex align-items-center">
-                                                <span style="width: 100px;">{{ __('view.currentImage') }}</span><img src="{{ asset('pdf') . '/' . $ar_logo->value }}" style="width: fit-content;height: 90px;margin-bottom: 10px">
+                                                <span style="width: 100px;">{{ __('view.currentImage') }}</span><img src="{{ asset('pdf') . '/' . $ar_logo->value }}" style="width: 190px;height: 55px;margin-bottom: 10px">
                                             </div>
                                         @endif
                                     </div>
@@ -252,7 +252,7 @@
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-12">
-                                    <div class=page-title>{{ __('view.enInternalFLightsTable') }}asdsadas</div>
+                                    <div class=page-title>{{ __('view.enInternalFLightsTable') }}</div>
                                     <div class="mb-3">
                                         <label class="form-label">{{ __("view." . str_replace( 'en_', '', $en_internal_flights[0]['key'])) }}</label>
                                         <input type="text" name="{{$en_internal_flights[0]['key']}}" class="form-control @error($en_internal_flights[0]['key']) is-invalid @enderror" value="{{ $en_internal_flights[0]['value'] }}">
@@ -449,6 +449,39 @@
                                                 @enderror
                                             </div>
                                         @endfor
+                                    <div class="card-footer text-end">
+                                        <div class="d-flex">
+                                            <button type="submit" class="btn btn-primary ms-auto">{{ __('view.submit') }}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <form action="{{ route('settings.update') }}" method="POST" enctype="multipart/form-data" data-form class="card">
+                @csrf
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">{{ __("view." . str_replace('en_', '', $en_international_flights_cost->key)) }}</label>
+                                        <input type="text" name="{{$en_international_flights_cost->key}}" class="form-control @error($en_international_flights_cost->key) is-invalid @enderror" value="{{ $en_international_flights_cost->value }}">
+                                        @error($en_international_flights_cost->key)
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">{{ __("view." . str_replace('ar_', '', $ar_international_flights_cost->key)) }}</label>
+                                        <input type="text" name="{{$ar_international_flights_cost->key}}" class="form-control @error($ar_international_flights_cost->key) is-invalid @enderror" value="{{ $ar_international_flights_cost->value }}">
+                                        @error($ar_international_flights_cost->key)
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                     <div class="card-footer text-end">
                                         <div class="d-flex">
                                             <button type="submit" class="btn btn-primary ms-auto">{{ __('view.submit') }}</button>

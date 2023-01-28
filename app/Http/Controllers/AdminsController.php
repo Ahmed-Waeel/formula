@@ -86,10 +86,10 @@ class AdminsController extends Controller
             return redirect()->back()->with('error', __('view.wrong'));
         }
 
-        if($request->file('photo')){
+        if ($request->file('photo')) {
             $photo = $request->file('photo');
             $photoName = time() . '.' . $photo->getClientOriginalExtension();
-            $photo-> move(public_path('uploads/admins'), $photoName);
+            $photo->move(public_path('uploads/admins'), $photoName);
             $admin->update([
                 'photo' => $photoName
             ]);
@@ -102,19 +102,20 @@ class AdminsController extends Controller
         return redirect()->back()->with('success', __('view.profileUpdated'));
     }
 
-    public function changePasswordPage(){
+    public function changePasswordPage()
+    {
         return view('admins/change_password');
     }
 
     public function changePassword(PasswordRequest $request)
     {
-        $admin = Admin::where('id', $request->id);
+        $admin = Admin::where('id', Auth::id());
         if (!$admin->first()) return redirect()->back()->with('error', __('view.wrong'));
 
         $admin->update([
             'password' => Hash::make($request->password)
         ]);
-        return redirect()->back()->with('success', __('view.passwordChangedSuccessfully'));
+        return redirect()->back()->with('success', __('view.ChangedSuccessfully', ['attribute' => __('view.password')]));
     }
 
     public function delete($adminId)
@@ -136,19 +137,19 @@ class AdminsController extends Controller
         } else {
             $data = $request->data;
 
-            $admins = Admin::where(function($query) use ($data){
-                     $query->where('id', '!=', Auth::id());
-                     $query->where('email', '!=', 'ahmed.wael7822@gmail.com');
-                     $query->where('deleted_at', null);
-                     $query->where('name', 'like', '%' . $data . '%');
+            $admins = Admin::where(function ($query) use ($data) {
+                $query->where('id', '!=', Auth::id());
+                $query->where('email', '!=', 'ahmed.wael7822@gmail.com');
+                $query->where('deleted_at', null);
+                $query->where('name', 'like', '%' . $data . '%');
+            })
+                ->orWhere(function ($query) use ($data) {
+                    $query->where('id', '!=', Auth::id());
+                    $query->where('email', '!=', 'ahmed.wael7822@gmail.com');
+                    $query->where('deleted_at', null);
+                $query->where('email', 'like', '%' . $data . '%');
                 })
-                ->orWhere(function($query) use ($data){
-                     $query->where('id', '!=', Auth::id());
-                     $query->where('email', '!=', 'ahmed.wael7822@gmail.com');
-                     $query->where('deleted_at', null);
-                     $query->where('email', 'like', '%'.$data.'%');
-                })
-            ->paginate($pagination, ['*'], 'page', $request->page ?? 1);
+                ->paginate($pagination, ['*'], 'page', $request->page ?? 1);
         }
         return view('admins/show', compact('admins', 'data', 'pagination'));
     }

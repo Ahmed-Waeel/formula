@@ -63,6 +63,7 @@ class SettingsSeeder extends Seeder
             ['key' => 'en_pdf_activities_4', 'value' => 'Description'],
             ['key' => 'en_pdf_activities_5', 'value' => 'Notes'],
 
+            ['key' => 'en_international_flights_cost', 'value' => 'International Flights Cost'],
             ['key' => 'en_notes', 'value' => 'Very Important Notes'],
             ['key' => 'en_price', 'value' => 'Total Price'],
             ['key' => 'en_deposite', 'value' => 'To confirm the reservation, please transfer the deposit value as an advance payment of the total cost '],
@@ -107,6 +108,7 @@ class SettingsSeeder extends Seeder
             ['key' => 'ar_pdf_activities_4', 'value' => 'الوصف'],
             ['key' => 'ar_pdf_activities_5', 'value' => 'الملاحظات'],
 
+            ['key' => 'ar_international_flights_cost', 'value' => 'سعر الطيران الدولي'],
             ['key' => 'ar_notes', 'value' => 'ملاحظات مهمة جدا'],
             ['key' => 'ar_price', 'value' => 'السعر الإجمالي'],
             ['key' => 'ar_deposite', 'value' => 'ولتأكيد الحجز يرجي تحويل قيمة العربون كدفعة مقدمة من التكلفة الإجمالية وتساوي '],

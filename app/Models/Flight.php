@@ -12,6 +12,15 @@ class Flight extends Model
     protected $table = 'flights';
 
     protected $fillable = [
-        'flight_id', 'price', 'deposite', 'num_passengers', 'options', 'notes', 'start_date', 'end_date', 'flight_to'
+        'flight_id',
+        'international_flights_cost',
+        'price',
+        'deposite',
+        'num_passengers',
+        'options',
+        'notes',
+        'start_date',
+        'end_date',
+        'flight_to'
     ];
 }

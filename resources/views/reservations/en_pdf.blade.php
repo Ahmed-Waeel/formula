@@ -129,7 +129,7 @@
                     Customer Name: {{ $customer->name }}
                 </td>
 
-                <td rowspan=3 style="text-align: right; vertical-align: middle; font-size: 100px; color: #1b64cc; margin-left: 100px">
+                <td rowspan=3 style="text-align: center; vertical-align: middle; font-size: 70px; color: #1b64cc">
                     {{ $settings['en_title'] != '' ? strip_tags($settings['en_title']) : "Price Offer" }}
                 </td>
 
@@ -187,6 +187,10 @@
                 @endforeach
             </tbody>
         </table>
+
+        @if($flight->international_flights_cost)
+            <div style="margin-top: 50px">{{ $settings['en_international_flights_cost'] != '' ? strip_tags($settings['en_international_flights_cost']) : "International Flights Cost" }}: <b>{{ $flight->international_flights_cost }}</b> Suadi Riyal </div> <br>
+        @endif
     @endif
     
     @if($hotels_check)
@@ -345,9 +349,9 @@
                 @endforeach
             </tbody>
         </table>
-    @endi2
-3
-4   {{ $settings['en_price'] != '' ? strip_tags($settings['en_price']) : "Total Price" }}: {{ $flight->price }} Saudi Riyal
+    @endif
+
+   {{ $settings['en_price'] != '' ? strip_tags($settings['en_price']) : "Total Price" }}: {{ $flight->price }} Saudi Riyal
     <br>
 
     @if($flight->deposite)

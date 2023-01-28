@@ -126,10 +126,14 @@ return [
     'totalPrice' => 'السعر الإجمالي',
     'deposite' => 'الدفعة المقدمة (العربون)',
     'depositeInstruction' => 'إذا لم يكن هناك دفعة مقدمة اترك الخانة فارغة',
+    'internationalFlightsCost' => 'سعر الطيران الدولى',
+    'internationalFlightsCostInstructions' => 'اكتب سعر الطيران الدولى منفصلاً ليظهر اسفل جدول الطيران الدولي',
+    'duplicateReservation' => 'نسخ العرض',
 
 
     
     'reservationCreated' => 'تم الحجز بنجاح برقم: :id',
+    'reservationDuplicated' => 'تم نسخ الحجز بنجاح برقم: :id',
     'reservationUpdated' => 'تم تحديث الحجز بنجاح',
     'reservationDeleted' => 'تم حذف الحجز بنجاح',
 
@@ -220,6 +224,7 @@ return [
     'pdf_activities_5' => 'الملاحظات',
 
     'notes' => 'عنوان الجزء الخاص بالملاحظات',
+    'international_flights_cost' => 'جملة إجمالي سعر الطيران الدولي',
     'price' => 'جملة السعر الإجمالي',
     'deposite' => 'جملة الدفعة المقدمة (العربون)',
 

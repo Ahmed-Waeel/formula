@@ -73,6 +73,13 @@
                                         </div>
                                     </div>
 
+                                    <!-- International Flights Price -->
+                                    <div class="mb-3">
+                                        <label class="form-label">{{ __('view.internationalFlightsCost') }}</label>
+                                        <input class="form-control" type="text" name="international_flights_cost" value="{{ $flight->international_flights_cost }}">
+                                        <small>{{ __('view.internationalFlightsCostInstructions') }}</small>
+                                    </div>
+
                                     <!-- Total Price -->
                                     <div class="mb-3">
                                         <label class="form-label">{{ __('view.totalPrice') }}</label>

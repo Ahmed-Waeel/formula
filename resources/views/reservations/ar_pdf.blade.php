@@ -128,7 +128,7 @@
                     اسم العميل: {{ $customer->name }}
                 </td>
 
-                <td rowspan=3 style="text-align: right; vertical-align: middle; font-size: 100px; color: #1b64cc; margin-left: 100px">
+                <td rowspan=3 style="text-align: center; vertical-align: middle; font-size: 70px; color: #1b64cc">
                 {{ $settings['ar_title'] != '' ? strip_tags($settings['ar_title']) : "عرض سعر" }}
                 </td>
 
@@ -191,7 +191,12 @@
                 @endforeach
             </tbody>
         </table>
+
+        @if($flight->international_flights_cost)
+            <div style="margin-top: 50px">{{ $settings['ar_international_flights_cost'] != '' ? strip_tags($settings['ar_international_flights_cost']) : "International Flights Cost" }}: <b>{{ $flight->international_flights_cost }}</b> ريال سعودي </div> <br>
+        @endif
     @endif
+
     
     @if($hotels_check)
         <table>

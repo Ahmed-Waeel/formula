@@ -111,7 +111,6 @@ return [
     'internalFlights' => 'Internal Flights',
     'from' => 'From',
     'to' => 'To',
-
     'ChangedSuccessfully' =>':attribute Changed Successfully',
     'data' => 'Data',
     'admins' => 'Admins',
@@ -127,9 +126,13 @@ return [
     'totalPrice' => 'Total Price',
     'deposite' => 'Deposite',
     'depositeInstruction' => 'Leave the deposite field empty If there\'s no deposite',
+    'internationalFlightsCost' => 'International Flights Cost',
+    'internationalFlightsCostInstructions' => 'International fLights cost which appear under international flights table',
+    'duplicateReservation' => 'Duplicate Offer',
 
 
     'reservationCreated' => 'Reservation Saved Successfully with ID number: :id',
+    'reservationDuplicated' => 'Reservation Duplicated Successfully with ID number: :id',
     'reservationUpdated' => 'Reservation Updated Successfully',
     'reservationDeleted' => 'Reservation Deleted Successfully',
   
@@ -218,6 +221,7 @@ return [
     'pdf_activities_5' => 'Notes',
 
     'notes' => 'Notes Section in pdf',
+    'international_flights_cost' => 'International Flights Cost',
     'price' => 'Total Price Sentence',
     'deposite' => 'Deposite Sebtence',
 
