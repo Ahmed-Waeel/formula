@@ -14,4 +14,14 @@ class Reservation extends Model
     protected $fillable = [
         'reservation_id', 'customer_id', 'flight_id', 'date',
     ];
+
+    public function customer()
+    {
+        return $this->hasOne(Customer::class, 'customer_id', 'customer_id');
+    }
+
+    public function flight()
+    {
+        return $this->hasOne(Flight::class, 'flight_id', 'flight_id');
+    }
 }

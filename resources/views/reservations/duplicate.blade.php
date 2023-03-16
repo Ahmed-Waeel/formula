@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="page-body">
-            <form action="{{ route('reservation.duplicate') }}" method="POST" data-form class="card">
+            <form action="{{ route('reservation.duplicate.submit') }}" method="POST" data-form class="card">
                 @csrf
                 <input type="hidden" name="reservation_id" value="{{$reservation_id}}">
                 <div class="card-body">
@@ -29,7 +29,7 @@
                                         <select name="customer_id" class="form-select @error('customer_id') is-invalid @enderror" id="select_customer">
                                             <option value="" selected></option>
                                             @foreach($customers AS $customer)
-                                                <option value="{{ $customer->customer_id }}" @if($customer->customer_id == old('customer_id')) selected @endif>{{ $customer->name }}</option>
+                                            <option value="{{ $customer->customer_id }}" @if($customer->customer_id == old('customer_id')) selected @endif>{{ $customer->name }}</option>
                                             @endforeach
                                         </select>
                                         @error('customer_id')

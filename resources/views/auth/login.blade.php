@@ -7,7 +7,7 @@
         <h2 class="card-title text-center mb-4">{{ __('view.login') }}</h2>
         <div class="mb-3">
             <label class="form-label">{{ __('view.email') }}</label>
-            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus @if(LaravelLocalization::getCurrentLocale() == 'ar') style="text-align: right" @endif placeholder="{{ __('view.enterEmail') }}">
+            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus @if(LaravelLocalization::getCurrentLocale()=='ar' ) style="text-align: right" @endif placeholder="{{ __('view.enterEmail') }}">
             @error('email')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -29,7 +29,7 @@
                 </span>
                 @enderror
                 <span class="input-group-text">
-                    <a class="link-secondary" password data-bs-toggle="tooltip">
+                    <a class="link-secondary" style="padding-inline-start: 10px" password data-bs-toggle="tooltip">
                         <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />

@@ -43,6 +43,7 @@ return [
     'numPassengers' => 'عدد المسافرين',
     'reservationId' => 'رقم الحجز',
     'customerId' => 'رقم العميل',
+    'customerName' => 'إسم العميل',
     'customer' => 'العميل',
     'addCustomer' => 'إضافة عميل',
     'editCustomer' => 'تعديل العميل رقم: ',

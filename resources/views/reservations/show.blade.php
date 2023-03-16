@@ -59,7 +59,9 @@
                     <tr>
                         <th class="w-2">{{ __('view.reservationId') }} </th>
                         <th class="w-2">{{ __('view.customerId') }} </th>
+                        <th class="w-2">{{ __('view.customerName') }} </th>
                         <th class="w-2"> {{ __('view.flightId') }} </th>
+                        <th class="w-2">{{ __('view.flightTo') }} </th>
                         <th class="w-2">{{ __('view.reservationDate') }} </th>
                         <th class="w-2">{{ __('view.actions') }} </th>
                     </tr>
@@ -73,12 +75,16 @@
                     @foreach($reservations AS $reservation)
                     <tr>
                         <td><span class="text-muted">{{ $reservation->reservation_id }}</span></td>
-                        <td><a href="{{ route('customer.edit', $reservation->customer_id) }}">
-                                {{ $reservation->customer_id }}
-                            </a></td>
-                        <td><a href="{{ route('flight.edit', $reservation->flight_id) }}">
-                                {{ $reservation->flight_id }}
-                            </a></td>
+                        <td>
+                            <a href="{{ route('customer.edit', $reservation->customer_id) }}">{{ $reservation->customer_id }}</a>
+                        </td>
+                        <td>
+                            <a href="{{ route('customer.edit', $reservation->customer_id) }}">{{ $reservation->customer->name }}</a>
+                        </td>
+                        <td>
+                            <a href="{{ route('flight.edit', $reservation->flight_id) }}">{{ $reservation->flight_id }}</a>
+                        </td>
+                        <td> {{$reservation->flight->flight_to}} </td>
                         <td> {{ date('l, d/m/Y h:i A', strtotime($reservation->date)) }} </td>
                         <td>
                             <span class="dropdown">

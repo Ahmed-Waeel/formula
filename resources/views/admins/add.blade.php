@@ -68,7 +68,7 @@
                                             @error('password')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
-                                            <span class="input-group-text" eye @error('password') hidden @enderror>
+                                            <span class="input-group-text" style="padding-inline-start: 10px" eye @error('password') hidden @enderror>
                                                 <a class="link-secondary" password data-input=password data-bs-toggle="tooltip">
                                                     <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -88,7 +88,7 @@
                                             @error('password_confirmation')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
-                                            <span class="input-group-text" eye @error('password_confirmation') hidden @enderror>
+                                            <span class="input-group-text" style="padding-inline-start: 10px" eye @error('password_confirmation') hidden @enderror>
                                                 <a class="link-secondary" password data-input=password_confirmation data-bs-toggle="tooltip">
                                                     <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

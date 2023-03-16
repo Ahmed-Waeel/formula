@@ -33,7 +33,8 @@ class ReservationsController extends Controller
 
     public function index($pagination = PAGINATION)
     {
-        $reservations = Reservation::where('deleted_at', null)->paginate($pagination, ['*'], 'page', $_GET['page'] ?? 1);
+        $reservations = Reservation::where('deleted_at', null)->with(['customer', 'flight'])->paginate($pagination, ['*'], 'page', $_GET['page'] ?? 1);
+
         return view('reservations/show', compact('reservations', 'pagination'));
     }
 
@@ -190,7 +191,7 @@ class ReservationsController extends Controller
         if ($lang == 'en') {
             $pdf->setFooter(
                 '<div style="text-align: left;">
-               <svg class="icon" width="15" height="15" viewBox="0 -15 24 38" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="icon" width="15" height="15" viewBox="0 -15 24 38" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path fill="white"  stroke="white" d="M0 0h24v24H0z" />
                     <path fill="#546cf7" stroke="#546cf7" d="M10 21v-6.5a3.5 3.5 0 0 0 -7 0v6.5h18v-6a4 4 0 0 0 -4 -4h-10.5" />
                     <path fill="#546cf7" stroke="#546cf7" d="M12 11v-8h4l2 2l-2 2h-4" />

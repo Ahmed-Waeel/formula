@@ -90,7 +90,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::match(['GET', 'POST'], 'reservation/filter', [ReservationsController::class, 'filter'])->name('reservation.filter');
     Route::get('/reservation/pdf/{reservation_id}', [ReservationsController::class, 'exportPdf'])->name('reservation.pdf');
     Route::get('/reservation/duplicate/{reservation_id}', [ReservationsController::class, 'showDuplicationForm'])->name('reservation.duplicate');
-    Route::post('/reservation/duplicate', [ReservationsController::class, 'duplicate'])->name('reservation.duplicate');
+    Route::post('/reservation/duplicate', [ReservationsController::class, 'duplicate'])->name('reservation.duplicate.submit');
 
 
     // Flight
