@@ -31,7 +31,7 @@ if(count($option['transportations'])) $transportations_check = true;
             margin: 70px auto 0 auto;
             word-break: break-all;
             padding: 50px 20px;
-            font-family: cairo;
+            font-family: 'tajawal';
             background: url("{{ public_path('icon.png') }}") no-repeat center;
             background-image-opacity: 0.1;
         }
