@@ -182,7 +182,7 @@
                         <div class="col-lg-auto ms-lg-auto">
                             <ul class="list-inline list-inline-dots mb-0">
                                 <li class="list-inline-item">
-                                    {{ __('view.madeBy') }} <a href="https://www.linkedin.com/in/ahmeed-waael/" target="_blank">{{ __('view.developerName') }}</a>
+                                    {{ __('view.madeBy') }} <a href="https://www.linkedin.com/in/ahmedwaeel/" target="_blank">{{ __('view.developerName') }}</a>
                                 </li>
                             </ul>
                         </div>
